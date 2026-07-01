@@ -1,0 +1,94 @@
+# =============================================================================
+# AXYZ — NGINX GEO REDIRECT RULES (WORKING REFERENCE COPY)
+# =============================================================================
+# Last verified working: 2026-05-29
+#
+# IMPORTANT: Kinsta backup restores OVERRIDE the nginx config as well as WP
+# files. After any restore, verify this file matches what's deployed on Kinsta:
+#   MyKinsta → axyz site → Tools → Nginx Configuration
+# If different, send this file to Kinsta support to re-apply.
+#
+# Key features verified working in this version:
+#   1. Bare → www canonical redirect (line ~9, path-preserving via $request_uri)
+#   2. Language-switcher src=switch bypass (line ~19) — needed so that clicking
+#      "US – English" from any geo (CA/UK/PL/Spanish-speaking countries) lands
+#      on / cleanly instead of bouncing to the local homepage.
+#   3. Query-string preserving redirects — only the FR rule on line ~33 still
+#      has a trailing "?" which strips UTMs for French visitors. Not blocking
+#      but worth fixing for FR ad campaigns.
+# =============================================================================
+
+# --- INITIAL VARIABLES ---
+set $existingCountry 0;
+set $isHomepage 0;
+set $isAxyzCom 0;
+set $is_bypass 0;
+set $domainAndLocation 0;
+
+# --- FORCE CANONICAL WWW REDIRECT (PATH-PRESERVING) ---
+if ($host = 'axyz.com') {
+    return 301 $scheme://www.axyz.com$request_uri;
+}
+
+# --- CITY-SPECIFIC CANADA REDIRECTS (MUST BE FIRST) ---
+if ($geoip_city ~* "montreal|montréal") { set $montreal 1;}
+if ($geoip_city ~* "quebec|québec|quebec city") { set $quebec 1; }
+if ($geoip_city ~* "laval") { set $laval 1; }
+
+# --- BYPASS CHECK ---
+if ( $request_uri ~* "src=switch" ) { set $montreal 0; set $quebec 0; set $laval 0; }
+if ( $request_uri ~* "src=switch" ) { set $is_bypass 1; }
+
+# --- DOMAIN AND COUNTRY CODE ---
+if ( $is_bypass = 0 ) {
+    set $domainAndLocation "${host}+&-&+-${geoip_city_country_code}";
+}
+
+# --- CITY-SPECIFIC CANADA REDIRECTS (MUST BE FIRST) ---
+if ($montreal = 1) { rewrite "^/?$" "https://www.axyz.com/ca/fr" redirect; }
+if ($quebec = 1) { rewrite "^/?$" "https://www.axyz.com/ca/fr" redirect; }
+if ($laval = 1) { rewrite "^/?$" "https://www.axyz.com/ca/fr" redirect; }
+
+# --- COUNTRY-SPECIFIC REDIRECTS ---
+# France / Belgium / Switzerland
+# NOTE: the trailing "?" in the FR target strips UTM/gclid params (nginx
+# convention for "do not append $args"). Other rules don't have this. Keep
+# in mind for FR ad campaign attribution.
+if ( $domainAndLocation = "axyz.com+&-&+-FR" ) { rewrite "^/?$" "https://www.axyz.com/ca/fr?" redirect; }
+if ( $domainAndLocation = "axyz.com+&-&+-BE" ) { rewrite "^/?$" "https://www.axyz.com/ca/fr" redirect; }
+if ( $domainAndLocation = "www.axyz.com+&-&+-BE" ) { rewrite "^/?$" "https://www.axyz.com/ca/fr" redirect; }
+if ( $domainAndLocation = "axyz.com+&-&+-CH" ) { rewrite "^/?$" "https://www.axyz.com/ca/fr" redirect; }
+if ( $domainAndLocation = "www.axyz.com+&-&+-CH" ) { rewrite "^/?$" "https://www.axyz.com/ca/fr" redirect; }
+
+# Poland
+if ( $domainAndLocation = "axyz.com+&-&+-PL" ) { rewrite "^/?$" "https://www.axyz.com/pl/pl" redirect; }
+if ( $domainAndLocation = "www.axyz.com+&-&+-PL" ) { rewrite "^/?$" "https://www.axyz.com/pl/pl" redirect; }
+if ( $domainAndLocation = "axyz.com+&-&+-PL" ) { rewrite "^/pl/?$" "https://www.axyz.com/pl/pl" permanent; }
+if ( $domainAndLocation = "www.axyz.com+&-&+-PL" ) { rewrite "^/pl/?$" "https://www.axyz.com/pl/pl" permanent; }
+
+# Spanish-speaking countries (US redirect)
+set $us_countries "ES|MX|GT|HN|SV|NI|CR|PA|CU|DO|CO|VE|EC|PE|BO|PY|CL|AR|UY|GQ";
+if ($geoip_country_code ~* $us_countries) { rewrite "^/?$" "https://www.axyz.com/us/es" redirect; }
+
+# UK
+if ( $domainAndLocation = "www.axyz.com+&-&+-GB" ) { rewrite "^/?$" "https://www.axyz.com/uk/en" redirect; }
+if ( $domainAndLocation = "axyz.com+&-&+-GB" ) { rewrite "^/?$" "https://www.axyz.com/uk/en" redirect; }
+
+# Canada (generic, AFTER city rules)
+if ( $domainAndLocation = "www.axyz.com+&-&+-CA" ) { rewrite "^/?$" "https://www.axyz.com/ca/en" redirect; }
+if ( $domainAndLocation = "axyz.com+&-&+-CA" ) { rewrite "^/?$" "https://www.axyz.com/ca/en" redirect; }
+
+# --- HOMEPAGE CHECK ---
+if ( $geoip_country_code ~* "US|AR|BE|BO|CA|CH|CL|CO|CR|CU|DO|EC|ES|FR|GB|GQ|GT|HN|MX|NI|PA|PE|PL|PY|SV|UY|VE" ) { set $existingCountry 1; }
+if ( $request_uri ~* "^/$" ) { set $isHomepage 1; }
+if ( $host ~* "(www\.)?axyz\.com$" ) { set $isAxyzCom 1; }
+
+set $redirectable "${existingCountry}${isHomepage}${isAxyzCom}";
+if ( $is_bypass = 1 ) {
+    set $redirectable "Nah";
+}
+if ( $redirectable = "011" ) { rewrite "^/$" $scheme://$host/uk/en redirect; }
+
+# --- DEBUG HEADER ---
+set $domainAndLocation "${host}+&-&+-${geoip_city}";
+add_header CityTest $geoip_city;

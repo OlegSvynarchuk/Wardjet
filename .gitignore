@@ -1,0 +1,14 @@
+# Never commit credentials / host / infra secrets
+*ssh*
+*kinsta*
+*cloudflare*
+*clodflare*
+.env
+*.pem
+*.key
+*.sql
+*.sql.gz
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db
