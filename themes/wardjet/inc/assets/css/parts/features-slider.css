@@ -1,0 +1,409 @@
+/**
+ * Features Slider Styles
+ * Custom translateX track slider (no Bootstrap carousel)
+ */
+
+/* Section Container */
+.features-slider-section {
+    padding: 60px 0;
+}
+
+.features-slider-section .slider-header {
+    text-align: center;
+    margin-bottom: 48px;
+}
+
+.features-slider-section .slider-header .heading {
+    margin-bottom: 16px;
+}
+
+.features-slider-section .slider-subtitle {
+    font-size: 18px;
+    color: #666;
+    margin: 0 auto;
+    max-width: 1248px;
+}
+
+/* Carousel Container */
+.features-slider-section .carousel-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 24px;
+    max-width: 1248px;
+    margin: 0 auto;
+}
+
+/* Navigation Buttons */
+.features-slider-section .slider-arrow {
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
+    border-radius: 50%;
+    background-color: rgba(9, 60, 113, 0.96);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.24), 0 10px 15px 3px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+
+.features-slider-section .slider-arrow:hover {
+    background-color: rgba(9, 60, 113, 1);
+    transform: scale(1.05);
+}
+
+.features-slider-section .slider-arrow svg {
+    width: 24px;
+    height: 24px;
+    color: #FFFFFF;
+}
+
+.features-slider-section .slider-arrow svg path {
+    stroke: currentColor;
+    stroke-width: 2px;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+/* Track Wrapper — hard-clip with breathing room on all four sides so first/last
+   card shadows render fully without being cut at a sharp angle. */
+.features-slider-section .slider-track-wrapper {
+    flex: 1;
+    overflow: hidden;
+    padding: 24px 16px;
+    margin: -24px -16px;
+    min-width: 0;
+}
+
+/* Track — smooth translateX transition */
+.features-slider-section .features-track {
+    display: flex;
+    flex-direction: row;
+    gap: 24px;
+    transition: transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+/* Individual slide */
+.features-slider-section .features-track__slide {
+    flex: 0 0 calc((100% - 48px) / 3);
+    min-width: 0;
+}
+
+/* Whole-card link wrapper */
+.features-slider-section .feature-slide-link {
+    display: block;
+    text-decoration: none !important;
+    color: inherit;
+    cursor: pointer;
+    border-radius: 24px;
+}
+
+/* Slide Cards */
+.features-slider-section .feature-slide {
+    width: 100%;
+    height: 400px;
+    border-radius: 24px;
+    overflow: hidden;
+    position: relative;
+    /* Subtle, short drop shadow — focused below the card with minimal side bleed. */
+    box-shadow: 0 4px 8px -2px rgba(0, 0, 0, 0.12);
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.features-slider-section .feature-slide:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 8px 14px -4px rgba(0, 0, 0, 0.18);
+}
+
+/* Slide Image */
+.features-slider-section .feature-slide-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+
+.features-slider-section .feature-slide-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Gradient Overlay */
+.features-slider-section .feature-slide::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to top, rgba(15, 23, 43, 0.8) 0%, rgba(15, 23, 43, 0.4) 50%, transparent 100%),
+                linear-gradient(to right, rgba(9, 60, 113, 0.6) 0%, transparent 50%);
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* Slide Content — fixed-height content block pinned to card bottom */
+.features-slider-section .feature-slide-content {
+    position: absolute;
+    bottom: 32px;
+    left: 32px;
+    right: 32px;
+    z-index: 2;
+    height: 213px;
+}
+
+/* Title wrapper — inline-block to shrink-wrap title text */
+.features-slider-section .feature-title-wrap {
+    display: inline-block;
+}
+
+/* Title — fixed height, text aligns to bottom */
+.features-slider-section .feature-title {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-size: 32px;
+    line-height: 36px;
+    color: #FFFFFF;
+    text-align: left;
+    margin: 0;
+    height: 96px;
+    display: flex;
+    align-items: flex-end;
+}
+
+.features-slider-section .feature-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    height: 96px;
+}
+
+.features-slider-section .feature-link .feature-title {
+    height: 100%;
+}
+
+.features-slider-section .feature-link:hover .feature-title {
+    text-decoration: none;
+}
+
+/* Accent Line — matches title text width */
+.features-slider-section .accent-line {
+    width: 100%;
+    height: 2px;
+    background-color: #FFF200;
+    margin: 4px 0 0 0;
+}
+
+/* Description */
+.features-slider-section .feature-description {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 22px;
+    color: rgba(255, 255, 255, 0.9);
+    text-align: left;
+    margin: 18px 0 0 0;
+    max-width: 288px;
+    height: 84px;
+    overflow: hidden;
+}
+
+/* Pagination Dots */
+.features-slider-section .features-slider-dots {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-top: 32px;
+}
+
+.features-slider-section .features-slider-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: rgba(9, 60, 113, 0.3);
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.features-slider-section .features-slider-dot.active {
+    background-color: rgba(9, 60, 113, 0.96);
+    transform: scale(1.2);
+}
+
+/* Responsive - Tablet */
+@media (max-width: 1023.98px) {
+    .features-slider-section .carousel-container {
+        gap: 16px;
+    }
+
+    .features-slider-section .features-track__slide {
+        flex: 0 0 calc((100% - 24px) / 2);
+    }
+
+    .features-slider-section .feature-slide {
+        height: 380px;
+    }
+
+    .features-slider-section .slider-arrow {
+        width: 40px;
+        height: 40px;
+        min-width: 40px;
+    }
+
+    .features-slider-section .slider-arrow svg {
+        width: 20px;
+        height: 20px;
+    }
+
+    .features-slider-section .feature-title {
+        font-size: 24px;
+        line-height: 28px;
+    }
+
+    .features-slider-section .feature-slide-content {
+        left: 24px;
+        right: 24px;
+        bottom: 24px;
+        height: 200px;
+    }
+
+    .features-slider-section .feature-title,
+    .features-slider-section .feature-link {
+        height: 64px;
+    }
+
+    .features-slider-section .feature-description {
+        font-size: 13px;
+        line-height: 18px;
+        height: 72px;
+    }
+
+    .features-slider-section .accent-line {
+        margin: 4px 0 0 0;
+    }
+}
+
+/* Responsive - Mobile */
+@media (max-width: 767.98px) {
+    .features-slider-section {
+        padding: 48px 24px;
+    }
+
+    .features-slider-section .container {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+
+    .features-slider-section .slider-header {
+        margin-bottom: 32px;
+        text-align: left;
+    }
+
+    .features-slider-section .slider-header .heading {
+        font-size: 48px;
+        line-height: 56px;
+        font-weight: 400;
+        color: #0F172B;
+        text-align: left;
+    }
+
+    .features-slider-section .slider-subtitle {
+        font-size: 18px;
+        line-height: 28px;
+        font-weight: 400;
+        color: #45556C;
+        text-align: left;
+    }
+
+    .features-slider-section .carousel-container {
+        gap: 6px;
+    }
+
+    .features-slider-section .features-track {
+        gap: 0;
+    }
+
+    .features-slider-section .features-track__slide {
+        flex: 0 0 100%;
+    }
+
+    .features-slider-section .slider-track-wrapper {
+        flex: 1;
+        min-width: 0;
+        overflow: hidden;
+        border-radius: 24px;
+        /* Reset desktop padding/margin so adjacent slides don't peek through. */
+        padding: 0;
+        margin: 0;
+    }
+
+    .features-slider-section .feature-slide {
+        height: 300px;
+        padding: 32px;
+        border-radius: 24px;
+        width: 100%;
+        box-shadow: none;
+    }
+
+    .features-slider-section .slider-arrow {
+        width: 36px;
+        height: 36px;
+        min-width: 36px;
+        background-color: rgba(9, 60, 113, 0.96);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        box-shadow: 0px 10px 15px 3px rgba(0, 0, 0, 0.1), 0px 2px 6px rgba(0, 0, 0, 0.24);
+    }
+
+    .features-slider-section .slider-arrow svg {
+        width: 20px;
+        height: 20px;
+    }
+
+    .features-slider-section .feature-slide-content {
+        left: 32px;
+        right: 32px;
+        bottom: 32px;
+        height: 172px;
+    }
+
+    .features-slider-section .feature-title {
+        font-size: 32px;
+        line-height: 40px;
+        font-weight: 400;
+    }
+
+    .features-slider-section .feature-title,
+    .features-slider-section .feature-link {
+        height: 80px;
+    }
+
+    .features-slider-section .accent-line {
+        margin: 2px 0 0 0;
+    }
+
+    .features-slider-section .feature-description {
+        font-size: 14px;
+        line-height: 20px;
+        max-width: 182px;
+        height: 80px;
+        margin-top: 16px;
+        color: rgba(255, 255, 255, 0.9);
+    }
+
+    .features-slider-section .features-slider-dots {
+        display: none !important;
+    }
+}

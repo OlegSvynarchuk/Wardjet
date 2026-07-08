@@ -1,0 +1,97 @@
+/**
+ * New KPIs / Stats Section Styles
+ * Generated from Figma: new-kpis-parsed.json
+ * Node: 2540-3272
+ */
+
+/* Section */
+.new-kpis {
+    width: 100%;
+    background: linear-gradient(89.81deg, #093C71 62.95%, #072C52 100%);
+}
+
+/* Container */
+.new-kpis__container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 80px 96px;
+    gap: 32px;
+    width: 100%;
+    max-width: 1440px;
+    min-height: 260px;
+    margin: 0 auto;
+}
+
+/* Stat Card */
+.new-kpis__card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0;
+    gap: 12px;
+    flex: 1;
+    text-align: center;
+}
+
+/* Stat Number */
+.new-kpis__number {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-size: 60px;
+    line-height: 60px;
+    color: #FFFFFF;
+    text-align: center;
+}
+
+/* Stat Label */
+.new-kpis__label {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 28px;
+    color: rgba(255, 255, 255, 0.9);
+    text-align: center;
+}
+
+/* Responsive - Tablet */
+@media (max-width: 991.98px) {
+    .new-kpis__container {
+        padding: 60px 48px;
+        gap: 24px;
+    }
+
+    .new-kpis__number {
+        font-size: 52px;
+        line-height: 52px;
+    }
+
+    .new-kpis__label {
+        font-size: 16px;
+        line-height: 24px;
+    }
+}
+
+/* Responsive - Mobile */
+@media (max-width: 767.98px) {
+    .new-kpis {
+        background: linear-gradient(87.26deg, #093C71 81.18%, #072C52 100%);
+    }
+
+    .new-kpis__container {
+        flex-direction: column;
+        padding: 80px 24px;
+        gap: 64px;
+    }
+
+    .new-kpis__number {
+        font-size: 60px;
+        line-height: 60px;
+    }
+
+    .new-kpis__label {
+        font-size: 18px;
+        line-height: 28px;
+    }
+}

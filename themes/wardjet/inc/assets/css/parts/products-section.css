@@ -1,0 +1,457 @@
+/**
+ * Products Section Styles (AXYZProducts)
+ * Generated from Figma: products-section-parsed.json
+ * Node: 2539-2132
+ */
+
+/* Section */
+.products-section {
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    padding: 64px calc((100vw - 1440px) / 2);
+    background: linear-gradient(180deg, #FFFFFF 0%, #F8FAFC 100%);
+}
+
+/* Header */
+.products-section .products-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    text-align: center;
+    margin-bottom: 64px;
+    max-width: 1248px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 96px;
+}
+
+/* Section Title */
+.products-section .products-header .section-title {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-size: 60px;
+    line-height: 60px;
+    color: #093C71;
+    text-align: center;
+    margin: 0;
+}
+
+/* Products page override */
+#our-products .products-section .products-header {
+    align-items: center;
+    text-align: center;
+    gap: 16px;
+}
+
+#our-products .products-section .products-header .section-title {
+    color: #0F172B;
+    text-align: center;
+}
+
+#our-products .products-section .products-header .section-subtitle {
+    text-align: center;
+}
+
+/* Section Subtitle */
+.products-section .products-header .section-subtitle {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 28px;
+    color: #45556C;
+    text-align: center;
+    margin: 0;
+    max-width: 860px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Products Grid */
+.products-section .products-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    max-width: 1248px;
+    margin: 0 auto;
+    padding: 0 96px 48px 96px;
+}
+
+/* Product Card */
+a.product-card,
+.products-section .product-card {
+    background-color: #FFFFFF;
+    border-radius: 0;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    transition: box-shadow 0.3s ease;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+}
+
+.products-section .product-card:hover {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+/* Card Image */
+.products-section .product-card-image {
+    width: 100%;
+    height: 273px;
+    overflow: hidden;
+    background-color: #FFFFFF;
+}
+
+.products-section .product-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    padding: 24px;
+}
+
+/* Card Content */
+.products-section .product-card-content {
+    padding: 24px 40px 32px 40px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+/* Card Title */
+.products-section .product-card-title {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 28px;
+    color: #093C71;
+    text-transform: uppercase;
+    margin: 0 0 8px 0;
+}
+
+/* Card Subtitle */
+.products-section .product-card-subtitle {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    color: #45556C;
+    text-transform: uppercase;
+    margin: 0 0 16px 0;
+}
+
+/* Card Description */
+.products-section .product-card-description {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    color: #45556C;
+    margin: 0 0 16px 0;
+    flex-grow: 1;
+}
+
+/* Hide dots by default — only show on mobile swiper */
+.products-section .products-dots {
+    display: none !important;
+}
+
+/* Card CTA */
+.products-section .product-card-cta {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 20px;
+    color: #093C71;
+    text-decoration: none;
+    text-transform: uppercase;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: color 0.3s ease;
+}
+
+.products-section .product-card-cta:hover {
+    color: #0A5BA3;
+}
+
+.products-section .product-card-cta svg {
+    width: 16px;
+    height: 16px;
+    transition: transform 0.3s ease;
+}
+
+.products-section .product-card-cta:hover svg {
+    transform: translateX(4px);
+}
+
+/* CTA Button Container */
+.products-section .products-cta-button {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    max-width: 1248px;
+    margin: 0 auto;
+    padding: 0 96px 48px 96px;
+}
+
+/* CTA Button */
+.products-section .products-cta-button a {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    width: auto;
+    padding: 16px 32px;
+    background: #093C71;
+    box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1), 0px 4px 6px -4px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    color: #FFFFFF;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.products-section .products-cta-button a:hover {
+    background-color: #0A5BA3;
+}
+
+/* Responsive - Tablet */
+@media (max-width: 991.98px) {
+    .products-section .products-header {
+        padding: 0 48px;
+    }
+
+    .products-section .products-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+        padding: 0 48px 32px 48px;
+    }
+
+    .products-section .products-cta-button {
+        padding: 0 48px 32px 48px;
+    }
+
+    .products-section .products-header .section-title {
+        font-size: 36px;
+        line-height: 40px;
+    }
+
+    #our-products .products-section .products-header {
+        align-items: flex-start;
+        text-align: left;
+    }
+
+    #our-products .products-section .products-header .section-title {
+        text-align: left;
+    }
+
+    #our-products .products-section .products-header .section-subtitle {
+        text-align: left;
+    }
+}
+
+/* Responsive - Mobile */
+@media (max-width: 767.98px) {
+    .products-section {
+        padding: 64px 0;
+        background: linear-gradient(180deg, #FFFFFF 0%, #F8FAFC 100%);
+    }
+
+    .products-section .products-header {
+        padding: 0 24px;
+        text-align: left;
+        margin-bottom: 32px;
+        gap: 16px;
+    }
+
+    .products-section .products-header .section-title {
+        font-size: 40px;
+        line-height: 60px;
+        color: #003B71;
+        text-align: left;
+        margin-bottom: 10px !important;
+    }
+
+    .products-section .products-header .section-subtitle {
+        font-size: 18px;
+        line-height: 28px;
+        color: #45556C;
+        text-align: left;
+    }
+
+    /* Horizontal swiper — snap scroll (homepage only, not products page) */
+    :not(#our-products) > .products-section .products-grid {
+        display: flex !important;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        gap: 16px;
+        padding: 0 24px 32px 24px;
+        scrollbar-width: none;
+    }
+
+    :not(#our-products) > .products-section .products-grid::-webkit-scrollbar {
+        display: none;
+    }
+
+    /* Card — fixed width, snap center (homepage only) */
+    :not(#our-products) > .products-section .product-card {
+        flex: 0 0 85%;
+        max-width: 85%;
+        scroll-snap-align: center;
+        border-radius: 10px;
+        box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1), 0px 4px 6px -4px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Products page — column layout (works for all locale slugs) */
+    #our-products .products-section .products-grid,
+    .page-template-wardjet-our-products .products-section .products-grid {
+        grid-template-columns: 1fr !important;
+        display: grid !important;
+        overflow: visible !important;
+        scroll-snap-type: none !important;
+        flex-wrap: wrap !important;
+        gap: 24px;
+        padding: 0 24px 24px;
+        max-width: 100% !important;
+    }
+
+    #our-products .products-section .product-card,
+    .page-template-wardjet-our-products .products-section .product-card {
+        flex: none !important;
+        max-width: 100% !important;
+        border-radius: 10px;
+        box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1), 0px 4px 6px -4px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Products page — title/subtitle per Figma */
+    #our-products .products-section .products-header .section-title,
+    .page-template-wardjet-our-products .products-section .products-header .section-title {
+        font-size: 48px !important;
+        line-height: 56px !important;
+        font-weight: 400 !important;
+        color: #0F172B !important;
+    }
+
+    #our-products .products-section .products-header .section-subtitle,
+    .page-template-wardjet-our-products .products-section .products-header .section-subtitle {
+        font-size: 20px !important;
+        line-height: 28px !important;
+        font-weight: 400 !important;
+        color: #45556C !important;
+    }
+
+    .products-section .product-card-image {
+        height: 273px;
+    }
+
+    .products-section .product-card-content {
+        padding: 26px 24px;
+    }
+
+    .products-section .product-card-title {
+        font-size: 20px;
+        line-height: 28px;
+        font-weight: 600;
+        color: #093C71;
+    }
+
+    .products-section .product-card-subtitle {
+        display: none;
+    }
+
+    .products-section .product-card-description {
+        font-size: 14px;
+        line-height: 20px;
+        color: #45556C;
+    }
+
+    .products-section .product-card-cta {
+        font-size: 14px;
+        font-weight: 600;
+        letter-spacing: 0.35px;
+        color: #093C71;
+    }
+
+    /* Pagination dots — hidden at tablet, shown at mobile only */
+    .products-section .products-dots {
+        display: none !important;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+        padding: 0 24px 24px;
+    }
+
+    .products-section .products-dots .dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: #CAD5E2;
+        border: none;
+        padding: 0;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .products-section .products-dots .dot.active {
+        width: 48px;
+        border-radius: 9999px;
+        background: #093C71;
+    }
+
+    /* CTA button — full width */
+    .products-section .products-cta-button {
+        padding: 0 24px 24px 24px;
+    }
+
+    .products-section .products-cta-button a {
+        width: 100%;
+        justify-content: center;
+        padding: 16px 32px;
+        font-size: 16px;
+        border-radius: 10px;
+    }
+}
+
+/* Show dots only on mobile (<768px) for homepage swiper */
+@media (max-width: 767.98px) {
+    :not(#our-products) > .products-section .products-dots {
+        display: flex !important;
+    }
+}
+
+/* ── wardjet: grouped rows (Abrasive / Water Only) with a left-aligned title ── */
+.products-section .products-group {
+    max-width: 1248px;
+    margin: 0 auto;
+}
+.products-section .products-group-title {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 32px;
+    color: #093C71;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    text-align: left;
+    margin: 0 0 24px 0;
+    padding: 0 96px;
+}
+.products-section .products-group .products-grid {
+    padding-bottom: 40px;
+}
+@media (max-width: 991.98px) {
+    .products-section .products-group-title { padding: 0 48px; font-size: 20px; line-height: 28px; }
+}
+@media (max-width: 767.98px) {
+    .products-section .products-group-title { padding: 0 24px; font-size: 18px; line-height: 24px; margin-bottom: 16px; }
+}

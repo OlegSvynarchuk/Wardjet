@@ -1,0 +1,251 @@
+/**
+ * Partnerships Section Styles
+ * Based on Figma: node-id=2539-2773
+ */
+
+/* Section */
+.partnerships {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 96px;
+    gap: 64px;
+    width: 100%;
+    background: linear-gradient(89.81deg, #093C71 62.95%, #072C52 100%);
+    border-radius: 0;
+}
+
+/* Container */
+.partnerships__container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0;
+    gap: 30px;
+    width: 1248px;
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+/* Header */
+.partnerships__header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    text-align: center;
+}
+
+/* Title */
+.partnerships__title {
+    font-family: 'Montserrat', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 60px;
+    line-height: 60px;
+    text-align: center;
+    color: #FFFFFF;
+    margin: 0;
+}
+
+/* Description */
+.partnerships__desc {
+    font-family: 'Montserrat', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 28px;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.8);
+    margin: 0;
+    max-width: 860px;
+}
+
+/* Slider Wrapper */
+.partnerships__slider-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 64px;
+    width: 100%;
+    overflow: visible;
+}
+
+/* Slider — clips sticking-out logos; pagination is outside this element */
+.partnerships__slider {
+    width: 100%;
+    overflow: hidden;
+}
+
+/* Track */
+.partnerships__track {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 32px;
+    width: 100%;
+}
+
+/* Slide */
+.partnerships__slide {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex: 0 0 calc(25% - 24px);
+    width: calc(25% - 24px);
+    height: 160px;
+    background: transparent;
+    border-radius: 10px;
+}
+
+/* Logo */
+.partnerships__logo,
+.partnerships__slide img {
+    width: 240px !important;
+    height: auto !important;
+    max-width: none !important;
+    max-height: none !important;
+}
+
+/* Pagination */
+.partnerships__pagination {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 8px;
+    height: 12px;
+}
+
+/* Pagination Dots */
+.partnerships__dot {
+    width: 12px;
+    height: 12px;
+    background: #CAD5E2;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    transition: all 0.3s ease;
+}
+
+.partnerships__dot.active {
+    width: 48px;
+    background: #FFFFFF;
+    border-radius: 9999px;
+}
+
+.partnerships__dot:hover {
+    background: #FFFFFF;
+}
+
+/* Responsive - Tablet */
+@media (max-width: 1023.98px) {
+    .partnerships {
+        padding: 64px 48px;
+        gap: 48px;
+    }
+
+    .partnerships__container {
+        width: 100%;
+        gap: 24px;
+    }
+
+    .partnerships__title {
+        font-size: 48px;
+        line-height: 48px;
+    }
+
+    .partnerships__desc {
+        font-size: 18px;
+        max-width: 100%;
+    }
+
+    .partnerships__track {
+        gap: 32px;
+    }
+
+    .partnerships__slide {
+        flex: 0 0 calc(50% - 16px);
+        max-width: calc(50% - 16px);
+        height: 128px;
+    }
+}
+
+/* Responsive - Mobile */
+@media (max-width: 767.98px) {
+    .partnerships {
+        padding: 64px 24px;
+        gap: 64px;
+        background: linear-gradient(87.26deg, #093C71 81.18%, #072C52 100%);
+    }
+
+    .partnerships__container {
+        gap: 30px;
+    }
+
+    .partnerships__header {
+        gap: 0;
+        text-align: left;
+        align-items: flex-start;
+    }
+
+    .partnerships__title {
+        font-size: 40px;
+        line-height: 48px;
+        text-align: left;
+    }
+
+    .partnerships__desc {
+        font-size: 18px;
+        line-height: 28px;
+        text-align: left;
+    }
+
+    /* 1 slide at a time — horizontal scroll */
+    .partnerships__slider {
+        overflow: hidden;
+    }
+
+    .partnerships__track {
+        flex-wrap: nowrap;
+        gap: 32px;
+        justify-content: flex-start;
+    }
+
+    .partnerships__slide {
+        flex: 0 0 100%;
+        min-width: 100%;
+        width: 100%;
+        height: 160px;
+        border-radius: 10px;
+    }
+
+    .partnerships__logo,
+    .partnerships__slide img {
+        width: 100% !important;
+        max-width: 354px !important;
+    }
+
+    .partnerships__slider-wrapper {
+        gap: 16px;
+    }
+
+    .partnerships__dot {
+        width: 12px;
+        height: 12px;
+    }
+
+    .partnerships__dot.active {
+        width: 48px;
+        background: #FFFFFF;
+    }
+
+    /* thyssenkrupp logo fills its canvas edge-to-edge — cap its mobile width
+       so it doesn't overflow the 160px slide as severely. */
+    .partnerships__slide img[src*="PartnershipLogos_thyssenkrupp"] {
+        max-width: 240px !important;
+    }
+}

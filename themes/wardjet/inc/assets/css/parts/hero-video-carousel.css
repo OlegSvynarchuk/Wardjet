@@ -1,0 +1,149 @@
+/**
+ * Hero Video Carousel Styles
+ * Based on Figma specs: 1440px x 500px video hero section
+ */
+
+/* Section */
+.hero-video-carousel {
+    width: 100%;
+    height: 500px;
+    position: relative;
+    background: #000000;
+    overflow: hidden;
+}
+
+.hero-video-carousel .site-main {
+    height: 100%;
+}
+
+.hero-video-carousel #heroVideoCarousel,
+.hero-video-carousel .carousel-inner {
+    height: 100%;
+}
+
+/* Carousel Item */
+.hero-video-carousel .carousel-item {
+    height: 100%;
+}
+
+/* Video Container */
+.hero-video-carousel .video-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+/* Video Element */
+.hero-video-carousel .hero-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Dark Overlay */
+.hero-video-carousel .video-dark-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 1;
+}
+
+/* Text Overlay */
+.hero-video-carousel .video-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    text-align: center;
+}
+
+/* Video Title */
+.hero-video-carousel .video-title {
+    font-family: 'Montserrat', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 72px;
+    line-height: 72px;
+    color: #FFFFFF;
+    margin: 0;
+    white-space: nowrap;
+}
+
+/* Carousel Indicators */
+.hero-video-carousel .carousel-indicators {
+    bottom: 24px;
+    z-index: 3;
+}
+
+.hero-video-carousel .carousel-indicators li {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.4);
+    border: none;
+    margin: 0 6px;
+    transition: all 0.3s ease;
+}
+
+.hero-video-carousel .carousel-indicators li.active {
+    background-color: #FFFFFF;
+}
+
+/* Navigation Controls */
+.hero-video-carousel .carousel-control-prev,
+.hero-video-carousel .carousel-control-next {
+    z-index: 3;
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+}
+
+.hero-video-carousel .carousel-control-prev:hover,
+.hero-video-carousel .carousel-control-next:hover {
+    opacity: 1;
+}
+
+.hero-video-carousel .carousel-control-prev-icon,
+.hero-video-carousel .carousel-control-next-icon {
+    width: 48px;
+    height: 48px;
+}
+
+/* Responsive - Tablet */
+@media (max-width: 991.98px) {
+    .hero-video-carousel {
+        height: 400px;
+    }
+
+    .hero-video-carousel .video-title {
+        font-size: 48px;
+        line-height: 48px;
+    }
+}
+
+/* Responsive - Mobile */
+@media (max-width: 767.98px) {
+    .hero-video-carousel {
+        height: 420px;
+    }
+
+    .hero-video-carousel .video-title {
+        font-size: 32px;
+        line-height: 32px;
+        white-space: normal;
+        padding: 0 24px;
+    }
+
+    .hero-video-carousel .carousel-indicators li {
+        width: 8px;
+        height: 8px;
+        margin: 0 4px;
+    }
+}

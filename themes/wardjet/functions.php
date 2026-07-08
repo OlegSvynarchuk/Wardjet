@@ -245,12 +245,41 @@ function wp_bootstrap_starter_scripts() {
 
     //custom css
     wp_enqueue_style( 'custom-css', get_template_directory_uri() . '/inc/assets/css/wardjet-custom.css',[], time() );
+    // Header nav styles (Figma two-row header, ported from blueprint). Depends on
+    // custom-css so it loads LAST and overrides wardjet-custom.css + Max Mega Menu.
+    wp_enqueue_style( 'header-css', get_template_directory_uri() . '/inc/assets/css/parts/header.css', ['custom-css'], time() );
+    // Home video hero (ported from blueprint).
+    wp_enqueue_style( 'hero-video-carousel-css', get_template_directory_uri() . '/inc/assets/css/parts/hero-video-carousel.css', [], time() );
+    // News ticker (ported from blueprint).
+    wp_enqueue_style( 'ticker-css', get_template_directory_uri() . '/inc/assets/css/parts/ticker.css', [], time() );
+    // Features slider (ported from blueprint).
+    wp_enqueue_style( 'features-slider-css', get_template_directory_uri() . '/inc/assets/css/parts/features-slider.css', [], time() );
+    // Icon strip (ported from blueprint).
+    wp_enqueue_style( 'icon-strip-css', get_template_directory_uri() . '/inc/assets/css/parts/icon-strip.css', [], time() );
+    // Products section (grouped: Abrasive / Water Only).
+    wp_enqueue_style( 'products-section-css', get_template_directory_uri() . '/inc/assets/css/parts/products-section.css', [], time() );
+    // KPIs stats band (ported from blueprint).
+    wp_enqueue_style( 'new-kpis-css', get_template_directory_uri() . '/inc/assets/css/parts/new-kpis.css', [], time() );
+    // Industries grid (materials removed for wardjet).
+    wp_enqueue_style( 'ind-mat-grid-css', get_template_directory_uri() . '/inc/assets/css/parts/ind-mat-grid.css', [], time() );
+    // Our Companies (ported 1:1 from blueprint).
+    wp_enqueue_style( 'our-companies-css', get_template_directory_uri() . '/inc/assets/css/parts/our-companies.css', [], time() );
+    // Partnerships logo carousel (ported from blueprint).
+    wp_enqueue_style( 'partnerships-css', get_template_directory_uri() . '/inc/assets/css/parts/partnerships.css', [], time() );
     wp_enqueue_script('wowjs', get_template_directory_uri().'/inc/assets/js/wow.min.js', array(), '', true);
     //custom js
 
     wp_enqueue_script('hotspot', get_template_directory_uri().'/inc/assets/js/jquery.hotspot.js', array(), '', true);
     wp_enqueue_script('wardjet-custom-js', get_template_directory_uri() . '/inc/assets/js/wardjet-custom.js', array( 'jquery' ), '
         1.9.8', true );
+    // Partnerships carousel (standalone; ported from blueprint).
+    wp_enqueue_script('wardjet-partnerships-js', get_template_directory_uri() . '/inc/assets/js/parts/partnerships.js', array( 'jquery' ), '1.0.0', true );
+
+    // News ticker AJAX loader (hybrid: server-render + REST refresh). Ported from blueprint.
+    wp_enqueue_script('wardjet-ticker-js', get_template_directory_uri() . '/inc/assets/js/ticker.js', array(), '1.0.0', true);
+    wp_localize_script('wardjet-ticker-js', 'wjTicker', array(
+        'endpoint' => esc_url_raw( rest_url('wardjet/v1/ticker') ),
+    ));
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
@@ -325,6 +354,35 @@ require get_template_directory() . '/inc/plugin-compatibility/plugin-compatibili
 if ( ! class_exists( 'wp_bootstrap_navwalker' )) {
     require_once(get_template_directory() . '/inc/wp_bootstrap_navwalker.php');
 }
+
+/**
+ * Home video hero — ACF field group (video_carousel repeater). Ported from blueprint.
+ */
+require_once(get_template_directory() . '/inc/acf-hero-video-carousel.php');
+
+/**
+ * News ticker — backend logic (items/date+locale filters, REST route, admin
+ * settings page + list column) and ACF meta (ticker_until, display locales).
+ * Ported from blueprint.
+ */
+require_once(get_template_directory() . '/inc/ticker-functions.php');
+require_once(get_template_directory() . '/inc/acf-ticker-meta.php');
+
+/**
+ * Features slider — ACF field group (title/subtitle + items repeater). Ported from blueprint.
+ */
+require_once(get_template_directory() . '/inc/acf-features-slider.php');
+
+/**
+ * Products section — ACF field group (title/subtitle/CTA + icon-strip items).
+ * Ported from blueprint (location: products page template).
+ */
+require_once(get_template_directory() . '/inc/acf-products-section.php');
+
+/**
+ * Our Companies — ACF field group (companies repeater). Ported 1:1 from blueprint.
+ */
+require_once(get_template_directory() . '/inc/acf-our-companies.php');
 
 
 

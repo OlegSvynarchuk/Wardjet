@@ -1,0 +1,1558 @@
+/**
+ * Header Navigation Styles
+ * Overrides both wardjet-custom.css and Max Mega Menu plugin styles
+ * Load this file LAST to ensure overrides work
+ *
+ * Based on Figma specs: 1440px x 86px white header with navy CTA
+ */
+
+/* Hide mobile-only elements on desktop/tablet */
+#mobile-header-nav,
+#mobile-cta {
+    display: none !important;
+}
+
+/* ============================================
+   MAIN NAVIGATION CONTAINER
+   ============================================ */
+
+/* Reset theme padding on header */
+header#masthead {
+    padding: 0 !important;
+    margin-bottom: 0 !important;
+    box-shadow: none !important;
+    background-color: #FFFFFF !important;
+    /* Fixed at top across all viewports (matches mobile behaviour) */
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    z-index: 9998 !important;
+}
+
+/* Desktop fixed offset â€” header height is deterministic (utility 40 + nav 54 + ticker 40).
+   JS (adjustHeaderOffset) intentionally does NOT touch #content on desktop so there's no
+   post-load jump. Keep this value in sync with the actual header total. */
+@media (min-width: 1024px) {
+    #content.site-content {
+        padding-top: 134px;
+    }
+}
+
+/* Mobile/tablet fixed offset (utility bar 49 + main nav 86 = 135). Setting it
+   in CSS means content paints at the right position from first frame â€” no JS jump. */
+@media (max-width: 1023.98px) {
+    #content.site-content {
+        padding-top: 135px;
+    }
+}
+
+/* Main Navigation Row (White Background) */
+.header-main-nav {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    padding: 0 96px !important;
+    width: 100% !important;
+    height: 86px !important;
+    background: rgba(255, 255, 255, 0.95) !important;
+    box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1), 0px 4px 6px -4px rgba(0, 0, 0, 0.1) !important;
+    border-radius: 0;
+}
+
+.header-main-nav .container-xxl {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+/* Inner Container - AXYZNavigation */
+.header-main-nav__inner {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: flex-start !important;
+    align-items: center !important;
+    padding: 0 !important;
+    gap: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    height: 86px !important;
+}
+
+/* ============================================
+   LOGO
+   ============================================ */
+
+.header-main-nav .navbar-brand {
+    flex-shrink: 0;
+    position: relative !important;
+    z-index: 1;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.header-main-nav .navbar-brand img {
+    width: 218px;
+    height: 54px;
+    object-fit: contain;
+}
+
+.header-main-nav .navbar-brand a {
+    display: block;
+}
+
+/* ============================================
+   MENU CONTAINER
+   ============================================ */
+
+.header-main-nav__menu {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    margin-left: auto !important;
+}
+
+#all-header-menu {
+    display: flex !important;
+}
+
+#main-nav,
+#main-nav-container {
+    display: flex !important;
+    align-items: center;
+}
+
+/* ============================================
+   NAV LINKS - Bootstrap NavWalker
+   ============================================ */
+
+.header-main-nav .navbar-nav {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    margin: 0 !important;
+    padding: 0 !important;
+    list-style: none;
+}
+
+.header-main-nav .navbar-nav > li {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0 8px;
+    height: 40px;
+    margin: 0 !important;
+}
+
+.header-main-nav .navbar-nav > li > a {
+    font-family: 'Montserrat', sans-serif !important;
+    font-style: normal;
+    font-weight: 600 !important;
+    font-size: 13px !important;
+    line-height: 20px !important;
+    text-transform: uppercase !important;
+    color: #314158 !important;
+    text-decoration: none;
+    padding: 0 !important;
+    margin: 0 !important;
+    white-space: nowrap;
+    transition: color 0.3s ease;
+    background: transparent !important;
+    border: none;
+}
+
+.header-main-nav .navbar-nav > li > a:hover,
+.header-main-nav .navbar-nav > li.current-menu-item > a,
+.header-main-nav .navbar-nav > li.current_page_item > a {
+    color: #093C71 !important;
+    background: transparent !important;
+}
+
+/* Dropdown menus */
+.header-main-nav .navbar-nav .dropdown-menu {
+    background: #FFFFFF;
+    box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
+    border: none;
+    border-radius: 0;
+    padding: 8px 0;
+    margin-top: 0;
+}
+
+.header-main-nav .navbar-nav .dropdown-menu > li > a {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
+    color: #314158;
+    padding: 8px 16px;
+}
+
+.header-main-nav .navbar-nav .dropdown-menu > li > a {
+    display: inline-block;
+    border-bottom: 2px solid transparent;
+}
+.header-main-nav .navbar-nav .dropdown-menu > li > a:hover {
+    background: transparent;
+    color: #093C71;
+    border-bottom-color: #093C71;
+}
+
+/* ============================================
+   NAV LINKS - Max Mega Menu Override
+   ============================================ */
+
+/* Reset all mega menu base styles */
+[id^="mega-menu-wrap-primary"] *,
+[id^="mega-menu-wrap-primary"] *:before,
+[id^="mega-menu-wrap-primary"] *:after {
+    box-sizing: border-box;
+}
+
+[id^="mega-menu-wrap-primary"] {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    display: flex !important;
+    align-items: center !important;
+    height: 86px !important;
+}
+
+[id^="mega-menu-wrap-primary"] [id^="mega-menu-primary"] {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 8px !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    background: transparent !important;
+    height: auto !important;
+    vertical-align: middle !important;
+}
+
+[id^="mega-menu-wrap-primary"] [id^="mega-menu-primary"] > li.mega-menu-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0 8px !important;
+    height: 40px;
+    margin: 0 !important;
+    background: transparent !important;
+    border: none !important;
+    border-bottom: 0 !important;
+}
+
+[id^="mega-menu-wrap-primary"] [id^="mega-menu-primary"] > li.mega-menu-item > a.mega-menu-link {
+    font-family: 'Montserrat', sans-serif !important;
+    font-style: normal !important;
+    font-weight: 600 !important;
+    font-size: 13px !important;
+    line-height: 20px !important;
+    height: auto !important;
+    text-transform: uppercase !important;
+    color: #314158 !important;
+    text-decoration: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    display: flex !important;
+    align-items: center !important;
+    flex: none !important;
+    flex-grow: 0 !important;
+}
+
+[id^="mega-menu-wrap-primary"] [id^="mega-menu-primary"] > li.mega-menu-item > a.mega-menu-link:hover,
+[id^="mega-menu-wrap-primary"] [id^="mega-menu-primary"] > li.mega-menu-item.mega-toggle-on > a.mega-menu-link,
+[id^="mega-menu-wrap-primary"] [id^="mega-menu-primary"] > li.mega-menu-item.mega-current-menu-item > a.mega-menu-link {
+    color: #093C71 !important;
+    background: transparent !important;
+    border-bottom: 2px solid #093C71 !important;
+    border-top: none !important;
+    border-left: none !important;
+    border-right: none !important;
+}
+
+/* Mega menu submenus - base */
+[id^="mega-menu-wrap-primary"] [id^="mega-menu-primary"] ul.mega-sub-menu {
+    background: #FFFFFF !important;
+    box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.18), 0px 4px 6px -4px rgba(0, 0, 0, 0.15) !important;
+    border: none !important;
+    border-radius: 0 !important;
+}
+
+/* Flyout dropdowns only (non-megamenu items) â€” matches header nav dropdown style */
+[id^="mega-menu-wrap-primary"] [id^="mega-menu-primary"] > li.mega-menu-flyout > ul.mega-sub-menu {
+    padding: 4px 0 !important;
+    min-width: 120px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    margin-top: 10px !important;
+    box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.18), 0px 4px 6px -4px rgba(0, 0, 0, 0.15) !important;
+}
+
+[id^="mega-menu-wrap-primary"] [id^="mega-menu-primary"] > li.mega-menu-flyout ul.mega-sub-menu li.mega-menu-item {
+    border: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    min-height: 35px !important;
+    height: auto !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+[id^="mega-menu-wrap-primary"] [id^="mega-menu-primary"] > li.mega-menu-flyout ul.mega-sub-menu li.mega-menu-item a.mega-menu-link {
+    font-family: 'Montserrat', sans-serif !important;
+    font-weight: 600 !important;
+    font-size: 11px !important;
+    line-height: 16px !important;
+    text-transform: uppercase !important;
+    text-align: center !important;
+    color: #314158 !important;
+    padding: 8px 4px !important;
+    width: fit-content !important;
+    margin: 0 auto !important;
+    display: inline-block !important;
+    min-height: 35px !important;
+    height: auto !important;
+    background: #FFFFFF !important;
+    white-space: normal !important;
+    word-wrap: break-word !important;
+    border-bottom: 2px solid transparent !important;
+}
+
+[id^="mega-menu-wrap-primary"] [id^="mega-menu-primary"] > li.mega-menu-flyout ul.mega-sub-menu li.mega-menu-item a.mega-menu-link:hover {
+    background: transparent !important;
+    color: #093C71 !important;
+    border-bottom-color: #093C71 !important;
+}
+
+/* Megamenu grid panels (Products, etc.) - let plugin handle layout */
+[id^="mega-menu-wrap-primary"] [id^="mega-menu-primary"] > li.mega-menu-megamenu > ul.mega-sub-menu {
+    background: #FFFFFF !important;
+    box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1) !important;
+    border: none !important;
+    padding: 24px !important;
+    margin-top: 10px !important;
+}
+
+/* Products mega menu only â€” push it down so it doesn't overlap the logo's
+   bottom edge. Targets li.mega-menu-grid (Products full-width dropdown only). */
+[id^="mega-menu-wrap-primary"] [id^="mega-menu-primary"] > li.mega-menu-item.mega-menu-grid .mega-sub-menu {
+    margin-top: 30px !important;
+}
+
+/* ============================================
+   PRODUCTS MEGAMENU DROPDOWN (.mega-products-dropdown)
+   ============================================ */
+
+/* Products rows - flex for vertical centering */
+.mega-products-dropdown > ul.mega-sub-menu > li.mega-menu-row > ul.mega-sub-menu {
+    display: flex !important;
+    align-items: center !important;
+    box-shadow: none !important;
+    background: transparent !important;
+    padding: 0 !important;
+}
+
+/* Products columns - centered */
+.mega-products-dropdown > ul.mega-sub-menu > li.mega-menu-row > ul.mega-sub-menu > li.mega-menu-column {
+    float: none !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    height: auto !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+/* Products rows */
+.mega-products-dropdown > ul.mega-sub-menu > li.mega-menu-row {
+    width: 100% !important;
+    min-height: 250px !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+/* Products items inside columns */
+.mega-products-dropdown ul.mega-sub-menu li.mega-menu-item {
+    height: auto !important;
+    display: block !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+/* Products nested sub-menus */
+.mega-products-dropdown ul.mega-sub-menu ul.mega-sub-menu {
+    visibility: inherit !important;
+    opacity: 1 !important;
+    display: block !important;
+    position: relative !important;
+    box-shadow: none !important;
+    background: transparent !important;
+    padding: 0 !important;
+}
+
+/* Megamenu widget content (custom HTML with images) */
+/* Hide text-only menu links inside megamenu */
+[id^="mega-menu-wrap-primary"] [id^="mega-menu-primary"] > li.mega-menu-megamenu > ul.mega-sub-menu > li.mega-menu-item:not(.mega-menu-row) {
+    display: none !important;
+}
+
+[id^="mega-menu-wrap-primary"] [id^="mega-menu-primary"] li.mega-menu-megamenu .mega-hide-on-desktop {
+    display: none !important;
+}
+
+
+/* Force megamenu panel to shrink to content height */
+[id^="mega-menu-wrap-primary"] [id^="mega-menu-primary"] > li.mega-menu-megamenu > ul.mega-sub-menu {
+    height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+}
+
+[id^="mega-menu-wrap-primary"] [id^="mega-menu-primary"] > li.mega-menu-megamenu > ul.mega-sub-menu::after {
+    content: '' !important;
+    display: table !important;
+    clear: both !important;
+}
+
+[id^="mega-menu-wrap-primary"] [id^="mega-menu-primary"] > li.mega-menu-megamenu .widget_custom_html {
+    text-align: center !important;
+}
+
+[id^="mega-menu-wrap-primary"] [id^="mega-menu-primary"] > li.mega-menu-megamenu .widget_custom_html img {
+    width: 200px !important;
+    height: 113px !important; /* uniform 16:9 height so all titles below align vertically */
+    max-width: 200px !important;
+    object-fit: cover !important;
+    display: block !important;
+    margin: 0 auto !important;
+}
+
+[id^="mega-menu-wrap-primary"] [id^="mega-menu-primary"] > li.mega-menu-megamenu .widget_custom_html h4 {
+    font-family: 'Montserrat', sans-serif !important;
+    font-weight: 600 !important;
+    font-size: 13px !important;
+    line-height: 20px !important;
+    text-transform: uppercase !important;
+    color: #314158 !important;
+    margin: 8px 0 0 !important;
+}
+
+[id^="mega-menu-wrap-primary"] [id^="mega-menu-primary"] > li.mega-menu-megamenu .widget_custom_html h4 a,
+[id^="mega-menu-wrap-primary"] [id^="mega-menu-primary"] > li.mega-menu-megamenu .widget_custom_html .textwidget a,
+[id^="mega-menu-wrap-primary"] [id^="mega-menu-primary"] > li.mega-menu-megamenu .custom-html-widget h4 a {
+    font-family: 'Montserrat', sans-serif !important;
+    font-weight: 600 !important;
+    font-size: 13px !important;
+    line-height: 20px !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0 !important;
+    color: #314158 !important;
+    text-decoration: none !important;
+    border-bottom: 2px solid transparent !important;
+    padding-bottom: 1px !important;
+}
+[id^="mega-menu-wrap-primary"] [id^="mega-menu-primary"] > li.mega-menu-megamenu .widget_custom_html h4 a:hover {
+    color: #093C71 !important;
+}
+
+/* On non-en-us locales the product title is a separate menu item (post_type link)
+   instead of an h4 inside the widget. Match the en-us widget-title look. */
+[id^="mega-menu-wrap-primary"] [id^="mega-menu-primary"] > li.mega-menu-megamenu li.mega-menu-item-type-post_type.mega-menu-item-object-products > a.mega-menu-link {
+    font-family: 'Montserrat', sans-serif !important;
+    font-weight: 600 !important;
+    font-size: 13px !important;
+    line-height: 20px !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0 !important;
+    color: #314158 !important;
+    text-align: center !important;
+    background: transparent !important;
+    height: auto !important;
+    padding: 8px 0 1px !important;
+    margin: 0 !important;
+    border-bottom: 2px solid transparent !important;
+    text-decoration: none !important;
+}
+[id^="mega-menu-wrap-primary"] [id^="mega-menu-primary"] > li.mega-menu-megamenu li.mega-menu-item-type-post_type.mega-menu-item-object-products > a.mega-menu-link:hover,
+[id^="mega-menu-wrap-primary"] [id^="mega-menu-primary"] > li.mega-menu-megamenu li.mega-menu-item-type-post_type.mega-menu-item-object-products > a.mega-menu-link:focus {
+    color: #093C71 !important;
+    border-bottom-color: #093C71 !important;
+    background: transparent !important;
+}
+
+/* Hide mega menu toggle on desktop */
+[id^="mega-menu-wrap-primary"] .mega-menu-toggle {
+    display: none !important;
+}
+
+/* ============================================
+   CTA BUTTON (Get a Quote)
+   ============================================ */
+
+#quote-btn {
+    display: flex !important;
+    align-items: center !important;
+    margin-left: 24px !important;
+    flex-shrink: 0 !important;
+}
+
+#quote-btn a,
+.header-main-nav #quote-btn .btn,
+.header-main-nav #quote-btn button {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 24px !important;
+    min-width: 150px;
+    white-space: nowrap !important;
+    height: 38px;
+    background: #093C71 !important;
+    border-radius: 4px !important;
+    border: none;
+    font-family: 'Montserrat', sans-serif !important;
+    font-style: normal;
+    font-weight: 600 !important;
+    font-size: 12px !important;
+    line-height: 16px !important;
+    text-align: center;
+    letter-spacing: 0.3px;
+    text-transform: uppercase !important;
+    color: #FFFFFF !important;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#quote-btn a:hover,
+.header-main-nav #quote-btn .btn:hover,
+.header-main-nav #quote-btn button:hover {
+    background: #0A5BA3 !important;
+    color: #FFFFFF !important;
+}
+
+/* ============================================
+   MOBILE MENU
+   ============================================ */
+
+#mobile-menu-btn {
+    display: none;
+    background: transparent;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+    color: #314158;
+    font-size: 24px;
+}
+
+/* ============================================
+   RESPONSIVE - Tablet
+   ============================================ */
+
+@media (max-width: 991.98px) {
+    .header-main-nav {
+        padding: 0 48px !important;
+    }
+
+    .header-main-nav__inner {
+        gap: 40px;
+    }
+
+    .header-main-nav .navbar-brand img {
+        width: 180px;
+        height: 45px;
+    }
+
+    .header-main-nav .navbar-nav {
+        gap: 4px;
+    }
+
+    .header-main-nav .navbar-nav > li {
+        padding: 0 6px;
+    }
+
+    #quote-btn a {
+        padding: 8px 16px !important;
+        min-width: 120px;
+        font-size: 11px !important;
+    }
+}
+
+/* Chat widget spinner â€” always on top */
+.cpopup_spinner,
+zapier-interfaces-chatbot-embed {
+    z-index: 99999 !important;
+    position: relative !important;
+}
+
+/* Desktop guarantee: JS injects mobile chevrons at <1024 and never
+   removes them when viewport grows (resize, zoom, devtools close).
+   Hard-hide on desktop so stray nodes can't render. */
+.wj-mobile-chevron { display: none !important; }
+
+/* ============================================
+   RESPONSIVE - Mobile
+   ============================================ */
+
+@media (max-width: 1023.98px) {
+    /* Fixed header on mobile */
+    header#masthead {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        width: 100% !important;
+        z-index: 9998 !important;
+    }
+
+    /* Ticker offset handled in ticker.css */
+
+    .header-main-nav {
+        padding: 0 24px !important;
+        height: 68px;
+        position: relative !important;
+    }
+
+    .header-main-nav__inner {
+        height: 68px;
+        justify-content: space-between !important;
+        gap: 0 !important;
+    }
+
+    header#masthead .header-main-nav .navbar-brand,
+    header#masthead .header-main-nav .navbar-brand.navbar-brand {
+        margin: 0 !important;
+        padding: 0 !important;
+        text-align: left !important;
+        display: block !important;
+        width: 178px !important;
+        min-width: 178px !important;
+        height: 44px !important;
+        flex-shrink: 0 !important;
+        overflow: visible !important;
+        position: relative !important;
+    }
+
+    header#masthead .header-main-nav .navbar-brand a,
+    header#masthead .header-main-nav .navbar-brand > a {
+        display: block !important;
+        width: 178px !important;
+        height: 44px !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+
+    header#masthead .header-main-nav .navbar-brand img,
+    header#masthead .header-main-nav .navbar-brand a img {
+        width: 178px !important;
+        height: 44px !important;
+        max-width: none !important;
+        max-height: none !important;
+        min-width: 178px !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        object-fit: contain !important;
+    }
+
+    /* Hide the menu container on mobile â€” only logo + hamburger visible */
+    .header-main-nav__menu {
+        display: flex !important;
+        align-items: center !important;
+    }
+
+    /* Show mobile menu button â€” navy on white bg, Figma: 24x16 */
+    #mobile-menu-btn {
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+        color: #314158 !important;
+        font-size: 24px !important;
+        width: 32px;
+        height: 32px;
+        padding: 4px !important;
+        outline: none !important;
+        box-shadow: none !important;
+        border: 1px solid transparent !important;
+        border-radius: 4px;
+        background: transparent !important;
+    }
+
+    #mobile-menu-btn:focus,
+    #mobile-menu-btn:focus-visible {
+        outline: none !important;
+        box-shadow: none !important;
+    }
+
+    #mobile-menu-btn.menu-open {
+        border-color: #CAD5E2 !important;
+    }
+
+    /* Hide desktop menu by default on mobile â€” toggled by JS */
+    #all-header-menu.d-none {
+        display: none !important;
+    }
+
+    /* When JS removes d-none, show the menu full screen width below sticky header */
+    #all-header-menu:not(.d-none) {
+        display: block !important;
+        position: fixed;
+        top: 117px;
+        left: 0;
+        right: 0;
+        width: 100vw !important;
+        max-height: calc(100vh - 107px);
+        overflow-y: auto;
+        background: #FFFFFF;
+        box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1), 0px 4px 6px -4px rgba(0, 0, 0, 0.1);
+        z-index: 9999;
+        padding: 0;
+    }
+
+    /* Primary menu (mega menu) on mobile â€” force vertical layout */
+    #all-header-menu #main-nav {
+        width: 100% !important;
+    }
+
+    #all-header-menu #main-nav-container {
+        display: block !important;
+        padding: 0 !important;
+    }
+
+    /* Mega menu wrapper â€” reset for mobile */
+    #all-header-menu [id^="mega-menu-wrap-primary"] {
+        display: block !important;
+        position: static !important;
+        background: transparent !important;
+        height: auto !important;
+        width: 100% !important;
+    }
+
+    /* Hide plugin's own mobile toggle */
+    #all-header-menu [id^="mega-menu-wrap-primary"] .mega-menu-toggle {
+        display: none !important;
+    }
+
+    /* Menu list â€” vertical stack */
+    #all-header-menu [id^="mega-menu-wrap-primary"] [id^="mega-menu-primary"] {
+        display: block !important;
+        width: 100% !important;
+        text-align: center !important;
+    }
+
+    /* Top-level items â€” vertical, full width */
+    #all-header-menu [id^="mega-menu-wrap-primary"] [id^="mega-menu-primary"] > li.mega-menu-item {
+        display: block !important;
+        width: 100% !important;
+        height: auto !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        float: none !important;
+    }
+
+    /* Top-level links â€” left-aligned, Montserrat 600 11px */
+    #all-header-menu [id^="mega-menu-wrap-primary"] [id^="mega-menu-primary"] > li.mega-menu-item > a.mega-menu-link {
+        display: block !important;
+        width: 100% !important;
+        height: 35px !important;
+        line-height: 35px !important;
+        font-family: 'Montserrat', sans-serif !important;
+        font-weight: 600 !important;
+        font-size: 11px !important;
+        text-transform: uppercase !important;
+        text-align: left !important;
+        color: #314158 !important;
+        background: #FFFFFF !important;
+        padding: 0 24px !important;
+        border: none !important;
+        text-decoration: none !important;
+    }
+
+    #all-header-menu [id^="mega-menu-wrap-primary"] [id^="mega-menu-primary"] > li.mega-menu-item > a.mega-menu-link:hover,
+    #all-header-menu [id^="mega-menu-wrap-primary"] [id^="mega-menu-primary"] > li.mega-menu-item.mega-toggle-on > a.mega-menu-link {
+        color: #093C71 !important;
+        background: #FFFFFF !important;
+        border-bottom: none !important;
+    }
+
+    /* Hide mega indicator arrow on mobile */
+    #all-header-menu [id^="mega-menu-wrap-primary"] .mega-indicator {
+        display: none !important;
+    }
+
+    /* ============================================
+       Mobile chevron toggle button â€” inline next to label
+       ============================================ */
+    .wj-mobile-chevron {
+        position: absolute !important;
+        top: 0 !important;
+        right: 24px !important;
+        left: auto !important;
+        height: 35px !important;
+        min-height: 0 !important;
+        width: 36px !important;
+        background: transparent !important;
+        border: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: flex-start !important;
+        cursor: pointer !important;
+        z-index: 5 !important;
+        transition: transform 0.25s ease !important;
+        /* left set dynamically via JS based on label text width */
+    }
+
+    .wj-mobile-chevron svg {
+        width: 18px !important;
+        height: 18px !important;
+        display: block !important;
+        margin-top: -2px !important;
+        transition: transform 0.25s ease !important;
+    }
+
+    .wj-mobile-chevron.wj-rotated svg,
+    li.mega-toggle-on > .wj-mobile-chevron svg,
+    li.mobile-sub-open > .wj-mobile-chevron svg {
+        transform: rotate(180deg) !important;
+    }
+
+    /* Make sure parent <li> is positioned so chevron can be absolute */
+    #all-header-menu [id^="mega-menu-wrap-primary"] [id^="mega-menu-primary"] > li.mega-menu-item-has-children,
+    #all-header-menu [id^="mega-menu-wrap-primary"] [id^="mega-menu-primary"] > li.mega-menu-megamenu,
+    .mobile-headernav-list > li.menu-item-has-children {
+        position: relative !important;
+    }
+
+    /* Reserve right padding so chevron has room beyond label text */
+    #all-header-menu [id^="mega-menu-wrap-primary"] [id^="mega-menu-primary"] > li.mega-menu-item-has-children > a.mega-menu-link,
+    #all-header-menu [id^="mega-menu-wrap-primary"] [id^="mega-menu-primary"] > li.mega-menu-megamenu > a.mega-menu-link,
+    .mobile-headernav-list > li.menu-item-has-children > a {
+        padding-right: 24px !important;
+    }
+
+    /* Sub-menus â€” hidden by default, show on toggle, in normal flow */
+    #all-header-menu [id^="mega-menu-wrap-primary"] [id^="mega-menu-primary"] > li.mega-menu-item > ul.mega-sub-menu {
+        position: static !important;
+        width: 100% !important;
+        display: none !important;
+        box-shadow: none !important;
+        margin: 0 !important;
+        padding: 4px 0 !important;
+        background: #FFFFFF !important;
+        transform: none !important;
+        left: auto !important;
+        right: auto !important;
+        top: auto !important;
+    }
+
+    /* Show sub-menu when toggled on */
+    #all-header-menu [id^="mega-menu-wrap-primary"] [id^="mega-menu-primary"] > li.mega-menu-item.mega-toggle-on > ul.mega-sub-menu {
+        display: block !important;
+    }
+
+    /* Flyout sub-menu items â€” left-aligned, indented 30px */
+    #all-header-menu [id^="mega-menu-wrap-primary"] [id^="mega-menu-primary"] > li.mega-menu-flyout ul.mega-sub-menu li.mega-menu-item {
+        display: block !important;
+        width: 100% !important;
+        height: auto !important;
+        text-align: left !important;
+        background: #FFFFFF !important;
+    }
+
+    #all-header-menu [id^="mega-menu-wrap-primary"] [id^="mega-menu-primary"] > li.mega-menu-flyout ul.mega-sub-menu li.mega-menu-item a.mega-menu-link {
+        display: block !important;
+        padding: 6px 24px 6px 54px !important;
+        font-family: 'Montserrat', sans-serif !important;
+        font-size: 11px !important;
+        font-weight: 400 !important;
+        color: #314158 !important;
+        text-align: left !important;
+        text-transform: uppercase !important;
+        width: 100% !important;
+        height: auto !important;
+        min-height: auto !important;
+        background: #FFFFFF !important;
+        border: none !important;
+        white-space: normal !important;
+    }
+
+    #all-header-menu [id^="mega-menu-wrap-primary"] [id^="mega-menu-primary"] > li.mega-menu-flyout ul.mega-sub-menu li.mega-menu-item a.mega-menu-link:hover {
+        color: #093C71 !important;
+    }
+
+    /* Megamenu grid panels (Products) â€” in-flow, pushes siblings down */
+    #all-header-menu [id^="mega-menu-wrap-primary"] [id^="mega-menu-primary"] > li.mega-menu-megamenu > ul.mega-sub-menu {
+        position: static !important;
+        width: 100% !important;
+        height: auto !important;
+        max-height: none !important;
+        overflow: visible !important;
+        padding: 8px !important;
+        background: #FFFFFF !important;
+        box-shadow: none !important;
+        margin: 0 !important;
+    }
+
+    #all-header-menu [id^="mega-menu-wrap-primary"] [id^="mega-menu-primary"] > li.mega-menu-megamenu > ul.mega-sub-menu > li.mega-menu-row > ul.mega-sub-menu {
+        display: flex !important;
+        flex-wrap: wrap !important;
+        box-shadow: none !important;
+        background: transparent !important;
+        padding: 0 !important;
+    }
+
+    #all-header-menu [id^="mega-menu-wrap-primary"] [id^="mega-menu-primary"] > li.mega-menu-megamenu .mega-menu-column {
+        width: 50% !important;
+        float: none !important;
+        display: inline-block !important;
+        vertical-align: top !important;
+        padding: 8px !important;
+    }
+
+    /* Remove card/bg from widget items */
+    #all-header-menu [id^="mega-menu-wrap-primary"] [id^="mega-menu-primary"] > li.mega-menu-megamenu .widget_custom_html {
+        background: transparent !important;
+        box-shadow: none !important;
+        border: none !important;
+        padding: 0 !important;
+    }
+
+    #all-header-menu [id^="mega-menu-wrap-primary"] [id^="mega-menu-primary"] > li.mega-menu-megamenu .widget_custom_html img {
+        max-width: 100% !important;
+        width: 100% !important;
+        height: auto !important;
+        background: transparent !important;
+        box-shadow: none !important;
+        border: none !important;
+    }
+
+    #all-header-menu [id^="mega-menu-wrap-primary"] [id^="mega-menu-primary"] > li.mega-menu-megamenu .widget_custom_html h4,
+    #all-header-menu [id^="mega-menu-wrap-primary"] [id^="mega-menu-primary"] > li.mega-menu-megamenu .widget_custom_html h5 {
+        font-size: 12px !important;
+        margin: 4px 0 !important;
+        color: #314158 !important;
+    }
+
+    /* Mega menu rows â€” no border/bg */
+    #all-header-menu [id^="mega-menu-wrap-primary"] [id^="mega-menu-primary"] > li.mega-menu-megamenu > ul.mega-sub-menu > li.mega-menu-row {
+        background: transparent !important;
+        box-shadow: none !important;
+        border: none !important;
+    }
+
+    /* Hide text-only links in megamenu panels on mobile (keep widgets) */
+    #all-header-menu [id^="mega-menu-wrap-primary"] [id^="mega-menu-primary"] > li.mega-menu-megamenu > ul.mega-sub-menu > li.mega-menu-item:not(.mega-menu-row) {
+        display: none !important;
+    }
+
+    /* Hide CTA in header bar on mobile (shown inside mobile menu instead) */
+    #quote-btn {
+        display: none !important;
+    }
+
+    /* Padding top on menu dropdown */
+    #all-header-menu:not(.d-none) {
+        padding-top: 10px !important;
+    }
+
+    /* ============================================
+       MOBILE HEADER-NAV + CTA inside dropdown
+       ============================================ */
+
+    #mobile-header-nav {
+        display: block !important;
+        border-top: 1px solid #EAEEF3;
+        padding-top: 8px;
+        margin-top: 8px;
+    }
+
+    .mobile-headernav-list {
+        list-style: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    .mobile-headernav-list > li {
+        display: block !important;
+        width: 100% !important;
+    }
+
+    .mobile-headernav-list > li > a {
+        display: block !important;
+        height: 35px !important;
+        line-height: 35px !important;
+        font-family: 'Montserrat', sans-serif !important;
+        font-weight: 600 !important;
+        font-size: 11px !important;
+        text-transform: uppercase !important;
+        text-align: left !important;
+        color: #314158 !important;
+        padding: 0 24px !important;
+        text-decoration: none !important;
+    }
+
+    /* Hide lang switcher (second-to-last) & search (last) from mobile header-nav â€” already in blue bar */
+    .mobile-headernav-list > li:nth-last-child(1),
+    .mobile-headernav-list > li:nth-last-child(2) {
+        display: none !important;
+    }
+
+    /* Sub-menus in header-nav â€” collapsed by default */
+    .mobile-headernav-list > li > ul.sub-menu {
+        display: none !important;
+        list-style: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    /* Show when parent is toggled open (via mega menu plugin or JS) */
+    .mobile-headernav-list > li.mega-toggle-on > ul.sub-menu,
+    .mobile-headernav-list > li.mobile-sub-open > ul.sub-menu {
+        display: block !important;
+    }
+
+    .mobile-headernav-list > li > ul.sub-menu > li > a {
+        display: block !important;
+        font-family: 'Montserrat', sans-serif !important;
+        font-weight: 400 !important;
+        font-size: 11px !important;
+        text-transform: uppercase !important;
+        text-align: left !important;
+        color: #314158 !important;
+        padding: 6px 24px 6px 54px !important;
+        text-decoration: none !important;
+    }
+
+    /* Mobile CTA button */
+    #mobile-cta {
+        display: block !important;
+        padding: 16px 24px !important;
+        border-top: 1px solid #EAEEF3;
+        margin-top: 8px;
+    }
+
+    #mobile-cta a {
+        display: inline-block !important;
+        width: auto !important;
+        text-align: center !important;
+        padding: 10px 24px !important;
+        background: #093C71 !important;
+        color: #FFFFFF !important;
+        border-radius: 4px !important;
+        font-family: 'Montserrat', sans-serif !important;
+        font-weight: 600 !important;
+        font-size: 12px !important;
+        text-transform: uppercase !important;
+        text-decoration: none !important;
+        letter-spacing: 0.3px !important;
+    }
+
+    /* Disable hover on mega menu at tablet â€” click/chevron only.
+       The plugin adds mega-toggle-on via JS on mouseenter; we remove it immediately via CSS
+       by hiding the submenu unless the toggle was triggered by our click handler. */
+    [id^="mega-menu-wrap-primary"] [id^="mega-menu-primary"] > li.mega-menu-item > ul.mega-sub-menu {
+        visibility: hidden !important;
+        opacity: 0 !important;
+        transition: none !important;
+    }
+    [id^="mega-menu-wrap-primary"] [id^="mega-menu-primary"] > li.mega-menu-item.mega-toggle-on > ul.mega-sub-menu {
+        visibility: visible !important;
+        opacity: 1 !important;
+        display: block !important;
+    }
+}
+
+/* ============================================
+   UTILITY BAR (Blue Gradient - Top Row)
+   ============================================ */
+
+.header-utility-bar {
+    background: linear-gradient(89.81deg, #093C71 62.95%, #072C52 100%);
+    padding: 0 96px !important;
+    color: #FFFFFF;
+    width: 100%;
+}
+
+.header-utility-bar .container-xxl {
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.header-utility-bar .row {
+    min-height: 48px;
+    align-items: center !important;
+}
+
+/* Utility Logo â€” align left edge with main nav logo */
+.header-utility-bar .utility-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* USA logo (second image) â€” per Figma: 57x20 */
+.header-utility-bar .utility-logo .utility-logo__img:nth-child(2) {
+    width: 57px;
+    height: 20px;
+}
+
+.header-utility-bar a {
+    color: #FFFFFF;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 16px;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+    text-decoration: none;
+}
+
+.header-utility-bar a:hover {
+    text-decoration: underline;
+    color: #FFFFFF;
+}
+
+/* Utility nav links */
+#header-submenu-nav {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+#header-submenu-nav ul {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0;
+    list-style: none;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+#header-submenu-nav ul li {
+    display: flex;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+}
+
+#header-submenu-nav > ul > li > a {
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    height: 48px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 16px;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+    color: #FFFFFF;
+    text-decoration: none;
+    border: none !important;
+    white-space: nowrap;
+    position: relative;
+}
+
+#header-submenu-nav ul li:last-child a {
+    padding-right: 0;
+}
+
+/* Non-clickable mega-menu parent items (URL # or empty) â€” keep visual styling
+   but show default cursor since clicks don't navigate. */
+.nav-no-link {
+    cursor: default;
+}
+
+/* Make each utility nav <li> a positioning context for its divider */
+#header-submenu-nav > ul > li {
+    position: relative;
+}
+
+/* Vertical | divider centered on the boundary between items (Figma spec) */
+#header-submenu-nav > ul > li:not(:last-child)::after {
+    content: "|";
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translate(50%, -50%);
+    color: rgba(255, 255, 255, 0.3);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 11px;
+    line-height: 16px;
+    pointer-events: none;
+}
+
+/* Hide dividers on mobile/tablet â€” Figma spec is desktop-only */
+@media (max-width: 1023.98px) {
+    #header-submenu-nav > ul > li::after {
+        display: none !important;
+    }
+}
+
+/* Header-nav menu base */
+ul#header-nav-menu {
+    display: flex !important;
+    justify-content: flex-end !important;
+    flex-direction: row !important;
+}
+
+ul#header-nav-menu, ul#header-nav-menu ul {
+    list-style: none !important;
+}
+
+ul#header-nav-menu > li {
+    float: left;
+    width: auto;
+    font-size: 11px;
+    font-weight: 600;
+    position: relative;
+    padding-right: 8px;
+    margin-right: 8px;
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+ul#header-nav-menu li a {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px;
+    color: #fff;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+}
+
+/* Dropdowns hidden by default */
+ul#header-nav-menu li > ul {
+    display: none !important;
+}
+
+/* Show dropdown on hover */
+ul#header-nav-menu li:hover > ul {
+    display: block !important;
+}
+
+ul#header-nav-menu > li:hover > a {
+    color: #FFF200 !important;
+}
+
+/* axyz hover = yellow text only. Neutralise wardjet-custom.css's white
+   background box + rounded corners on upper-nav li:hover so it matches axyz. */
+#header-submenu-nav ul#header-nav-menu > li:hover,
+#header-submenu-nav > ul > li:hover,
+ul#header-nav-menu > li:hover {
+    background: transparent !important;
+    background-color: transparent !important;
+    border-radius: 0 !important;
+}
+
+/* Header-nav submenus (Resources dropdown etc.) */
+#header-submenu-nav ul ul.sub-menu,
+ul#header-nav-menu li > ul,
+ul#header-nav-menu li > ul.sub-menu {
+    position: absolute !important;
+    background: #FFFFFF !important;
+    box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.18), 0px 4px 6px -4px rgba(0, 0, 0, 0.15) !important;
+    padding: 4px 0 !important;
+    margin: 0 !important;
+    min-width: 140px !important;
+    width: auto !important;
+    z-index: 1000 !important;
+    list-style: none !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    top: 100% !important;
+    white-space: nowrap !important;
+}
+
+#header-submenu-nav ul ul.sub-menu li,
+ul#header-nav-menu li ul.sub-menu li {
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
+    text-align: center !important;
+    width: 100% !important;
+    min-height: 0 !important;
+    height: auto !important;
+    display: block !important;
+    background: #FFFFFF !important;
+}
+
+#header-submenu-nav ul ul.sub-menu li a,
+ul#header-nav-menu li ul.sub-menu li a {
+    font-family: 'Montserrat', sans-serif !important;
+    font-weight: 600 !important;
+    font-size: 11px !important;
+    line-height: 16px !important;
+    text-transform: uppercase !important;
+    text-align: center !important;
+    color: #314158 !important;
+    padding: 8px 4px !important;
+    display: inline-block !important;
+    width: fit-content !important;
+    white-space: nowrap !important;
+    border-bottom: 2px solid transparent !important;
+    background: #FFFFFF !important;
+    transition: border-bottom-color 0.3s ease !important;
+}
+
+#header-submenu-nav ul ul.sub-menu li a::before {
+    display: none !important;
+}
+
+#header-submenu-nav ul ul.sub-menu li a:hover,
+ul#header-nav-menu li ul.sub-menu li a:hover {
+    background: transparent !important;
+    color: #093C71 !important;
+    border-bottom: 2px solid #093C71 !important;
+}
+
+#header-submenu-nav > ul > li > a:hover {
+    color: #FFF200 !important;
+    text-decoration: none;
+}
+
+#header-submenu-nav > ul > li > a {
+    cursor: pointer !important;
+}
+
+/* Header nav dropdown links stay white on hover */
+#header-submenu-nav ul.sub-menu li a:hover {
+    color: #314158 !important;
+}
+
+@media (max-width: 991.98px) {
+    .header-utility-bar {
+        padding: 0 48px !important;
+    }
+}
+
+@media (max-width: 1023.98px) {
+    .header-utility-bar {
+        display: flex !important;
+        padding: 0 24px 1px !important;
+        height: 49px;
+        background: linear-gradient(87.26deg, #093C71 81.18%, #072C52 100%);
+    }
+
+    .header-utility-bar .container-xxl {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 0 !important;
+    }
+
+    .header-utility-bar .row {
+        min-height: 48px;
+        flex-wrap: nowrap !important;
+        width: 100% !important;
+    }
+
+    /* Logos */
+    .header-utility-bar .utility-logo {
+        gap: 12px;
+    }
+
+    .header-utility-bar .utility-logo .utility-logo__img:first-child {
+        width: 33px;
+        height: 26px;
+    }
+
+    .header-utility-bar .utility-logo .utility-logo__img:nth-child(2) {
+        width: 57px;
+        height: 20px;
+    }
+
+    /* Nav container â€” push right, take remaining space */
+    .header-utility-bar .col {
+        flex: 1 1 0% !important;
+        min-width: 0 !important;
+    }
+
+    #header-submenu-nav {
+        justify-content: flex-end !important;
+    }
+
+    /* Reset header-nav-menu â€” no white bg, no extra space */
+    ul#header-nav-menu,
+    #header-submenu-nav > ul {
+        background: transparent !important;
+        gap: 4px !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+
+    /* Hide all regular nav links on mobile */
+    #header-submenu-nav > ul > li {
+        display: none !important;
+    }
+
+    /* Show only language switcher (second-to-last item) and search (last item) */
+    #header-submenu-nav > ul > li:nth-last-child(2),
+    #header-submenu-nav > ul > li.search-control {
+        display: flex !important;
+    }
+
+    /* Language switcher parent â€” position context for centered dropdown */
+    #header-submenu-nav > ul > li:nth-last-child(2) {
+        position: relative !important;
+    }
+
+    /* Language switcher link */
+    #header-submenu-nav > ul > li:nth-last-child(2) > a {
+        font-family: 'Montserrat', sans-serif !important;
+        font-weight: 600 !important;
+        font-size: 12px !important;
+        line-height: 16px !important;
+        text-transform: uppercase !important;
+        color: rgba(255, 255, 255, 0.8) !important;
+        padding: 0 6px !important;
+        height: auto !important;
+        white-space: nowrap !important;
+    }
+
+    /* Pipe divider between language switcher and search icon (mobile/tablet).
+       Negative margin-left shifts the divider toward the language label so
+       it sits visually centered between the label text and the search icon. */
+    #header-submenu-nav > ul > li.search-control::before {
+        content: '|';
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 600;
+        font-size: 11px;
+        line-height: 16px;
+        color: rgba(255, 255, 255, 0.3);
+        display: flex;
+        align-items: center;
+        margin-left: -8px;
+        margin-right: 4px;
+    }
+
+    /* Search control li â€” no background ever */
+    #header-submenu-nav > ul > li.search-control {
+        background: transparent !important;
+    }
+
+    /* Search form â€” hidden by default, overlays right side of utility bar */
+    #header-submenu-nav > ul > li.search-control #search-row {
+        display: none !important;
+        background: transparent !important;
+    }
+
+    #header-submenu-nav > ul > li.search-control #search-row:not(.search-open) input,
+    #header-submenu-nav > ul > li.search-control #search-row:not(.search-open) input:focus {
+        background: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
+        outline: none !important;
+    }
+
+    #header-submenu-nav > ul > li.search-control #search-row.search-open {
+        display: flex !important;
+        position: absolute;
+        top: 50%;
+        right: 0;
+        transform: translateY(-50%);
+        width: 200px;
+        background: transparent;
+        padding: 0;
+        margin: 0;
+        z-index: 10001;
+    }
+
+    #header-submenu-nav > ul > li.search-control #search-row.search-open label {
+        width: 100%;
+        margin: 0;
+    }
+
+    #header-submenu-nav > ul > li.search-control #search-row.search-open input {
+        width: 100%;
+        height: 30px;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 12px;
+        font-weight: 500;
+        padding: 4px 10px;
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        border-radius: 3px;
+        background: rgba(255, 255, 255, 0.2);
+        color: #FFFFFF;
+        outline: none;
+    }
+
+    #header-submenu-nav > ul > li.search-control #search-row.search-open input::placeholder {
+        color: rgba(255, 255, 255, 0.5);
+    }
+
+    /* Hide lang switcher, pipe, and logos when search is open */
+    .header-utility-bar.search-active #header-submenu-nav > ul > li:nth-last-child(2),
+    .header-utility-bar.search-active #header-submenu-nav > ul > li.search-control::before,
+    .header-utility-bar.search-active .utility-logo {
+        display: none !important;
+    }
+
+    /* Search icon â€” always on top, clickable */
+    #header-submenu-nav > ul > li.search-control #search-icon {
+        font-size: 14px !important;
+        color: rgba(255, 255, 255, 0.8) !important;
+        cursor: pointer;
+        position: relative;
+        z-index: 10002;
+    }
+
+    /* Stretch input left of the icon, full available width */
+    #header-submenu-nav > ul > li.search-control #search-row.search-open {
+        right: 24px;
+        width: calc(100vw - 80px);
+    }
+
+    /* Language dropdown â€” hidden by default, centered under label */
+    #header-submenu-nav ul > li.menu-item-has-children > ul.sub-menu,
+    ul#header-nav-menu > li.menu-item-has-children > ul.sub-menu {
+        display: none !important;
+        position: absolute !important;
+        top: calc(100% + 5px) !important;
+        left: 50% !important;
+        right: auto !important;
+        transform: translateX(-50%) !important;
+        min-width: 140px !important;
+        width: auto !important;
+        z-index: 10000 !important;
+        background: #FFFFFF !important;
+        box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1) !important;
+        padding: 4px 0 !important;
+    }
+
+    /* Show dropdown via JS toggle class */
+    #header-submenu-nav ul > li.menu-item-has-children.lang-open > ul.sub-menu,
+    ul#header-nav-menu > li.menu-item-has-children.lang-open > ul.sub-menu {
+        display: block !important;
+    }
+
+    #header-submenu-nav ul > li.menu-item-has-children > ul.sub-menu li {
+        height: auto !important;
+        min-height: auto !important;
+    }
+
+    #header-submenu-nav ul > li.menu-item-has-children > ul.sub-menu li a {
+        font-family: 'Montserrat', sans-serif !important;
+        font-size: 12px !important;
+        font-weight: 600 !important;
+        padding: 5px 12px !important;
+        height: auto !important;
+        min-height: auto !important;
+        line-height: 18px !important;
+    }
+
+}

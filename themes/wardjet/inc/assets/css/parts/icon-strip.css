@@ -1,0 +1,127 @@
+/**
+ * Icon Strip Styles (AXYZQuickInfo)
+ * Generated from Figma: icon-strip-parsed.json
+ * Node: 2539-2094
+ */
+
+/* Section */
+.icon-strip-section {
+    width: 100%;
+    max-width: 1440px;
+    padding: 48px 96px;
+    margin: 0 auto;
+    border-bottom: 1px solid #E1E9F0;
+    background-color: #FFFFFF;
+}
+
+/* Grid */
+.icon-strip-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    align-items: start;
+}
+
+/* Icon Item */
+.icon-strip-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 16px;
+}
+
+/* Icon Circle */
+.icon-strip-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 64px;
+    background: linear-gradient(180deg, #093C71 0%, #0A5BA3 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.icon-strip-icon svg {
+    width: 24px;
+    height: 24px;
+    stroke: #FFFFFF;
+    fill: #FFFFFF;
+}
+
+.icon-strip-icon img {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+}
+
+/* Text Content */
+.icon-strip-text {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+/* Title */
+.icon-strip-title {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.35px;
+    color: #093C71;
+    margin: 0;
+}
+
+/* Subtitle */
+.icon-strip-subtitle {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 18px;
+    color: #45556C;
+    margin: 0;
+}
+
+/* Responsive - Tablet */
+@media (max-width: 991.98px) {
+    .icon-strip-section {
+        padding: 40px 48px;
+    }
+
+    .icon-strip-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 32px;
+    }
+}
+
+/* Responsive - Mobile */
+@media (max-width: 767.98px) {
+    .icon-strip-section {
+        padding: 48px 24px;
+        border-bottom: 1px solid #E2E8F0;
+    }
+
+    .icon-strip-grid {
+        grid-template-columns: 1fr;
+        gap: 32px;
+    }
+
+    .icon-strip-item {
+        gap: 12px;
+    }
+
+    .icon-strip-title {
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 20px;
+        letter-spacing: 0.35px;
+    }
+
+    .icon-strip-subtitle {
+        font-size: 12px;
+        line-height: 16px;
+    }
+}

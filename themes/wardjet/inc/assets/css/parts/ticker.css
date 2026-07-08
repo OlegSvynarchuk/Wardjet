@@ -1,0 +1,229 @@
+/**
+ * News Ticker Styles (AXYZTicker)
+ * Based on Figma specs: 1440px x 40px scrolling ticker
+ */
+
+/* Ticker Container */
+.news-ticker {
+    box-sizing: border-box;
+    width: 100%;
+    height: 40px;
+    background: #DADADA;
+    border-bottom: 1px solid #DADADA;
+    border-radius: 0;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+/* Track Wrapper — clips the scrolling content */
+.news-ticker .ticker-track-wrapper {
+    flex: 1;
+    overflow: hidden;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    margin-right: 200px;
+}
+
+/* Ticker Track */
+.news-ticker .ticker-track {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 50px;
+    padding: 0;
+    white-space: nowrap;
+    animation: ticker-scroll 60s linear infinite;
+}
+
+/* Pause on hover */
+.news-ticker:hover .ticker-track {
+    animation-play-state: paused;
+}
+
+/* Ticker Item */
+.news-ticker .ticker-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 4px;
+    height: 17px;
+}
+
+/* Category Label */
+.news-ticker .ticker-category {
+    font-family: 'Montserrat', sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 11px;
+    line-height: 16px;
+    text-align: center;
+    text-transform: uppercase;
+    color: #000000;
+}
+
+/* Ticker Link */
+.news-ticker .ticker-link {
+    font-family: 'Montserrat', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 11px;
+    line-height: 16px;
+    text-align: center;
+    text-transform: uppercase;
+    color: #000000;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.news-ticker .ticker-link:hover {
+    color: #093C71;
+}
+
+/* Divider */
+.news-ticker .ticker-divider {
+    font-family: 'Montserrat', sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 11px;
+    line-height: 16px;
+    text-align: center;
+    text-transform: uppercase;
+    color: #000000;
+    margin: 0 4px;
+}
+
+/* Read More Button */
+.news-ticker .read-more {
+    position: absolute;
+    right: 96px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: 'Montserrat', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 11px;
+    line-height: 16px;
+    text-align: center;
+    text-transform: uppercase;
+    color: #093C71;
+    text-decoration: none;
+    z-index: 10;
+}
+
+.news-ticker .read-more:hover {
+    text-decoration: underline;
+}
+
+/* Hide read-more by default during initial load. JS adds .news-ticker--ready
+   after hydration to reveal it (only when there are real news items to read more about). */
+.news-ticker .read-more {
+    display: none;
+}
+.news-ticker--ready:not(.news-ticker--fallback) .read-more {
+    display: inline-block;
+}
+
+/* ── Fallback banner (CNC Shop) when no live news/events across any locale ── */
+/* Animate like regular items — JS's sizeAndAnimate handles the marquee.
+   Hide the separate read-more and reclaim its reserved 200px on the right
+   so the scrolling text can use the full viewport width. */
+.news-ticker--fallback .ticker-track-wrapper {
+    margin-right: 0;
+}
+.news-ticker .ticker-fallback {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    font-size: 11px;
+    line-height: 16px;
+    text-transform: uppercase;
+    color: #000000;
+    text-align: center;
+}
+.news-ticker .ticker-fallback__cta {
+    font-weight: 600;
+    color: #093C71;
+    text-decoration: none;
+    text-transform: uppercase;
+    margin-left: 4px;
+}
+.news-ticker .ticker-fallback__cta:hover {
+    text-decoration: underline;
+}
+
+/* Scroll Animation
+   JS sets --ticker-start-x (wrapper width, px) and --ticker-end-x (-track width, px)
+   so the track enters from off-screen right and exits off-screen left,
+   with one clean pass per loop (no duplicated copies visible). */
+@keyframes ticker-scroll {
+    0%   { transform: translateX(var(--ticker-start-x, 100%)); }
+    100% { transform: translateX(var(--ticker-end-x, -100%)); }
+}
+
+/* Responsive - Tablet */
+@media (max-width: 991.98px) {
+    .news-ticker .ticker-track {
+        padding: 0;
+        gap: 40px;
+    }
+
+    .news-ticker .read-more {
+        right: 48px;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+}
+
+/* Responsive - Mobile */
+@media (max-width: 767.98px) {
+    .news-ticker {
+        height: 40px;
+        padding: 0 24px 1px;
+        background: #DADADA;
+        border-bottom: 1px solid #DADADA;
+        position: relative;
+    }
+
+    .news-ticker .ticker-track-wrapper {
+        margin-right: 0;
+        width: 100%;
+    }
+
+    .news-ticker .ticker-track {
+        padding: 0;
+        gap: 30px;
+    }
+
+    .news-ticker .ticker-category,
+    .news-ticker .ticker-link,
+    .news-ticker .ticker-divider {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 11px;
+        line-height: 16px;
+        text-transform: uppercase;
+        color: #000000;
+    }
+
+    .news-ticker .ticker-category {
+        font-weight: 300;
+    }
+
+    .news-ticker .ticker-link {
+        font-weight: 600;
+        color: #000000;
+    }
+
+    .news-ticker .ticker-divider {
+        font-weight: 300;
+    }
+
+    /* Mobile: hide read-more entirely, let the running line span the full width. */
+    .news-ticker .read-more {
+        display: none !important;
+    }
+    .news-ticker .ticker-track-wrapper {
+        margin-right: 0;
+        padding: 0 5px;
+    }
+}

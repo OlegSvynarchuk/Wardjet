@@ -1,22 +1,63 @@
-<section id="" class="content-area partnership dark pt-5 pb-5">
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-12">
-				<h2 class="heading"><?php the_field('partner_heading'); ?></h2>
-				<?php 
-				$partner_images = get_field('partners');
-				if( $partner_images ): ?>
-					<div class="row">
-						<?php foreach( $partner_images as $partner_image ): ?>
-							<div class="col-sm col-4 text-center">
+<?php
+/**
+ * Partnerships Section
+ * Logo carousel/slider with pagination
+ */
 
-								<img src="<?php echo esc_url($partner_image['url']); ?>" alt="<?php echo esc_attr($partner_image['alt']); ?>" />
+$partners_heading = get_field( 'partnerships_heading' );
+$partners_desc    = get_field( 'partnerships_description' );
+$partners_logos   = get_field( 'partnerships_logos' );
 
-							</div>
-						<?php endforeach; ?>
-					</div>
-				<?php endif; ?>
-			</div>
+// Fallback to old field names if new ones aren't set
+if ( ! $partners_heading ) {
+	$partners_heading = get_field( 'partner_heading' );
+}
+if ( ! $partners_logos ) {
+	$partners_logos = get_field( 'partners' );
+}
+if ( ! $partners_desc ) {
+	$partners_desc = __( 'Trusted by industry leaders and innovative organizations worldwide', 'axyz' );
+}
+?>
+
+<section class="partnerships">
+	<div class="partnerships__container">
+		<div class="partnerships__header">
+			<?php if ( $partners_heading ) : ?>
+				<h2 class="partnerships__title"><?php echo esc_html( $partners_heading ); ?></h2>
+			<?php endif; ?>
+			<?php if ( $partners_desc ) : ?>
+				<p class="partnerships__desc"><?php echo esc_html( $partners_desc ); ?></p>
+			<?php endif; ?>
 		</div>
+
+		<?php if ( $partners_logos ) : ?>
+		<div class="partnerships__slider-wrapper">
+			<div class="partnerships__slider" id="partnerships-slider">
+				<div class="partnerships__track">
+					<?php
+					$total_logos = count( $partners_logos );
+					foreach ( $partners_logos as $logo ) :
+						$logo_url = is_array( $logo ) ? $logo['url'] : $logo;
+					?>
+						<div class="partnerships__slide">
+							<img src="<?php echo esc_url( $logo_url ); ?>" alt="" class="partnerships__logo" />
+						</div>
+					<?php endforeach; ?>
+				</div>
+			</div>
+
+			<?php if ( $total_logos > 4 ) : ?>
+			<div class="partnerships__pagination" id="partnerships-pagination">
+				<?php
+				$total_slides = ceil( $total_logos / 4 );
+				for ( $i = 0; $i < $total_slides; $i++ ) :
+				?>
+					<button type="button" class="partnerships__dot <?php echo $i === 0 ? 'active' : ''; ?>" data-slide="<?php echo $i; ?>"></button>
+				<?php endfor; ?>
+			</div>
+			<?php endif; ?>
+		</div>
+		<?php endif; ?>
 	</div>
-</section><!-- #primary -->
+</section>

@@ -66,10 +66,112 @@ jQuery(document).ready(function($) {
     });
 
 
-$('#mobile-menu-btn').click(function(e){
+/* ===========================================================
+   * Dynamic header offset Ã¢â‚¬â€ position mobile menu overlay below
+   * the fixed header. Recalculates on resize.
+   * =========================================================== */
+  function adjustHeaderOffset() {
+    $('#content').css('padding-top', '');
+    if ($(window).width() >= 1024) {
+      $('#all-header-menu').css({'top': '', 'max-height': ''});
+      return;
+    }
+    var headerHeight = $('header#masthead').outerHeight() || 0;
+    $('#all-header-menu').css({
+      'top': headerHeight + 'px',
+      'max-height': 'calc(100vh - ' + headerHeight + 'px)'
+    });
+  }
+  adjustHeaderOffset();
+  $(window).on('resize', adjustHeaderOffset);
+
+  $('#mobile-menu-btn').click(function(e){
     e.preventDefault();
+    $(this).toggleClass('menu-open').blur();
     $('#all-header-menu').toggleClass('d-none');
-  })
+  });
+
+  /* ===========================================================
+   * Mobile menu Ã¢â‚¬â€ separate chevron toggle for items with children
+   * Label = navigate to link, chevron = expand/collapse children
+   * =========================================================== */
+  function injectMobileChevrons() {
+    if ($(window).width() >= 1024) return;
+    $('[id^="mega-menu-wrap-primary"] [id^="mega-menu-primary"] > li.mega-menu-item-has-children, ' +
+      '[id^="mega-menu-wrap-primary"] [id^="mega-menu-primary"] > li.mega-menu-megamenu, ' +
+      '.mobile-headernav-list > li.menu-item-has-children').each(function() {
+      var $li = $(this);
+      if ($li.find('> .wj-mobile-chevron').length) return; // already injected
+      var $chevron = $('<button type="button" class="wj-mobile-chevron" aria-label="Expand"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 9L12 15L18 9" stroke="#093C71" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>');
+      $li.append($chevron);
+    });
+  }
+
+  // Disable Max Mega Menu hover behavior at tablet/mobile
+  $(document).on('mouseenter', '[id^="mega-menu-wrap-primary"] [id^="mega-menu-primary"] > li.mega-menu-item', function() {
+    if ($(window).width() < 1024) {
+      var $li = $(this);
+      setTimeout(function() {
+        if (!$li.data('wj-clicked')) {
+          $li.removeClass('mega-toggle-on');
+        }
+      }, 10);
+    }
+  });
+
+  injectMobileChevrons();
+  $(window).on('resize', injectMobileChevrons);
+
+  // Chevron click handler Ã¢â‚¬â€ toggle expanded state, prevent label navigation
+  $(document).on('click touchend', '.wj-mobile-chevron', function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    var $li = $(this).closest('li');
+    var isOpen = $li.hasClass('mega-toggle-on');
+    $li.toggleClass('mega-toggle-on mobile-sub-open wj-expanded');
+    $li.data('wj-clicked', !isOpen);
+    $(this).toggleClass('wj-rotated');
+  });
+
+  // Stop Mega Menu plugin from toggling children when label is clicked (capture phase).
+  document.addEventListener('click', function(e) {
+    if (window.innerWidth >= 1024) return;
+    var $target = $(e.target);
+    var $link = $target.closest('[id^="mega-menu-wrap-primary"] [id^="mega-menu-primary"] > li.mega-menu-item-has-children > a.mega-menu-link, [id^="mega-menu-wrap-primary"] [id^="mega-menu-primary"] > li.mega-menu-megamenu > a.mega-menu-link');
+    if (!$link.length) return;
+    if ($target.closest('.wj-mobile-chevron').length) return;
+    var href = $link.attr('href');
+    if (href && href !== '#' && href !== '') {
+      e.stopImmediatePropagation();
+    } else {
+      e.stopImmediatePropagation();
+      e.preventDefault();
+    }
+  }, true);
+
+  // Mobile header-nav: toggle sub-menus on click
+  $(document).on('click', '.mobile-headernav-list > li.menu-item-has-children > a', function(e){
+    if ($(window).width() < 1024) {
+      e.preventDefault();
+      e.stopPropagation();
+      $(this).parent().toggleClass('mobile-sub-open');
+    }
+  });
+
+  // Language switcher toggle on mobile
+  $('#header-submenu-nav > ul > li.menu-item-has-children > a').on('click', function(e){
+    if ($(window).width() < 1024) {
+      e.preventDefault();
+      $(this).parent().toggleClass('lang-open');
+    }
+  });
+
+  // Close language dropdown when clicking outside
+  $(document).on('click', function(e){
+    if (!$(e.target).closest('#header-submenu-nav li.menu-item-has-children').length) {
+      $('#header-submenu-nav li.menu-item-has-children').removeClass('lang-open');
+    }
+  });
 
     $('.youtube-video-modal').on('hidden.bs.modal', function (event) {
         var iframe = $(this).find('iframe');
@@ -242,4 +344,331 @@ $(function(){
     });
 
     $('#sorter-btn').click();
+
+    // ============================================
+    // Hero Video Carousel - Auto-play & Auto-advance (ported from blueprint)
+    // ============================================
+    var $heroVideoCarousel = $('#heroVideoCarousel');
+
+    if ($heroVideoCarousel.length) {
+        var $videos = $heroVideoCarousel.find('.hero-video');
+        var $carousel = $heroVideoCarousel.carousel({
+            interval: false, // Disable Bootstrap auto-slide
+            pause: false
+        });
+
+        // Play the first video on load
+        var $firstVideo = $heroVideoCarousel.find('.carousel-item.active .hero-video');
+        if ($firstVideo.length) {
+            $firstVideo[0].play().catch(function(error) {
+                console.log('Auto-play prevented:', error);
+            });
+        }
+
+        // When video ends, advance to next slide
+        $videos.on('ended', function() {
+            var $currentItem = $(this).closest('.carousel-item');
+            var $nextItem = $currentItem.next('.carousel-item');
+
+            $videos.each(function() {
+                this.pause();
+                this.currentTime = 0;
+            });
+
+            if ($nextItem.length) {
+                $carousel.carousel('next');
+            } else {
+                $carousel.carousel(0);
+            }
+        });
+
+        // When slide changes, play the new video
+        $carousel.on('slid.bs.carousel', function(e) {
+            var $activeVideo = $(e.relatedTarget).find('.hero-video');
+            if ($activeVideo.length) {
+                $activeVideo[0].play().catch(function(error) {
+                    console.log('Auto-play prevented:', error);
+                });
+            }
+        });
+
+        // Pause video when navigating manually
+        $carousel.on('slide.bs.carousel', function() {
+            $videos.each(function() {
+                this.pause();
+            });
+        });
+    }
+
+    // Features Slider Ã¢â‚¬â€ infinite translateX track
+    (function() {
+        var $slider = $('#featuresSlider');
+        if (!$slider.length) return;
+
+        var $origTrack = $slider.find('.features-track');
+        var $originals = $origTrack.find('.features-track__slide');
+        var totalOriginal = $originals.length;
+
+        // Need at least 2 slides for looping to make sense
+        if (totalOriginal < 2) return;
+
+        var $prevBtn = $slider.find('.slider-arrow.prev');
+        var $nextBtn = $slider.find('.slider-arrow.next');
+
+        var interval = $slider.data('interval');
+        var autoplay = interval && interval !== 'false';
+        var autoplayInterval;
+        var isAnimating = false;
+
+        function getPerView() {
+            var w = window.innerWidth;
+            if (w <= 767) return 1;
+            if (w <= 1023) return 2;
+            return 3;
+        }
+
+        function getSlideMetrics() {
+            var perView = getPerView();
+            var gap = perView === 1 ? 0 : 24;
+            var wrapperWidth = $origTrack.parent().width();
+            var slideWidth = (wrapperWidth - gap * (perView - 1)) / perView;
+            return { perView: perView, gap: gap, wrapperWidth: wrapperWidth, slideWidth: slideWidth };
+        }
+
+        // Build clones: prepend `perView` slides before, append `perView` slides after
+        function buildClones() {
+            $origTrack.find('.features-track__slide--clone').remove();
+            var perView = getPerView();
+            var prependCount = perView;
+            var appendCount = perView;
+
+            // Append clones to end
+            for (var i = 0; i < appendCount; i++) {
+                var $clone = $originals.eq(i % totalOriginal).clone();
+                $clone.addClass('features-track__slide--clone');
+                $origTrack.append($clone);
+            }
+            // Prepend clones to start (in reverse order)
+            for (var j = 0; j < prependCount; j++) {
+                var idx = (totalOriginal - 1 - (j % totalOriginal));
+                var $clone = $originals.eq(idx).clone();
+                $clone.addClass('features-track__slide--clone');
+                $origTrack.prepend($clone);
+            }
+        }
+
+        // currentIndex is 0-based index into original slides
+        var currentIndex = 0;
+
+        // The track position where index 0 of originals starts = perView slides worth of offset
+        function getBaseOffset() {
+            var m = getSlideMetrics();
+            return m.perView * (m.slideWidth + m.gap);
+        }
+
+        function applyTransform(instant) {
+            var m = getSlideMetrics();
+            var offset = getBaseOffset() + currentIndex * (m.slideWidth + m.gap);
+            if (instant) {
+                $origTrack.css('transition', 'none');
+            } else {
+                $origTrack.css('transition', 'transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1)');
+            }
+            $origTrack.css('transform', 'translateX(-' + offset + 'px)');
+        }
+
+        function goNext() {
+            if (isAnimating) return;
+            isAnimating = true;
+            stopAutoplay();
+
+            currentIndex++;
+            applyTransform(false);
+
+            var safetyTimeout = setTimeout(function() {
+                $origTrack.off('transitionend');
+                isAnimating = false;
+                if (currentIndex >= totalOriginal) {
+                    currentIndex = currentIndex - totalOriginal;
+                    applyTransform(true);
+                }
+                startAutoplay();
+            }, 600);
+
+            $origTrack.one('transitionend', function() {
+                clearTimeout(safetyTimeout);
+                isAnimating = false;
+                if (currentIndex >= totalOriginal) {
+                    currentIndex = currentIndex - totalOriginal;
+                    applyTransform(true);
+                    $origTrack[0].offsetHeight;
+                }
+                startAutoplay();
+            });
+        }
+
+        function goPrev() {
+            if (isAnimating) return;
+            isAnimating = true;
+            stopAutoplay();
+
+            currentIndex--;
+            applyTransform(false);
+
+            var safetyTimeout = setTimeout(function() {
+                $origTrack.off('transitionend');
+                isAnimating = false;
+                if (currentIndex < 0) {
+                    currentIndex = currentIndex + totalOriginal;
+                    applyTransform(true);
+                }
+                startAutoplay();
+            }, 600);
+
+            $origTrack.one('transitionend', function() {
+                clearTimeout(safetyTimeout);
+                isAnimating = false;
+                if (currentIndex < 0) {
+                    currentIndex = currentIndex + totalOriginal;
+                    applyTransform(true);
+                    $origTrack[0].offsetHeight;
+                }
+                startAutoplay();
+            });
+        }
+
+        function startAutoplay() {
+            if (autoplay) {
+                autoplayInterval = setInterval(function() {
+                    goNext();
+                }, interval);
+            }
+        }
+
+        function stopAutoplay() {
+            clearInterval(autoplayInterval);
+        }
+
+        // Init
+        buildClones();
+        applyTransform(true);
+        startAutoplay();
+        adjustAccentLines();
+
+        $prevBtn.on('click', function() {
+            goPrev();
+        });
+        $nextBtn.on('click', function() {
+            goNext();
+        });
+
+        // Match accent-line width to last line of wrapped titles
+        function adjustAccentLines() {
+            $origTrack.find('.feature-title').each(function() {
+                var el = this;
+                var textNode = el.childNodes[0];
+                if (!textNode || textNode.nodeType !== 3) return;
+
+                var lineHeight = parseFloat(getComputedStyle(el).lineHeight);
+                var elHeight = el.getBoundingClientRect().height;
+
+                // Single line Ã¢â‚¬â€ inline-block wrapper handles it
+                if (elHeight <= lineHeight * 1.2) {
+                    $(el).siblings('.accent-line').css('width', '');
+                    return;
+                }
+
+                // Multi-line Ã¢â‚¬â€ measure last line via getClientRects
+                var range = document.createRange();
+                range.selectNode(textNode);
+                var rects = range.getClientRects();
+
+                if (rects.length > 1) {
+                    var maxWidth = 0;
+                    for (var r = 0; r < rects.length; r++) {
+                        if (rects[r].width > maxWidth) maxWidth = rects[r].width;
+                    }
+                    $(el).siblings('.accent-line').css('width', Math.ceil(maxWidth) + 'px');
+                }
+            });
+        }
+
+        // Touch / swipe support
+        var touchStartX = 0;
+        var touchEndX = 0;
+
+        $slider.on('touchstart', function(e) {
+            touchStartX = e.originalEvent.touches[0].clientX;
+        });
+        $slider.on('touchend', function(e) {
+            touchEndX = e.originalEvent.changedTouches[0].clientX;
+            var diff = touchStartX - touchEndX;
+            if (Math.abs(diff) > 50) {
+                if (diff > 0) {
+                    goNext();
+                } else {
+                    goPrev();
+                }
+            }
+        });
+
+        // Rebuild on resize
+        var resizeTimer;
+        $(window).on('resize', function() {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(function() {
+                buildClones();
+                applyTransform(true);
+                adjustAccentLines();
+            }, 150);
+        });
+    })();
+
+    // Products section â€” mobile scroll dots
+    (function() {
+        if ($(window).width() >= 1024) return;
+        var $grid = $('.products-section .products-grid');
+        var $dots = $('.products-section .products-dots');
+        if (!$grid.length || !$dots.length) return;
+
+        var $cards = $grid.find('.product-card');
+        var total = $cards.length;
+        if (total < 2) return;
+
+        // Generate dots
+        for (var i = 0; i < total; i++) {
+            var $dot = $('<button class="dot" data-index="' + i + '"></button>');
+            if (i === 0) $dot.addClass('active');
+            $dots.append($dot);
+        }
+
+        // Click dot to scroll
+        $dots.on('click', '.dot', function() {
+            var idx = $(this).data('index');
+            var card = $cards.eq(idx);
+            if (card.length) {
+                $grid[0].scrollTo({ left: card[0].offsetLeft - 24, behavior: 'smooth' });
+            }
+        });
+
+        // Update active dot on scroll
+        var scrollTimer;
+        $grid.on('scroll', function() {
+            clearTimeout(scrollTimer);
+            scrollTimer = setTimeout(function() {
+                var scrollLeft = $grid[0].scrollLeft;
+                var closest = 0;
+                var closestDist = Infinity;
+                $cards.each(function(i) {
+                    var dist = Math.abs(this.offsetLeft - 24 - scrollLeft);
+                    if (dist < closestDist) {
+                        closestDist = dist;
+                        closest = i;
+                    }
+                });
+                $dots.find('.dot').removeClass('active');
+                $dots.find('.dot').eq(closest).addClass('active');
+            }, 50);
+        });
+    })();
 	}); // jquery document ready
