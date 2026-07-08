@@ -68,8 +68,8 @@ add_filter('post_type_link', function ($link, $post) {
     if (!$post instanceof WP_Post) return $link;
 
     // Pages intentionally excluded — they get /cc/ll/ via their own slugs.
-    $scoped = ['post', 'routers', 'industry', 'accessories', 'software',
-               'materials', 'testimonial', 'news_and_events', 'webinar',
+    $scoped = ['post', 'products', 'series', 'industry', 'accessories',
+               'testimonial', 'news_and_events', 'webinar',
                'blog', 'video'];
     if (!in_array($post->post_type, $scoped, true)) return $link;
 

@@ -92,7 +92,7 @@ function custom_nav_menu_items($items, $menu) {
 
     $languages = wj_multilingual_languages();
 
-    $post_types_to_filter = ['routers', 'industry', 'accessories', 'software', 'materials'];
+    $post_types_to_filter = ['products', 'series', 'industry', 'accessories'];
     $aliasable_locales    = ['en-uk', 'en-ca'];
 
     $current_url = function_exists('add_query_arg')
@@ -161,7 +161,7 @@ function custom_nav_menu_items($items, $menu) {
     $current_post_type = $current_post_id ? get_post_type($current_post_id) : '';
     $is_home_like = is_front_page()
         || (is_page() && function_exists('get_field') && get_field('is_frontpage', $current_post_id) === 'yes');
-    $managed_cpts = ['routers', 'industry', 'accessories', 'software', 'materials',
+    $managed_cpts = ['products', 'series', 'industry', 'accessories',
                      'video', 'blog', 'news_and_events', 'webinar', 'testimonial'];
 
     foreach ($languages as $lang) {
@@ -312,7 +312,7 @@ add_filter('wp_get_nav_menu_items', function ($items) {
         }
     }
 
-    $cpt_bases = '(routers|industry|accessories|software|materials|testimonial|testimonials|webinar|webinars|news_and_events)';
+    $cpt_bases = '(products|series|industry|accessories|testimonial|testimonials|webinar|webinars|news_and_events)';
 
     foreach ($items as $it) {
         if (isset($is_switch_item[(string) $it->ID])) continue;

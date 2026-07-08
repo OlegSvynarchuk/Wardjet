@@ -107,7 +107,7 @@ add_action('template_redirect', function () {
 
         // 4) Non-prefixed CPT/archive URLs → wrap to /us/en/
         if ($path !== '/') {
-            $cpt_slugs       = 'accessories|industry|video|testimonials?|routers|software|products|materials|blogs?|webinars?|news_and_events|news-events';
+            $cpt_slugs       = 'accessories|industry|video|testimonials?|products|series|blogs?|webinars?|news_and_events|news-events';
             $localized_slugs = 'blogi|blogues|baza-wiedzy|seminarium-internetowe|seminario-web|webinaire|wiadomosci-i-wydarzenia|noticias-y-eventos|nouvelles-et-evenements';
             $tax_slugs       = 'section|blog-industry|blog-material|blog-product|webinar-industry|webinar-material|webinar-category|testimonial_industries|technical_topics|events|news';
             if (preg_match('#^/(' . $cpt_slugs . '|' . $localized_slugs . '|' . $tax_slugs . ')(/|$)#i', $path)) {

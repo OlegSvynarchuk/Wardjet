@@ -49,11 +49,10 @@ function wj_multilingual_base_to_pt(): array {
     static $map = null;
     if ($map !== null) return $map;
     $map = [
-        'routers'         => 'routers',
+        'products'        => 'products',
+        'series'          => 'series',
         'industry'        => 'industry',
         'accessories'     => 'accessories',
-        'software'        => 'software',
-        'materials'       => 'materials',
         'video'           => 'video',
         'blog'            => 'blog',
         'news_and_events' => 'news_and_events',
@@ -182,3 +181,46 @@ add_action('parse_request', function () {
         remove_action('parse_request', 'filter_custom_post_type_by_language_parse_request');
     }
 }, 0);
+
+/**
+ * Rewrite rules so WordPress parses /cc/ll/{base}/{slug}/ into the right CPT
+ * (sets post_type + name), which wj_multilingual_route() then resolves by
+ * translation_group_id. The /cc/ll/ prefix itself is read from REQUEST_URI in
+ * the router, so it isn't captured here. Adapted to wardjet's CPTs
+ * (products, series; no routers/software/materials).
+ */
+function wj_multilingual_rewrite_rules() {
+    add_rewrite_tag('%lang_slug%', '([^/]+)/([^/]+)');
+
+    // CPT singles under /{cc}/{ll}/{base}/{slug}
+    add_rewrite_rule('^([^/]+)/([^/]+)/products/([^/]+)/?$',    'index.php?post_type=products&name=$matches[3]', 'top');
+    add_rewrite_rule('^([^/]+)/([^/]+)/series/([^/]+)/?$',      'index.php?post_type=series&name=$matches[3]', 'top');
+    add_rewrite_rule('^([^/]+)/([^/]+)/industry/([^/]+)/?$',    'index.php?post_type=industry&name=$matches[3]', 'top');
+    add_rewrite_rule('^([^/]+)/([^/]+)/accessories/([^/]+)/?$', 'index.php?post_type=accessories&name=$matches[3]', 'top');
+
+    // TESTIMONIALS (singular + legacy + archive + pagination)
+    add_rewrite_rule('^([^/]+)/([^/]+)/testimonials/([^/]+)/?$',          'index.php?post_type=testimonial&name=$matches[3]', 'top');
+    add_rewrite_rule('^([^/]+)/([^/]+)/testimonial/([^/]+)/?$',           'index.php?post_type=testimonial&name=$matches[3]', 'top'); // legacy
+    add_rewrite_rule('^([^/]+)/([^/]+)/testimonials/page/([0-9]{1,})/?$', 'index.php?post_type=testimonial&paged=$matches[3]', 'top');
+    add_rewrite_rule('^([^/]+)/([^/]+)/testimonials/?$',                   'index.php?post_type=testimonial', 'top');
+
+    // WEBINAR (singular base) + legacy plural
+    add_rewrite_rule('^([^/]+)/([^/]+)/webinar/([^/]+)/?$',   'index.php?post_type=webinar&name=$matches[3]', 'top');
+    add_rewrite_rule('^([^/]+)/([^/]+)/webinars/([^/]+)/?$',  'index.php?post_type=webinar&name=$matches[3]', 'top'); // legacy
+
+    // NEWS & EVENTS
+    add_rewrite_rule('^([^/]+)/([^/]+)/news_and_events/([^/]+)/?$', 'index.php?post_type=news_and_events&name=$matches[3]', 'top');
+
+    // VIDEO
+    add_rewrite_rule('^([^/]+)/([^/]+)/video/([^/]+)/?$', 'index.php?post_type=video&name=$matches[3]', 'top');
+
+    // BLOG
+    add_rewrite_rule('^([^/]+)/([^/]+)/blog/([^/]+)/?$', 'index.php?post_type=blog&name=$matches[3]', 'top');
+}
+add_action('init', 'wj_multilingual_rewrite_rules');
+
+// Flush rules once on plugin activation so the locale CPT URLs work immediately.
+register_activation_hook(WJ_MULTILINGUAL_DIR . 'wj-multilingual.php', function () {
+    wj_multilingual_rewrite_rules();
+    flush_rewrite_rules();
+});
