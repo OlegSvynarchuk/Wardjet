@@ -89,7 +89,7 @@ get_header(); ?>
 <p class="icon-tag text-center text-sm-left"><img src="" alt=""> <span></span></p>
 <h2 class="heading text-left">Our Corporate Video</h2>
 <p>This video showcases our products, services, and most importantly, our team members who work tirelessly to ensure our customers are happy and satisfied. We believe this video will give you a deeper understanding of who we are as a company and what we offer to our customers.</p>
-<p class="cta"><a href="https://www.wardjet.com/support-landing/" target="">Learn More</a></p>
+<p class="cta"><a href="<?php echo esc_url( home_url('/support-landing/') ); ?>" target="">Learn More</a></p>
 </div>
 </div>
 </div>

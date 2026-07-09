@@ -27,24 +27,6 @@ get_header();
                         <div style="width: 100%; overflow: visible;">
 						<script type="text/javascript" src="<?=get_field('contact_id')?>"></script>
 						</div>
-<!--                         <?php
-                        gravity_form( 3, false, false, false, '', true, 12 );
-                        ?>
-
-                        <?php 
-                        $label_link = get_field('contact_privacy_label_link');
-                        if( $label_link ): 
-                            $label_link_url = $label_link['url'];
-                            $label_link_title = $label_link['title'];
-                            $label_link_target = $label_link['target'] ? $label_link['target'] : '_self';
-                            ?>
-                            <script type="text/javascript">
-                             jQuery.noConflict();
-                             jQuery(document).ready(function($) {
-                              $(".gchoice_3_7_1 label").html('<?php the_field('contact_privacy_label'); ?>  <a href="<?php echo esc_url( $label_link_url ); ?>" target="<?php echo esc_attr( $label_link_target ); ?>"> <?php echo esc_html( $label_link_title ); ?> </a>');
-                              });
-                              </script>
-                        <?php endif; ?> -->
                   </div>
                     <div class="col-12 col-sm-3 offset-sm-1 wow animate__fadeIn">
                         <?php the_field('contact_details')?>

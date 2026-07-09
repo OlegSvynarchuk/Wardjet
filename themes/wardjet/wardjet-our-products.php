@@ -11,7 +11,19 @@ get_header();
 
 	<section class="">
 		<div class="container">
-			<?php 
+			<?php
+
+			// Filter series to the current locale. en-ca / en-uk have no localized
+			// series of their own, so fall back to the en-us catalogue.
+			$series_locale = 'en-us';
+			if ( function_exists('lc_get_locale_from_url') ) {
+				$series_locale = lc_get_locale_from_url();
+			} elseif ( function_exists('wj_get_current_locale_code') ) {
+				$series_locale = wj_get_current_locale_code();
+			}
+			if ( in_array( $series_locale, array('en-ca','en-uk'), true ) ) {
+				$series_locale = 'en-us';
+			}
 
 			$terms = get_terms( array(
 				'taxonomy' => 'category',
@@ -27,14 +39,17 @@ get_header();
 				<div class="row justify-content-center mt-5 mb-5">
 					<div class="col-sm-10 col-12">
 						<?php
-							$args = array(  
+							$args = array(
 								'post_type' => 'series',
 								'post_status' => 'publish',
-								'posts_per_page' => 100, 
+								'posts_per_page' => 100,
 								'cat' => $term->term_id,
-								'orderby' => 'meta_value', 
+								'orderby' => 'meta_value',
 								'order' => 'DESC',
-								'meta_key' => 'order');
+								'meta_key' => 'order',
+								'meta_query' => array(
+									array( 'key' => 'region_language_code', 'value' => $series_locale ),
+								));
 
 								$loop = new WP_Query( $args );
 								if( $loop->have_posts() ) :

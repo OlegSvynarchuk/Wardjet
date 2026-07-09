@@ -144,6 +144,53 @@ if (!function_exists('lc_swap_locale_prefix')) {
         return $new;
     }
 }
+
+/**
+ * Resolve a same-site link to the current locale's translated page.
+ *
+ * The header CTA ("Get a Quote") stores one local URL (the en page). Locales
+ * have different slugs (fr: contacter, es: contacto, pl: uzyskaj-wycene), so a
+ * plain prefix swap would 404. This maps the linked page to its sibling in the
+ * current locale via translation_group_id and returns that permalink (+ title).
+ * Falls back to lc_swap_locale_prefix() for anything not resolvable.
+ */
+if (!function_exists('lc_resolve_link_for_locale')) {
+    function lc_resolve_link_for_locale(array $link, string $code): array {
+        $url = $link['url'] ?? '';
+        if ($url === '') return $link;
+
+        $home = rtrim(home_url(), '/');
+        if (stripos($url, $home) !== 0) return $link; // external — leave untouched
+
+        $pid = url_to_postid($url);
+        if ($pid) {
+            $tgid = get_post_meta($pid, 'translation_group_id', true);
+            if ($tgid !== '' && $tgid !== null) {
+                $sib = get_posts([
+                    'post_type'      => get_post_type($pid) ?: 'page',
+                    'posts_per_page' => 1,
+                    'post_status'    => 'publish',
+                    'fields'         => 'ids',
+                    'no_found_rows'  => true,
+                    'meta_query'     => [
+                        ['key' => 'translation_group_id', 'value' => $tgid],
+                        ['key' => 'region_language_code',  'value' => $code],
+                    ],
+                ]);
+                if (!empty($sib)) {
+                    $link['url']   = get_permalink($sib[0]);
+                    $link['title'] = get_the_title($sib[0]); // localized label for free
+                    return $link;
+                }
+            }
+        }
+
+        // Not a translated page — fall back to the prefix swap.
+        $link['url'] = lc_swap_locale_prefix($url, $code);
+        return $link;
+    }
+}
+
 if (!function_exists('render_localized_header_ctas')) {
     function render_localized_header_ctas() {
         // current locale like en-us / fr-ca / en-uk
@@ -172,8 +219,9 @@ if (!function_exists('render_localized_header_ctas')) {
             $link = get_sub_field('url'); // ACF Link (array: url, title, target)
             if (!$link || empty($link['url'])) continue;
 
-            // swap same-site URL to current /xx/yy/ without changing your markup/styles
-            $link['url'] = lc_swap_locale_prefix($link['url'], $code);
+            // Resolve to the current locale's translated page (correct slug),
+            // falling back to a plain prefix swap for non-translated links.
+            $link = lc_resolve_link_for_locale($link, $code);
 
             // Keep theme styles intact by using your helper
             if (function_exists('build_link')) {

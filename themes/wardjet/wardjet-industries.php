@@ -15,12 +15,24 @@ get_header(); ?>
                     //get all industries
                     //order by name
 
-                    $args = array(  
+                    // Filter industries to the current locale (each locale has its
+                    // own 9 industry posts).
+                    $ind_locale = 'en-us';
+                    if ( function_exists('lc_get_locale_from_url') ) {
+                        $ind_locale = lc_get_locale_from_url();
+                    } elseif ( function_exists('wj_get_current_locale_code') ) {
+                        $ind_locale = wj_get_current_locale_code();
+                    }
+
+                    $args = array(
                         'post_type' => 'industry',
                         'post_status' => 'publish',
-                        'posts_per_page' => 100, 
-                        'orderby' => 'title', 
-                        'order' => 'ASC' 
+                        'posts_per_page' => 100,
+                        'orderby' => 'title',
+                        'order' => 'ASC',
+                        'meta_query' => array(
+                            array( 'key' => 'region_language_code', 'value' => $ind_locale ),
+                        ),
                     );
 
                     $loop = new WP_Query( $args ); 

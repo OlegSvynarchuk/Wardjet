@@ -18,7 +18,10 @@ get_header();
                 <div class="col-lg-12">
                 <h1 class="heading text-left"><?php the_field('heading'); ?></h1>
                 <?php
-                    gravity_form( 2, false, false, false, '', true, 12 );
+                    // Per-locale form: translated Careers copy set via ACF `form_id`
+                    // on the localized page; falls back to the English form (#2).
+                    $career_form_id = get_field('form_id') ? (int) get_field('form_id') : 2;
+                    gravity_form( $career_form_id, false, false, false, '', true, 12 );
                     ?>
                     <?php 
                     $label_link = get_field('privacy_link');
@@ -31,7 +34,7 @@ get_header();
                          jQuery.noConflict();
                          jQuery(document).ready(function($) {
 
-                          $(".gchoice_2_7_1 label").html('<?php the_field('privacy_label'); ?>  <a href="<?php echo esc_url( $label_link_url ); ?>" target="<?php echo esc_attr( $label_link_target ); ?>"> <?php echo esc_html( $label_link_title ); ?> </a>');
+                          $(".gchoice_<?php echo (int) $career_form_id; ?>_7_1 label").html('<?php the_field('privacy_label'); ?>  <a href="<?php echo esc_url( $label_link_url ); ?>" target="<?php echo esc_attr( $label_link_target ); ?>"> <?php echo esc_html( $label_link_title ); ?> </a>');
 
                       });
                   </script>

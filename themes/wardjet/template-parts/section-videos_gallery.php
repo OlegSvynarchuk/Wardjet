@@ -4,17 +4,42 @@
         <div class="row">
             <div class="col-sm-12">
                 <?php
-                $catsArray = $block['selected_sections'];
-                $sections = get_terms( 'section', array(
-                    'hide_empty' => false,
-                    'include' => $catsArray,
-                ) );
-                if ($sections): ?>
+                $catsArray = (array) $block['selected_sections'];
+
+                // The `section` taxonomy has a separate term per locale (all sharing
+                // the English name). Resolve the selected section NAMES so we can pull
+                // the current locale's own terms/videos regardless of which locale's
+                // term IDs the block stored.
+                $sel_names = array();
+                foreach ( $catsArray as $t ) {
+                    $tid  = is_object($t) ? $t->term_id : $t;
+                    $term = get_term( $tid, 'section' );
+                    if ( $term && ! is_wp_error($term) ) { $sel_names[ $term->name ] = true; }
+                }
+                $sel_names = array_keys( $sel_names );
+
+                // Current locale (en-ca / en-uk have no localized videos → en-us).
+                $vid_locale = 'en-us';
+                if ( function_exists('lc_get_locale_from_url') ) {
+                    $vid_locale = lc_get_locale_from_url();
+                } elseif ( function_exists('wj_get_current_locale_code') ) {
+                    $vid_locale = wj_get_current_locale_code();
+                }
+                if ( in_array( $vid_locale, array('en-ca','en-uk'), true ) ) { $vid_locale = 'en-us'; }
+
+                // Every section term (any locale) sharing one of the selected names.
+                $all_term_ids = $catsArray;
+                if ( $sel_names ) {
+                    $matched = get_terms( array( 'taxonomy' => 'section', 'hide_empty' => false, 'name' => $sel_names ) );
+                    if ( $matched && ! is_wp_error($matched) ) { $all_term_ids = wp_list_pluck( $matched, 'term_id' ); }
+                }
+
+                if ($sel_names): ?>
                 <div class="sections-list">
                     <ul>
                         <li class="active"><a href="#" class="all">All</a></li>
-                        <?php foreach($sections AS $section): ?>
-                        <li><a href="#" class="<?php echo $section->slug; ?>"><?php echo $section->name; ?></a></li>
+                        <?php foreach($sel_names AS $section_name): ?>
+                        <li><a href="#" class="<?php echo sanitize_title($section_name); ?>"><?php echo esc_html($section_name); ?></a></li>
                         <?php endforeach; ?>
                     </ul>
                 </div>
@@ -30,8 +55,11 @@
                     array(
                         'taxonomy' => 'section',
                         'field' => 'id',
-                        'terms' => $catsArray
+                        'terms' => $all_term_ids
                     )
+                ),
+                'meta_query' => array(
+                    array( 'key' => 'region_language_code', 'value' => $vid_locale )
                 ),
             );
             $q = new WP_Query( $args );
@@ -62,7 +90,7 @@
                         echo '<!-- Debug: Thumbnail URL - ' . $thumbnail_url . ' -->';
                     }
             ?>
-                    <div class="col-sm-4 <?php echo $terms[0]->slug; ?>">
+                    <div class="col-sm-4 <?php echo ($terms && !is_wp_error($terms)) ? sanitize_title($terms[0]->name) : ''; ?>">
                         <div class="video">
                             <div class="placeholder">
                                 <a href="#" class="open-youtube-modal" data-title="<?php echo get_the_title(); ?>" data-youtube-id="<?php echo $video_id; ?>">
