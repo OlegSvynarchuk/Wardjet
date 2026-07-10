@@ -18,10 +18,12 @@ if (!defined('ABSPATH')) {
 $current_lang_code = isset($current_lang_code) ? $current_lang_code : (function_exists('get_current_lang_from_url') ? get_current_lang_from_url() : 'en-us');
 
 $section_title = get_field('products_section_title');
+if (empty($section_title)) { $section_title = get_field('product_heading'); } // localized per-page field
 if (empty($section_title)) {
     $section_title = __('Products we sell', 'wardjet');
 }
 $section_subtitle = get_field('products_section_subtitle');
+if (empty($section_subtitle)) { $section_subtitle = get_field('product_copy'); } // localized per-page field
 if (empty($section_subtitle)) {
     $section_subtitle = __('Our modular products can be tailored to fit your needs and provide a perfect solution to your challenges.', 'wardjet');
 }
