@@ -25,7 +25,7 @@
                     if($section['images']):
                         foreach($section['images'] AS $image):
                 ?>
-                <div class="col-sm-4 <?php echo str_replace(array('.',' '), array('','-'), trim(strtolower($section['title']))); ?>">
+                <div id="feature-<?php echo esc_attr(sanitize_title($image['title'])); ?>" class="col-sm-4 <?php echo str_replace(array('.',' '), array('','-'), trim(strtolower($section['title']))); ?>" style="scroll-margin-top:130px;">
                     <div class="image-wrapper">
 
                         <div class="placeholder">
