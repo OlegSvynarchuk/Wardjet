@@ -38,6 +38,20 @@ $product_groups = array(
     'Water Only Systems' => array('h-series', 'j-series', 'custom-waterjets'),
 );
 
+// Localized group titles (from the series category names per locale).
+$group_title_i18n = array(
+    'Abrasive Systems' => array(
+        'es-us' => 'Sistemas de agua abrasiva',
+        'fr-ca' => "Systèmes à l'eau avec abrasifs",
+        'pl-pl' => 'Systemy ścierne',
+    ),
+    'Water Only Systems' => array(
+        'es-us' => 'Sistemas solo de agua',
+        'fr-ca' => "Systèmes d'eau seulement",
+        'pl-pl' => 'Systemy tylko wodne',
+    ),
+);
+
 // Resolve an en-us series slug to the current locale's translated post (via
 // translation_group_id), falling back to the en-us post.
 if (!function_exists('wj_products_resolve_series')) {
@@ -105,7 +119,7 @@ if (empty($resolved_groups)) {
 
     <?php foreach ($resolved_groups as $group_title => $posts) : ?>
     <div class="products-group">
-        <h3 class="products-group-title"><?php echo esc_html($group_title); ?></h3>
+        <h3 class="products-group-title"><?php echo esc_html(isset($group_title_i18n[$group_title][$current_lang_code]) ? $group_title_i18n[$group_title][$current_lang_code] : $group_title); ?></h3>
         <div class="products-grid">
             <?php foreach ($posts as $series_post) :
                 $GLOBALS['post'] = $series_post;
