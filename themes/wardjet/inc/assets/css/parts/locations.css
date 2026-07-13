@@ -1,0 +1,442 @@
+/**
+ * Locations Page Styles
+ */
+
+/* Section 1: Title & Subtitle */
+.locations-hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 64px 24px;
+    background: linear-gradient(180deg, #FFFFFF 0%, #F8FAFC 100%);
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+}
+
+.locations-hero__text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 888px;
+    gap: 24px;
+}
+
+.locations-hero__title {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-size: 60px;
+    line-height: 60px;
+    text-align: center;
+    color: #0F172B;
+    margin: 0;
+}
+
+.locations-hero__subtitle {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 28px;
+    text-align: center;
+    color: #45556C;
+    margin: 0;
+}
+
+/* Section 2: Primary Location */
+.locations-primary {
+    padding: 64px 96px;
+    background: #FFFFFF;
+}
+
+.locations-primary__inner {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 93px;
+    max-width: 1248px;
+    margin: 0 auto;
+}
+
+.locations-primary__content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 50px;
+    flex: 0 0 600px;
+    max-width: 600px;
+}
+
+.locations-primary__region-title {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-size: 60px;
+    line-height: 60px;
+    color: #093C71;
+    margin: 0;
+}
+
+/* Reverse layout */
+.locations-primary.locations-region--reverse .locations-primary__inner {
+    flex-direction: row-reverse;
+}
+
+/* Location Card */
+.locations-card {
+    display: flex;
+    flex-direction: column;
+    padding: 33px 33px 1px;
+    gap: 16px;
+    width: 100%;
+    background: #FFFFFF;
+    box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1), 0px 4px 6px -4px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+.locations-card__body {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 16px;
+}
+
+.locations-card__icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
+    background: #093C71;
+    border-radius: 10px;
+}
+
+.locations-card__details {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.locations-card__name {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 28px;
+    color: #093C71;
+    margin: 0;
+}
+
+.locations-card__company {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: 0.35px;
+    text-transform: uppercase;
+    color: #62748E;
+}
+
+.locations-card__address {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    color: #45556C;
+    padding: 0 !important;
+}
+
+.locations-card__address p,
+.locations-card__address br + br {
+    margin: 0 !important;
+    padding: 0 !important;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    color: #45556C;
+}
+
+.locations-card__address p:empty {
+    display: none !important;
+}
+
+.locations-card__phones {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+    padding-top: 8px;
+    padding-bottom: 12px;
+    border-top: 1px solid #E2E8F0;
+}
+
+.locations-card__phones svg {
+    flex-shrink: 0;
+}
+
+.locations-card__phone-link {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    color: #314158;
+    text-decoration: none;
+}
+
+.locations-card__phone-link:hover {
+    color: #093C71;
+    text-decoration: underline;
+}
+
+/* Primary Location Image */
+.locations-primary__image {
+    flex: 1;
+    max-width: 588px;
+}
+
+.locations-primary__image img {
+    width: 100%;
+    height: 588px;
+    object-fit: cover;
+    border-radius: 16px;
+    box-shadow: 0px 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+/* Section 3: Other Locations Title Bar */
+.locations-other-title {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 48px 96px;
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    background: linear-gradient(89.81deg, #093C71 62.95%, #072C52 100%);
+}
+
+.locations-other-title__inner {
+    max-width: 1248px;
+    margin: 0 auto;
+    width: 100%;
+    text-align: center;
+}
+
+.locations-other-title__heading {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-size: 60px;
+    line-height: 60px;
+    text-align: center;
+    color: #FFFFFF;
+    margin: 0;
+}
+
+/* Other Locations Regions */
+.locations-region {
+    padding: 64px 96px;
+    background: #FFFFFF;
+}
+
+.locations-region__inner {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 93px;
+    max-width: 1248px;
+    margin: 0 auto;
+}
+
+.locations-region__content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 50px;
+    flex: 0 0 600px;
+    max-width: 600px;
+}
+
+.locations-region__title {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-size: 60px;
+    line-height: 60px;
+    color: #093C71;
+    margin: 0;
+}
+
+.locations-region--reverse .locations-region__inner,
+.locations-region--reverse .locations-primary__inner {
+    flex-direction: row-reverse;
+}
+
+.locations-region__image {
+    flex: 1;
+    max-width: 588px;
+}
+
+.locations-region__image img {
+    width: 100%;
+    height: 588px;
+    object-fit: cover;
+    border-radius: 16px;
+    box-shadow: 0px 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+/* Responsive */
+@media screen and (max-width: 1200px) {
+    .locations-primary,
+    .locations-region {
+        padding: 64px 48px;
+    }
+    .locations-primary__inner,
+    .locations-region__inner {
+        gap: 48px;
+    }
+    .locations-primary__content,
+    .locations-region__content {
+        flex: 1;
+    }
+}
+
+@media screen and (max-width: 991px) {
+    .locations-primary__inner,
+    .locations-region__inner {
+        flex-direction: column;
+    }
+    .locations-primary.locations-region--reverse .locations-primary__inner,
+    .locations-region--reverse .locations-region__inner {
+        flex-direction: column;
+    }
+    .locations-primary__content,
+    .locations-region__content {
+        max-width: 100%;
+    }
+    .locations-primary__image,
+    .locations-region__image {
+        max-width: 100%;
+        width: 100%;
+    }
+    .locations-primary__image img,
+    .locations-region__image img {
+        height: 400px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    /* Hero section — clear fixed header */
+    .locations-hero {
+        padding: 48px 0;
+        margin-top: 0;
+        align-items: flex-start !important;
+        background: #FFFFFF !important;
+    }
+    .locations-hero__text {
+        align-items: flex-start !important;
+        padding: 0 9px !important;
+    }
+    .locations-hero__title {
+        font-size: 48px;
+        line-height: 56px;
+        font-weight: 400;
+        color: #0F172B;
+        text-align: left !important;
+    }
+    .locations-hero__subtitle {
+        font-size: 20px;
+        line-height: 28px;
+        color: #45556C;
+        text-align: left !important;
+        background: transparent !important;
+    }
+
+    /* Primary & region sections — no side padding */
+    .locations-primary,
+    .locations-region {
+        padding: 48px 0 !important;
+    }
+    .locations-primary__region-title,
+    .locations-region__title {
+        font-size: 48px;
+        line-height: 60px;
+        font-weight: 400;
+        color: #093C71;
+    }
+    .locations-primary__content,
+    .locations-region__content {
+        gap: 32px;
+        flex-direction: column;
+    }
+
+    /* Reorder: title → image → cards */
+    .locations-primary__inner,
+    .locations-region__inner {
+        display: grid !important;
+        grid-template-columns: 1fr !important;
+        gap: 32px;
+    }
+
+    /* Content (title + cards) splits into grid rows */
+    .locations-primary__content,
+    .locations-region__content {
+        display: contents !important;
+    }
+
+    /* Title first — 9px padding (+ 15px from Bootstrap = 24px total) */
+    .locations-primary__region-title,
+    .locations-region__title {
+        order: 1;
+        padding: 0 9px;
+    }
+
+    /* Image second — full width, no padding */
+    .locations-primary__image,
+    .locations-region__image {
+        order: 2;
+    }
+
+    /* Cards third */
+    .locations-card {
+        order: 3;
+        margin: 0 9px !important;
+        box-sizing: border-box !important;
+        width: calc(100% - 18px) !important;
+    }
+
+    /* Cards grid — single column */
+    .locations-primary__cards,
+    .locations-region__cards {
+        grid-template-columns: 1fr !important;
+        gap: 24px;
+    }
+
+    /* Location card */
+    .locations-card {
+        padding: 33px;
+        border-radius: 10px;
+        box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1), 0px 4px 6px -4px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Card images — full width, rounded */
+    .locations-primary__image img,
+    .locations-region__image img {
+        height: 354px;
+        width: 100%;
+        border-radius: 16px;
+        object-fit: cover;
+    }
+
+    /* "Other Locations" banner — keep side padding for text */
+    .locations-other-title {
+        padding: 40px 24px !important;
+    }
+
+    /* Contact section on locations — no side padding */
+    .locations-primary ~ .contact-section,
+    .locations-region ~ .contact-section {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+    .locations-other-title__heading {
+        font-size: 48px;
+        line-height: 60px;
+        font-weight: 400;
+    }
+}

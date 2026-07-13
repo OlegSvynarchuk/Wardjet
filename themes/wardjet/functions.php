@@ -266,6 +266,8 @@ function wp_bootstrap_starter_scripts() {
     wp_enqueue_style( 'our-companies-css', get_template_directory_uri() . '/inc/assets/css/parts/our-companies.css', [], time() );
     // Partnerships logo carousel (ported from blueprint).
     wp_enqueue_style( 'partnerships-css', get_template_directory_uri() . '/inc/assets/css/parts/partnerships.css', [], time() );
+    // Locations page (ported from blueprint).
+    wp_enqueue_style( 'locations-css', get_template_directory_uri() . '/inc/assets/css/parts/locations.css', [], time() );
     wp_enqueue_script('wowjs', get_template_directory_uri().'/inc/assets/js/wow.min.js', array(), '', true);
     //custom js
 
@@ -383,6 +385,50 @@ require_once(get_template_directory() . '/inc/acf-products-section.php');
  * Our Companies — ACF field group (companies repeater). Ported 1:1 from blueprint.
  */
 require_once(get_template_directory() . '/inc/acf-our-companies.php');
+
+/**
+ * Locations page — ACF field group + render hooks (ported from blueprint).
+ * Locale locations pages: en-us 11850, en-ca 12678, en-uk 12728,
+ * es-us 13241, fr-ca 13243, pl-pl 13245.
+ */
+require_once(get_template_directory() . '/inc/acf-locations.php');
+
+if (!function_exists('wj_locations_page_ids')) {
+    function wj_locations_page_ids() {
+        return array(11850, 12678, 12728, 13241, 13243, 13245);
+    }
+}
+
+// Render locations sections (+ contact) before page content on locations pages.
+add_filter('the_content', function ($content) {
+    if (!is_page() || !in_the_loop() || !is_main_query()) { return $content; }
+    if (!in_array(get_the_ID(), wj_locations_page_ids(), true)) { return $content; }
+    ob_start();
+    get_template_part('template-parts/locations-sections');
+    get_template_part('template-parts/agg-contact');
+    $html = ob_get_clean();
+    if (trim($content)) {
+        $content = '<div class="locations-legacy-content" style="display:none !important;" aria-hidden="true">' . $content . '</div>';
+    }
+    return $html . $content;
+});
+
+// page-locations body class.
+add_filter('body_class', function ($classes) {
+    if (is_page() && in_array(get_the_ID(), wj_locations_page_ids(), true)) {
+        $classes[] = 'page-locations';
+    }
+    return $classes;
+});
+
+// Hide the default page title on locations pages.
+add_filter('the_title', function ($title, $id = null) {
+    if (!is_admin() && is_page() && in_the_loop() && is_main_query()
+        && in_array(get_the_ID(), wj_locations_page_ids(), true)) {
+        return '';
+    }
+    return $title;
+}, 10, 2);
 
 
 
