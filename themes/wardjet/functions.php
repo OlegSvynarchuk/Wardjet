@@ -415,6 +415,7 @@ add_filter('the_content', function ($content) {
     if (!in_array(get_the_ID(), wj_locations_page_ids(), true)) { return $content; }
     ob_start();
     get_template_part('template-parts/locations-sections');
+    get_template_part('template-parts/agg-contact');
     $html = ob_get_clean();
     if (trim($content)) {
         $content = '<div class="locations-legacy-content" style="display:none !important;" aria-hidden="true">' . $content . '</div>';
