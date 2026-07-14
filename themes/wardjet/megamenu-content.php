@@ -51,20 +51,21 @@ if (empty($sections)) { return; }
     </div>
 </div>
 <style>
-.mm-products { padding: 36px 0 44px; }
-.mm-products-group { margin-bottom: 30px; }
+.mm-products { padding: 22px 96px 28px; }
+.mm-products .container-xxl { max-width: 100%; width: 100%; padding: 0; margin: 0; }
+.mm-products-group { margin-bottom: 52px; }
 .mm-products-group:last-child { margin-bottom: 0; }
 .mm-products-title {
-    font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 24px; line-height: 32px;
+    font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 22px; line-height: 28px;
     color: #093C71; letter-spacing: 0.3px; text-align: left;
-    margin: 0 0 22px 0; padding-bottom: 8px; display: inline-block; border-bottom: 3px solid #F5B600;
+    margin: 0 0 12px 0; padding-bottom: 6px; display: inline-block; border-bottom: 3px solid #F5B600;
 }
-.mm-products-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px 48px; }
+.mm-products-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px 48px; }
 .mm-product-card { display: flex; flex-direction: column; align-items: center; text-align: center; text-decoration: none; }
-.mm-product-card__img { width: 100%; height: 200px; display: flex; align-items: center; justify-content: center; }
+.mm-product-card__img { width: 100%; height: 150px; display: flex; align-items: center; justify-content: center; }
 .mm-product-card__img img { max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; }
-.mm-product-card__title { margin-top: 14px; font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 17px; color: #314158; transition: color .2s ease; }
+.mm-product-card__title { margin-top: 8px; font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 20px; line-height: 28px; color: #314158; transition: color .2s ease; }
 .mm-product-card:hover .mm-product-card__title { color: #093C71; }
-@media (max-width: 991.98px) { .mm-products-grid { grid-template-columns: repeat(2, 1fr); } .mm-product-card__img { height: 160px; } }
+@media (max-width: 991.98px) { .mm-products { padding: 20px; display: block; } .mm-products-group { margin-bottom: 24px; } .mm-products-grid { grid-template-columns: repeat(2, 1fr); } .mm-product-card__img { height: 130px; } }
 @media (max-width: 575.98px) { .mm-products-grid { grid-template-columns: 1fr; } }
 </style>

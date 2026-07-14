@@ -106,7 +106,8 @@
     line-height: 28px !important;
     color: #FFFFFF !important;
     text-align: center !important;
-    margin: 0 !important;
+    margin: 0 auto !important;
+    max-width: 760px !important;
 }
 
 /* Grid */
