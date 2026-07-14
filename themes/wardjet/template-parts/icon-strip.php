@@ -20,7 +20,7 @@ if ($acf_items && is_array($acf_items) && count($acf_items) > 0) {
     $items = array(
         array(
             'title'    => __('Industry Leader', 'axyz'),
-            'subtitle' => __('30+ years of CNC excellence', 'axyz'),
+            'subtitle' => __('30+ years of waterjet excellence', 'axyz'),
             'icon'     => 'trophy',
         ),
         array(
