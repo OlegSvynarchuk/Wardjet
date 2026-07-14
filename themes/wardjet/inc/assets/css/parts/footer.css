@@ -1,0 +1,385 @@
+/**
+ * Footer Styles — AXYZFooter
+ */
+
+/* Section */
+footer#colophon.site-footer {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    padding: 64px 96px 0 !important;
+    gap: 24px !important;
+    width: 100% !important;
+    background: linear-gradient(89.81deg, #093C71 62.95%, #072C52 100%) !important;
+    border-radius: 0 !important;
+    margin: 0 !important;
+    box-shadow: none !important;
+}
+
+.footer-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    width: 100%;
+    max-width: 1248px;
+}
+
+/* ============================================
+   ROW 1: Navigation Links Grid
+   ============================================ */
+
+.footer-nav-grid {
+    width: 100%;
+    padding-bottom: 48px;
+}
+
+.footer-nav-grid > ul {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: flex-start !important;
+    align-items: flex-start !important;
+    gap: 32px !important;
+    width: 100% !important;
+    list-style: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* Top-level items (column headings) */
+.footer-nav-grid > ul > li {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 16px !important;
+    flex: 1 1 0% !important;
+    min-width: 0 !important;
+    list-style: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* Column heading link */
+.footer-nav-grid > ul > li > a {
+    font-family: 'Montserrat', sans-serif !important;
+    font-weight: 600 !important;
+    font-size: 13px !important;
+    line-height: 20px !important;
+    letter-spacing: 0.325px !important;
+    text-transform: uppercase !important;
+    color: #FFFFFF !important;
+    text-decoration: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* Sub-menu (list items under each heading) */
+.footer-nav-grid > ul > li > ul {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 10px !important;
+    list-style: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+}
+
+.footer-nav-grid > ul > li > ul > li {
+    list-style: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+}
+
+/* Sub-menu links */
+.footer-nav-grid > ul > li > ul > li > a {
+    font-family: 'Montserrat', sans-serif !important;
+    font-weight: 400 !important;
+    font-size: 13px !important;
+    line-height: 20px !important;
+    color: rgba(255, 255, 255, 0.7) !important;
+    text-decoration: none !important;
+    transition: color 0.3s ease !important;
+    white-space: normal !important;
+    word-wrap: break-word !important;
+    overflow-wrap: break-word !important;
+}
+
+/* Footer nav - allow text to wrap naturally */
+.footer-nav-grid > ul > li {
+    overflow: visible !important;
+}
+
+.footer-nav-grid > ul > li > ul > li {
+    overflow: visible !important;
+}
+
+.footer-nav-grid > ul > li > ul > li > a:hover {
+    color: #FFFFFF !important;
+}
+
+/* ============================================
+   ROW 2: Logo + Social + HQ Addresses
+   ============================================ */
+
+.footer-middle {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 32px;
+    width: 100%;
+    padding-top: 48px;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Left: Logo + Social */
+.footer-middle__left {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+}
+
+.footer-logo img {
+    width: 218px !important;
+    height: 54px !important;
+    object-fit: contain !important;
+}
+
+/* Social Icons */
+.footer-social {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.footer-social__link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 36px;
+    height: 36px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    text-decoration: none;
+    transition: background 0.3s ease;
+}
+
+.footer-social__link:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.footer-social__link i {
+    font-size: 16px;
+    color: rgba(255, 255, 255, 0.8) !important;
+}
+
+/* Right: HQ Addresses */
+.footer-middle__right {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 32px;
+}
+
+.footer-hq {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    width: 260px;
+}
+
+.footer-hq__title {
+    font-family: 'Montserrat', sans-serif !important;
+    font-weight: 600 !important;
+    font-size: 13px !important;
+    line-height: 20px !important;
+    letter-spacing: 0.325px !important;
+    text-transform: uppercase !important;
+    color: #FFFFFF !important;
+    margin: 0 !important;
+}
+
+.footer-hq__details p {
+    font-family: 'Montserrat', sans-serif !important;
+    font-weight: 400 !important;
+    font-size: 13px !important;
+    line-height: 20px !important;
+    color: rgba(255, 255, 255, 0.7) !important;
+    margin: 0 !important;
+}
+
+.footer-hq__details a {
+    color: rgba(255, 255, 255, 0.7) !important;
+    text-decoration: none !important;
+}
+
+.footer-hq__details a:hover {
+    color: #FFFFFF !important;
+}
+
+/* AAG tagline row removed from data — no longer need to hide last-child */
+
+/* ============================================
+   ROW 3: Copyright + Legal
+   ============================================ */
+
+.footer-bottom {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 25px 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.footer-bottom__copyright {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 20px;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+/* Legal links */
+.footer-bottom__legal ul {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 24px !important;
+    list-style: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.footer-bottom__legal ul li {
+    list-style: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.footer-bottom__legal ul li a {
+    font-family: 'Montserrat', sans-serif !important;
+    font-weight: 400 !important;
+    font-size: 13px !important;
+    line-height: 20px !important;
+    color: rgba(255, 255, 255, 0.5) !important;
+    text-decoration: none !important;
+}
+
+.footer-bottom__legal ul li a:hover {
+    color: rgba(255, 255, 255, 0.8) !important;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
+@media (max-width: 1200px) {
+    footer#colophon.site-footer {
+        padding: 64px 48px 0 !important;
+    }
+}
+
+@media (max-width: 991px) {
+    .footer-nav-grid > ul {
+        flex-wrap: wrap !important;
+        gap: 32px 24px !important;
+    }
+
+    .footer-nav-grid > ul > li {
+        flex: 0 0 calc(33% - 16px) !important;
+    }
+
+    .footer-middle {
+        flex-direction: column;
+        gap: 48px;
+    }
+
+    .footer-middle__right {
+        flex-wrap: wrap;
+        gap: 32px;
+    }
+}
+
+@media (max-width: 767px) {
+    footer#colophon.site-footer {
+        padding: 32px 24px 0 !important;
+        gap: 24px !important;
+        background: linear-gradient(87.26deg, #093C71 81.18%, #072C52 100%) !important;
+    }
+
+    /* Nav grid — 2 columns */
+    .footer-nav-grid > ul {
+        flex-wrap: wrap !important;
+        gap: 32px 24px !important;
+    }
+
+    .footer-nav-grid > ul > li {
+        flex: 0 0 calc(50% - 12px) !important;
+    }
+
+    /* Force sub-menus visible — override wardjet-custom.css hiding */
+    .footer-nav-grid .sub-menu,
+    .footer-nav-grid ul.sub-menu,
+    #menu-footer-main .sub-menu,
+    .footer-nav-grid > ul > li > ul {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 10px !important;
+    }
+
+    /* Reorder footer columns for 2-col mobile:
+       Left col: Industries(2), Features(3), Support(5), Companies(7)
+       Right col: Products(1), Software(4), About Us(6) */
+    .footer-nav-grid > ul > li:nth-child(1) { order: 2; } /* Products → right */
+    .footer-nav-grid > ul > li:nth-child(2) { order: 1; } /* Industries → left */
+    .footer-nav-grid > ul > li:nth-child(3) { order: 3; } /* Features → left */
+    .footer-nav-grid > ul > li:nth-child(4) { order: 4; } /* Software → right */
+    .footer-nav-grid > ul > li:nth-child(5) { order: 5; } /* Support → left */
+    .footer-nav-grid > ul > li:nth-child(6) { order: 6; } /* About Us → right */
+    .footer-nav-grid > ul > li:nth-child(7) { order: 7; } /* Companies → left */
+
+    /* Middle section — stacked */
+    .footer-middle {
+        flex-direction: column;
+        gap: 32px;
+        padding-top: 48px;
+    }
+
+    .footer-middle__left {
+        gap: 24px;
+    }
+
+    /* HQ addresses — stacked vertically */
+    .footer-middle__right {
+        flex-direction: column;
+        gap: 32px;
+    }
+
+    .footer-hq {
+        width: 100%;
+    }
+
+    /* Bottom bar — stacked, left-aligned, legal first */
+    .footer-bottom {
+        flex-direction: column;
+        gap: 12px;
+        align-items: flex-start;
+        padding: 24px 0;
+    }
+
+    .footer-bottom__legal {
+        order: -1;
+    }
+
+    /* Legal links inline with pipe */
+    .footer-bottom__legal ul {
+        gap: 12px !important;
+    }
+}

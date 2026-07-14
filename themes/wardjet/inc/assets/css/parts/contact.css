@@ -1,0 +1,578 @@
+/**
+ * Contact Section Styles
+ * Based on Figma: AXYZContact
+ */
+
+/* ── Section ── */
+.contact-section {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 80px 0 0;
+    width: 100%;
+    background: linear-gradient(180deg, #F8FAFC 0%, #FFFFFF 100%);
+}
+
+/* ── Inner container ── */
+.contact-section__container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0 96px;
+    gap: 64px;
+    width: 100%;
+    max-width: 1440px;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+
+/* ── Header ── */
+.contact-section__header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+}
+
+.contact-section__heading {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-size: 60px;
+    line-height: 60px;
+    text-align: center;
+    color: #003B71;
+    width: 100%;
+    margin: 0;
+}
+
+.contact-section__subheading {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 28px;
+    text-align: center;
+    color: #45556C;
+    max-width: 757px;
+    margin: 0;
+}
+
+/* ── Body: form + info columns ── */
+.contact-section__body {
+    display: flex;
+    flex-direction: row;
+    gap: 48px;
+    width: 100%;
+    align-items: flex-start;
+    padding-bottom: 80px;
+}
+
+/* ── Left: form column ── */
+.contact-section__form-col {
+    flex: 0 0 600px;
+    max-width: 600px;
+}
+
+/* ── JotForm overrides ── */
+
+/* Wrapper reset */
+.contact-section .form-all {
+    font-family: 'Montserrat', sans-serif !important;
+    font-size: 16px !important;
+    color: #314158 !important;
+    background: transparent !important;
+    max-width: 100% !important;
+}
+
+/* Remove JotForm page background */
+.contact-section ul.page-section {
+    padding: 0 !important;
+    margin: 0 !important;
+    background: transparent !important;
+}
+
+/* Field rows */
+.contact-section .form-line {
+    padding: 0 !important;
+    margin: 0 0 25px 0 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    width: 100% !important;
+}
+
+/* Labels */
+.contact-section .form-label,
+.contact-section .form-label-top,
+.contact-section .form-sub-label {
+    font-family: 'Montserrat', sans-serif !important;
+    font-weight: 400 !important;
+    font-size: 14px !important;
+    line-height: 20px !important;
+    letter-spacing: 0.35px !important;
+    text-transform: uppercase !important;
+    color: #314158 !important;
+    margin-bottom: 8px !important;
+    display: block !important;
+}
+
+/* Sub-labels (e.g. First / Last under name field) */
+.contact-section .form-sub-label {
+    font-size: 11px !important;
+    text-transform: none !important;
+    letter-spacing: 0 !important;
+    color: #45556C !important;
+    margin-top: 4px !important;
+    margin-bottom: 0 !important;
+}
+
+/* Inputs, selects, textarea */
+.contact-section .form-input,
+.contact-section .form-input-wide,
+.contact-section .form-dropdown,
+.contact-section input[type="text"],
+.contact-section input[type="email"],
+.contact-section input[type="tel"],
+.contact-section input[type="number"],
+.contact-section select,
+.contact-section textarea {
+    font-family: 'Montserrat', sans-serif !important;
+    font-size: 16px !important;
+    line-height: 20px !important;
+    color: rgba(15, 23, 43, 0.5) !important;
+    background: #FFFFFF !important;
+    border: 1px solid #CAD5E2 !important;
+    border-radius: 10px !important;
+    padding: 12px 16px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    appearance: none !important;
+    -webkit-appearance: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    transition: border-color 0.2s !important;
+    height: auto !important;
+}
+
+.contact-section .form-input:focus,
+.contact-section .form-input-wide:focus,
+.contact-section .form-dropdown:focus,
+.contact-section input[type="text"]:focus,
+.contact-section input[type="email"]:focus,
+.contact-section input[type="tel"]:focus,
+.contact-section select:focus,
+.contact-section textarea:focus {
+    border-color: #003B71 !important;
+    color: #0F172B !important;
+    box-shadow: none !important;
+}
+
+/* Textarea */
+.contact-section textarea {
+    min-height: 120px !important;
+    resize: vertical !important;
+}
+
+/* Submit button */
+.contact-section .form-submit-button,
+.contact-section input[type="submit"],
+.contact-section button[type="submit"] {
+    font-family: 'Montserrat', sans-serif !important;
+    font-weight: 600 !important;
+    font-size: 16px !important;
+    line-height: 20px !important;
+    letter-spacing: 0.5px !important;
+    text-transform: uppercase !important;
+    color: #FFFFFF !important;
+    background: #003B71 !important;
+    border: none !important;
+    border-radius: 10px !important;
+    padding: 16px !important;
+    width: 100% !important;
+    cursor: pointer !important;
+    transition: background 0.2s !important;
+    height: auto !important;
+    display: block !important;
+    box-shadow: none !important;
+}
+
+.contact-section .form-submit-button:hover,
+.contact-section input[type="submit"]:hover,
+.contact-section button[type="submit"]:hover {
+    background: #072C52 !important;
+}
+
+/* Error states */
+.contact-section .form-line-error .form-input,
+.contact-section .form-line-error .form-input-wide,
+.contact-section .form-line-error .form-dropdown {
+    border-color: #e53e3e !important;
+}
+
+.contact-section .form-error-message {
+    font-size: 12px !important;
+    color: #e53e3e !important;
+    margin-top: 4px !important;
+}
+
+/* Hide required indicator */
+.contact-section .gfield_required {
+    display: none !important;
+}
+
+/* ── Right: info column ── */
+.contact-section__info-col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    min-width: 0;
+}
+
+/* On locations pages: location card is hidden, push info col down so global presence aligns with form's first field */
+body.page-locations .contact-section__info-col {
+    padding-top: 32px;
+}
+
+/* ── Location card ── */
+.contact-location-card {
+    background: #FFFFFF;
+    border: 1px solid #E2EAF2;
+    border-radius: 16px;
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.contact-location-card__header {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 16px;
+}
+
+.contact-location-card__icon {
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    background: #003B71;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.contact-location-card__icon svg {
+    width: 24px;
+    height: 24px;
+    fill: #FFFFFF;
+}
+
+.contact-location-card__title-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.contact-location-card__title {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 24px;
+    color: #003B71;
+    margin: 0;
+}
+
+.contact-location-card__company {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 20px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: #45556C;
+    margin: 0;
+}
+
+.contact-location-card__divider {
+    border: none;
+    border-top: 1px solid #E2EAF2;
+    margin: 0;
+}
+
+.contact-location-card__address {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 24px;
+    color: #314158;
+    margin: 0;
+    white-space: pre-line;
+}
+
+.contact-location-card__phone {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 24px;
+    color: #314158;
+    text-decoration: none;
+}
+
+.contact-location-card__phone svg {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+}
+
+/* ── Global Presence card ── */
+.contact-global-card {
+    background: linear-gradient(89.81deg, #093C71 62.95%, #072C52 100%);
+    border-radius: 16px;
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.contact-global-card__heading {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 22px;
+    line-height: 28px;
+    color: #FFFFFF;
+    margin: 0;
+    padding-bottom: 4px;
+    border-bottom: 2px solid #FFF200;
+    display: inline-block;
+    width: fit-content;
+}
+
+.contact-global-card__copy {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 24px;
+    color: rgba(255,255,255,0.85);
+    margin: 0;
+}
+
+.contact-global-card__copy p {
+    font-family: 'Montserrat', sans-serif !important;
+    font-weight: 400 !important;
+    font-size: 16px !important;
+    line-height: 24px !important;
+    color: rgba(255, 255, 255, 0.9) !important;
+    margin: 0 !important;
+}
+
+.contact-global-card__regions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px 24px;
+}
+
+.contact-global-card__region-name {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 20px;
+    color: #FFFFFF;
+    margin: 0 0 4px;
+}
+
+.contact-global-card__region-countries {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    color: rgba(255,255,255,0.75);
+    margin: 0;
+}
+
+/* ── Email / Call buttons ── */
+.contact-section__cta-buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+}
+
+.contact-section__cta-btn {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    height: 56px;
+    padding: 0;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: 0.35px;
+    text-transform: uppercase;
+    color: #093C71;
+    background: #FFFFFF;
+    border: 2px solid #093C71;
+    border-radius: 10px;
+    text-decoration: none;
+    transition: background 0.2s, border-color 0.2s;
+}
+
+.contact-section__cta-btn:hover {
+    background: #F0F5FA;
+    border-color: #093C71;
+    color: #093C71;
+    text-decoration: none;
+}
+
+.contact-section__cta-btn svg,
+.contact-section__cta-btn img {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+}
+
+/* ── Responsive ── */
+@media (max-width: 1100px) {
+    .contact-section__container {
+        padding: 0 48px;
+    }
+
+    .contact-section__body {
+        flex-direction: column;
+    }
+
+    .contact-section__form-col {
+        flex: none;
+        max-width: 100%;
+        width: 100%;
+    }
+
+    .contact-section__info-col {
+        width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .contact-section {
+        padding: 48px 0 0;
+    }
+
+    .contact-section {
+        padding: 64px 0 48px !important;
+        background: linear-gradient(180deg, #F8FAFC 0%, #FFFFFF 100%) !important;
+        width: 100vw !important;
+        max-width: 100vw !important;
+        margin-left: calc(-50vw + 50%) !important;
+        margin-right: calc(-50vw + 50%) !important;
+    }
+
+    .contact-section__container {
+        padding: 0 24px !important;
+        gap: 40px;
+    }
+
+    .contact-section__header {
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .contact-section__heading {
+        font-size: 40px;
+        line-height: 60px;
+        font-weight: 600;
+        text-align: left;
+        color: #003B71;
+    }
+
+    .contact-section__subheading {
+        font-size: 18px;
+        line-height: 28px;
+        text-align: left;
+        color: #45556C;
+    }
+
+    .contact-section .gform_wrapper .gf_left_half,
+    .contact-section .gform_wrapper .gf_right_half,
+    .contact-section .gform_wrapper .gf_left_third,
+    .contact-section .gform_wrapper .gf_middle_third,
+    .contact-section .gform_wrapper .gf_right_third {
+        width: 100%;
+        display: block;
+        margin-right: 0;
+    }
+
+    .contact-section__cta-buttons {
+        flex-direction: row;
+        gap: 16px;
+    }
+
+    .contact-section__cta-btn {
+        flex: 1;
+        height: 56px;
+        padding: 0 !important;
+        font-size: 14px;
+        font-weight: 400;
+        letter-spacing: 0.35px;
+        text-transform: uppercase;
+        color: #093C71;
+        background: #FFFFFF;
+        border: 2px solid #093C71;
+        border-radius: 10px;
+    }
+
+    .contact-global-card__regions {
+        grid-template-columns: 1fr;
+    }
+
+    /* Location card — Figma mobile */
+    .contact-location-card {
+        padding: 33px;
+        border-radius: 10px;
+        border: none;
+        box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1), 0px 4px 6px -4px rgba(0, 0, 0, 0.1);
+    }
+
+    .contact-location-card__icon {
+        border-radius: 10px;
+        background: #093C71;
+    }
+
+    .contact-location-card__title {
+        font-weight: 400;
+        font-size: 20px;
+        line-height: 28px;
+        color: #093C71;
+    }
+
+    .contact-location-card__company {
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 20px;
+        letter-spacing: 0.35px;
+        color: #62748E;
+    }
+
+    .contact-location-card__address {
+        font-size: 16px;
+        line-height: 24px;
+        color: #45556C;
+    }
+
+    .contact-location-card__phone {
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 24px;
+        color: #314158;
+        padding-top: 16px;
+        border-top: 1px solid #E2E8F0;
+    }
+
+    .contact-location-card__divider {
+        display: none;
+    }
+}

@@ -268,6 +268,9 @@ function wp_bootstrap_starter_scripts() {
     wp_enqueue_style( 'partnerships-css', get_template_directory_uri() . '/inc/assets/css/parts/partnerships.css', [], time() );
     // Locations page (ported from blueprint).
     wp_enqueue_style( 'locations-css', get_template_directory_uri() . '/inc/assets/css/parts/locations.css', [], time() );
+    // Contact section + footer styles (server-side additions; keep in repo so deploys don't drop them).
+    wp_enqueue_style( 'contact-css', get_template_directory_uri() . '/inc/assets/css/parts/contact.css', [], time() );
+    wp_enqueue_style( 'footer-css', get_template_directory_uri() . '/inc/assets/css/parts/footer.css', [], time() );
     wp_enqueue_script('wowjs', get_template_directory_uri().'/inc/assets/js/wow.min.js', array(), '', true);
     //custom js
 
@@ -387,6 +390,13 @@ require_once(get_template_directory() . '/inc/acf-products-section.php');
 require_once(get_template_directory() . '/inc/acf-our-companies.php');
 
 /**
+ * Contact section extras — ACF field group for the localized contact/location card
+ * (contact_localized: location card + Global Presence). Server-side addition; kept
+ * in the repo so future functions.php deploys don't drop it.
+ */
+require_once(get_template_directory() . '/inc/acf-contact-extra.php');
+
+/**
  * Locations page — ACF field group + render hooks (ported from blueprint).
  * Locale locations pages: en-us 11850, en-ca 12678, en-uk 12728,
  * es-us 13241, fr-ca 13243, pl-pl 13245.
@@ -405,7 +415,6 @@ add_filter('the_content', function ($content) {
     if (!in_array(get_the_ID(), wj_locations_page_ids(), true)) { return $content; }
     ob_start();
     get_template_part('template-parts/locations-sections');
-    get_template_part('template-parts/agg-contact');
     $html = ob_get_clean();
     if (trim($content)) {
         $content = '<div class="locations-legacy-content" style="display:none !important;" aria-hidden="true">' . $content . '</div>';
