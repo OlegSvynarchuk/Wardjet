@@ -1,0 +1,35 @@
+/**
+ * Crossbeam feature row
+ *
+ * The crossbeam block renders with the standard feature-block markup so it
+ * reads as just another feature row (white bg, same type/proportions from
+ * feature-block.css). These rules only make its 3D turntable behave like a
+ * normal feature-block image — .turntable rules in wardjet-custom.css are more
+ * specific than .feature-block__image img, so they'd otherwise force 450px and
+ * skip the radius/shadow.
+ */
+
+.feature-block--crossbeam .feature-block__image .turntable,
+.feature-block--crossbeam .feature-block__image .turntable ul {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.feature-block--crossbeam .feature-block__image .turntable ul li img {
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+    margin: 0;
+    border-radius: 16px;
+    box-shadow: 0px 10px 15px 3px rgba(0, 0, 0, 0.1), 0px 2px 6px rgba(0, 0, 0, 0.24);
+}
+
+/* Subtitle sits between the title and the copy, matching the feature type scale. */
+.feature-block--crossbeam .feature-block__subtitle {
+    display: block;
+    margin-top: -18px;
+    font-size: 20px;
+    line-height: 1.4;
+    color: #363636;
+}

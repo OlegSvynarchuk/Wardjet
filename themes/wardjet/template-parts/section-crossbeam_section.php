@@ -11,9 +11,6 @@
 
 $block = $args['block'];
 
-$is_reverse = (isset($block['section_style']) && $block['section_style'] === 'right_image');
-$modifier   = $is_reverse ? ' feature-block--reverse' : '';
-
 // Share the feature_block counter so the rows keep alternating in sequence.
 global $wj_feature_block_index;
 if (!isset($wj_feature_block_index)) {
@@ -21,9 +18,21 @@ if (!isset($wj_feature_block_index)) {
 }
 $fb_index = $wj_feature_block_index++;
 
+// Image side: honour section_style when the editor set one, otherwise keep the
+// rows alternating (even index = image left, odd = image right).
+if (isset($block['section_style']) && $block['section_style'] !== '') {
+    $is_reverse = ($block['section_style'] === 'right_image');
+} else {
+    $is_reverse = ($fb_index % 2 === 1);
+}
+$modifier = $is_reverse ? ' feature-block--reverse' : '';
+
 $animated = !empty($block['animated_image']) ? $block['animated_image'] : array();
+
+// NB: no `crossbeam-section` class — it carries background:#F5F5F5 in
+// wardjet-custom.css. This row must read as a plain white feature block.
 ?>
-<section class="feature-block feature-block--n<?php echo esc_attr($fb_index); ?><?php echo esc_attr($modifier); ?> crossbeam-section">
+<section class="feature-block feature-block--n<?php echo esc_attr($fb_index); ?><?php echo esc_attr($modifier); ?> feature-block--crossbeam">
     <div class="feature-block__inner">
         <div class="feature-block__image">
             <?php if ($animated) : ?>
