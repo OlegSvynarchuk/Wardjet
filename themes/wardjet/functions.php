@@ -414,6 +414,12 @@ require_once(get_template_directory() . '/inc/acf-contact-extra.php');
 require_once(get_template_directory() . '/inc/acf-locations.php');
 
 /**
+ * Industry CPT fields — `industry_features` (hover list on the homepage grid)
+ * + `grid_image`. Ported from the blueprint's acf-industries.php.
+ */
+require_once(get_template_directory() . '/inc/acf-industries.php');
+
+/**
  * Single product (series) — ACF field groups (ported from blueprint).
  * acf-router-renders: `router_renders` gallery + `features_show_numbers` (retargeted to the `series` CPT).
  * acf-product-specs:  `product_display_mode` + `product_specs` on the `products` CPT (spec cards).
