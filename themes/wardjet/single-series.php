@@ -60,9 +60,8 @@ $blocks = get_field('content');
     // Product title + subtitle + 3D renders carousel (replaces the main_banner block).
     get_template_part('template-parts/router-renders-carousel');
 
-    $feature_block_found     = false;
-    $features_strip_rendered = false;
-
+    // Figma 18:5482 has no features-strip between the feature rows and the
+    // 3-step band, so (unlike the blueprint's router pages) none is injected.
     if (is_array($blocks)) :
         foreach ($blocks as $block) :
             $layout = $block['acf_fc_layout'];
@@ -70,18 +69,6 @@ $blocks = get_field('content');
             // Rendered by the renders-carousel above.
             if ($layout === 'main_banner') {
                 continue;
-            }
-            if ($layout === 'feature_block') {
-                $feature_block_found = true;
-            }
-            // Videos only make sense after the feature rows.
-            if ($layout === 'videos' && !$feature_block_found) {
-                continue;
-            }
-            // Drop the features strip in once the feature rows are done.
-            if ($layout !== 'feature_block' && $feature_block_found && !$features_strip_rendered) {
-                get_template_part('template-parts/router-features-strip');
-                $features_strip_rendered = true;
             }
 
             get_template_part('template-parts/section', $layout, ['block' => $block]);

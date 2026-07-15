@@ -272,9 +272,9 @@ function wp_bootstrap_starter_scripts() {
     wp_enqueue_style( 'contact-css', get_template_directory_uri() . '/inc/assets/css/parts/contact.css', [], time() );
     wp_enqueue_style( 'footer-css', get_template_directory_uri() . '/inc/assets/css/parts/footer.css', [], time() );
     // Single product (series) sections — ported from blueprint (Figma 18:5482).
+    wp_enqueue_style( 'video-carousel-css', get_template_directory_uri() . '/inc/assets/css/parts/video-carousel.css', [], time() );
     wp_enqueue_style( 'router-renders-css', get_template_directory_uri() . '/inc/assets/css/parts/router-renders.css', [], time() );
     wp_enqueue_style( 'feature-block-css', get_template_directory_uri() . '/inc/assets/css/parts/feature-block.css', [], time() );
-    wp_enqueue_style( 'router-features-strip-css', get_template_directory_uri() . '/inc/assets/css/parts/router-features-strip.css', [], time() );
     wp_enqueue_style( 'selected-products-css', get_template_directory_uri() . '/inc/assets/css/parts/selected-products.css', [], time() );
     wp_enqueue_style( 'competitive-chart-css', get_template_directory_uri() . '/inc/assets/css/parts/competitive-chart.css', [], time() );
     wp_enqueue_style( 'series-gallery-css', get_template_directory_uri() . '/inc/assets/css/parts/series-gallery.css', [], time() );

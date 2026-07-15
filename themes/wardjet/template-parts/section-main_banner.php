@@ -7,7 +7,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <h1><?php echo $block['title']; ?></h1>
-                        <p><b><?php echo $block['subtitle']; ?></b></p>
+                        <p><?php echo $block['subtitle']; ?></p>
                     </div>
                 </div>
             </div>

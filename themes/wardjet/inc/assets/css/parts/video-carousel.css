@@ -1,0 +1,307 @@
+/**
+ * Video Carousel Styles
+ * Custom translateX track slider
+ */
+
+.video-carousel-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 96px;
+    width: 100%;
+}
+
+.video-carousel-wrapper {
+    width: 100%;
+    max-width: 1248px;
+    position: relative;
+}
+
+#videoCarousel {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 24px;
+    position: relative;
+}
+
+/* Arrows + viewport sit in a row */
+#videoCarousel .video-carousel-nav,
+#videoCarousel .video-carousel-viewport {
+    flex-shrink: 0;
+}
+
+/* Dots take full width below */
+#videoCarousel .video-carousel-dots {
+    flex-basis: 100%;
+}
+
+/* Viewport — clips the track */
+.video-carousel-viewport {
+    flex: 1;
+    overflow: hidden;
+    border-radius: 16px;
+    min-width: 0;
+    width: 100%;
+}
+
+/* Track — smooth translateX */
+.video-carousel-track {
+    display: flex;
+    flex-direction: row;
+    transition: transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+/* Slide */
+.video-carousel-slide {
+    flex: 0 0 100%;
+    min-width: 100%;
+}
+
+/* Card */
+.video-carousel-card {
+    width: 100%;
+    height: 555px;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0px 25px 50px -12px rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+}
+
+/* Poster — contain so it doesn't crop */
+.video-carousel-poster {
+    position: relative;
+    width: 100%;
+    height: 555px;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #093C71;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Blue gradient overlay */
+.video-carousel-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(9, 60, 113, 0.9) 0%, rgba(13, 91, 163, 0.7) 100%);
+    border-radius: 16px;
+}
+
+/* Content (play button + text) */
+.video-carousel-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    z-index: 1;
+    position: relative;
+}
+
+/* Play button circle */
+.video-carousel-play {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 96px;
+    height: 96px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    transition: background 0.3s ease;
+}
+
+.video-carousel-card:hover .video-carousel-play {
+    background: rgba(255, 255, 255, 0.35);
+}
+
+/* Title */
+.video-carousel-title {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 32px;
+    text-align: center;
+    color: #FFFFFF;
+    margin: 0;
+}
+
+/* Subtitle */
+.video-carousel-subtitle {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.8);
+    margin: 0;
+}
+
+/* Navigation arrows */
+.video-carousel-nav {
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
+    background: rgba(9, 60, 113, 0.96);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.24), 0 10px 15px 3px rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    color: #FFFFFF;
+    flex-shrink: 0;
+}
+
+.video-carousel-nav:hover {
+    background: rgba(9, 60, 113, 1);
+    color: #FFFFFF;
+}
+
+.video-carousel-nav.disabled {
+    opacity: 0.3;
+    cursor: default;
+    pointer-events: none;
+}
+
+/* Pagination dots */
+.video-carousel-dots {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    padding: 0;
+    margin: 32px 0 0;
+    width: 100%;
+}
+
+.video-carousel-dot {
+    width: 12px;
+    height: 12px;
+    background: #CAD5E2;
+    border-radius: 50%;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.video-carousel-dot.active {
+    width: 48px;
+    background: #093C71;
+    border-radius: 9999px;
+}
+
+.video-carousel-dot:hover {
+    background: #093C71;
+}
+
+/* Responsive - Tablet */
+@media (max-width: 1200px) {
+    .video-carousel-section {
+        padding: 64px 48px;
+    }
+}
+
+@media (max-width: 1023px) {
+    .video-carousel-section {
+        padding: 48px 24px;
+    }
+
+    .video-carousel-card,
+    .video-carousel-poster {
+        height: 400px;
+    }
+
+    .video-carousel-title {
+        font-size: 20px;
+        line-height: 28px;
+    }
+
+    .video-carousel-nav {
+        width: 40px;
+        height: 40px;
+        min-width: 40px;
+    }
+}
+
+/* Responsive - Mobile */
+@media (max-width: 767px) {
+    .video-carousel-section {
+        padding: 64px 24px;
+        gap: 48px;
+    }
+
+    .video-carousel-card,
+    .video-carousel-poster {
+        height: 354px;
+        border-radius: 16px;
+    }
+
+    .video-carousel-play {
+        width: 96px;
+        height: 96px;
+    }
+
+    .video-carousel-play svg {
+        width: 48px;
+        height: 48px;
+    }
+
+    .video-carousel-title {
+        font-size: 24px;
+        line-height: 32px;
+    }
+
+    .video-carousel-subtitle {
+        font-size: 14px;
+        line-height: 20px;
+    }
+
+    /* Arrows below video on mobile */
+    #videoCarousel {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .video-carousel-nav {
+        order: 1;
+    }
+
+    .video-carousel-viewport {
+        order: 0;
+        width: 100%;
+    }
+
+    /* Arrows row below video */
+    #videoCarousel .video-carousel-nav--prev,
+    #videoCarousel .video-carousel-nav--next {
+        position: absolute;
+        bottom: -60px;
+    }
+
+    #videoCarousel .video-carousel-nav--prev {
+        left: calc(50% - 56px);
+    }
+
+    #videoCarousel .video-carousel-nav--next {
+        right: calc(50% - 56px);
+    }
+
+    .video-carousel-dots {
+        margin-top: 16px;
+    }
+
+    .video-carousel-dot.active {
+        width: 48px;
+    }
+}
