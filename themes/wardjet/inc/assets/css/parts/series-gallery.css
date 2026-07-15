@@ -1,0 +1,191 @@
+/**
+ * Series Gallery / Slider Styles
+ */
+
+.series-gallery {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 64px 96px;
+    gap: 64px;
+    width: 100%;
+    background: #FFFFFF;
+}
+
+.series-gallery__inner {
+    max-width: 1248px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+/* Dual carousel: desktop renders pairs, mobile renders singles. Toggle per viewport. */
+.series-gallery-carousel--mobile { display: none; }
+@media (max-width: 767.98px) {
+    .series-gallery-carousel--desktop { display: none; }
+    .series-gallery-carousel--mobile  { display: block; }
+}
+
+/* Image pair */
+.series-gallery__pair {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    width: 100%;
+}
+
+.series-gallery__image {
+    flex: 1;
+    max-width: calc(50% - 8px);
+    overflow: hidden;
+    border-radius: 16px;
+    box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1), 0px 4px 6px -4px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+.series-gallery__image img {
+    width: 100%;
+    height: 560px;
+    object-fit: cover;
+    display: block;
+    border-radius: 16px;
+}
+
+.series-gallery__image::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(0deg, rgba(15, 35, 60, 0.65) 0%, rgba(15, 35, 60, 0.25) 50%, rgba(0, 0, 0, 0) 100%);
+    border-radius: 16px;
+    pointer-events: none;
+}
+
+/* Dots / Indicators */
+/* Override Bootstrap's ol.carousel-indicators (which has top:0/margin-top:7.5em).
+   Higher specificity: 3 classes + element. */
+.series-gallery ol.carousel-indicators.series-gallery__dots,
+.series-gallery__dots {
+    position: relative;
+    top: auto;
+    bottom: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 8px;
+    margin-top: 34px;
+    margin-bottom: 0;
+    padding: 0;
+}
+
+.series-gallery__dots li {
+    width: 12px !important;
+    height: 12px !important;
+    background: #CAD5E2 !important;
+    border-radius: 50% !important;
+    border: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    text-indent: -9999px;
+    opacity: 1 !important;
+}
+
+.series-gallery__dots li.active {
+    width: 48px !important;
+    height: 12px !important;
+    background: #093C71 !important;
+    border-radius: 9999px !important;
+}
+
+/* Responsive - Tablet */
+@media (max-width: 1200px) {
+    .series-gallery {
+        padding: 64px 48px;
+    }
+
+    .series-gallery__image img {
+        height: 400px;
+    }
+
+    .series-gallery__dots {
+        margin-top: 20px;
+    }
+}
+
+@media (max-width: 1023px) {
+    .series-gallery {
+        padding: 48px 24px;
+    }
+
+    .series-gallery__pair {
+        flex-direction: row;
+        gap: 16px;
+    }
+
+    .series-gallery__image {
+        flex: 1;
+        max-width: calc(50% - 8px);
+    }
+
+    .series-gallery__image img {
+        height: 300px;
+    }
+
+    .series-gallery__dots {
+        margin-top: 16px;
+    }
+}
+
+/* Responsive - Mobile */
+@media (max-width: 767px) {
+    .series-gallery {
+        padding: 24px;
+        gap: 24px;
+    }
+
+    /* Horizontal swiper — 1 image at a time */
+    .series-gallery__pair {
+        display: flex !important;
+        flex-direction: row !important;
+        flex-wrap: nowrap !important;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        gap: 16px;
+        scrollbar-width: none;
+    }
+
+    .series-gallery__pair::-webkit-scrollbar {
+        display: none;
+    }
+
+    .series-gallery__image {
+        flex: 0 0 100% !important;
+        max-width: 100% !important;
+        scroll-snap-align: center;
+    }
+
+    .series-gallery__image img {
+        height: 276px;
+        border-radius: 16px;
+    }
+
+    .series-gallery__dots {
+        margin-top: 12px;
+        gap: 8px;
+    }
+
+    .series-gallery__dots li {
+        width: 12px !important;
+        height: 12px !important;
+    }
+
+    .series-gallery__dots li.active {
+        width: 48px !important;
+        height: 12px !important;
+    }
+}

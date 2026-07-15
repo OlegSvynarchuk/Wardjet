@@ -1,0 +1,183 @@
+/**
+ * Router Renders Carousel Styles
+ */
+
+.router-renders {
+    width: 100%;
+    background: #FFFFFF;
+    padding: 64px 0 0;
+}
+
+.router-renders__header {
+    text-align: center;
+    margin-bottom: 64px;
+    padding: 0 96px;
+}
+
+.router-renders__title {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-size: 48px;
+    line-height: 48px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #093C71;
+    margin: 0 0 12px;
+}
+
+.router-renders__subtitle {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    color: #45556C;
+    margin: 0 auto;
+    max-width: 860px;
+}
+
+/* Carousel */
+.router-renders__carousel {
+    max-width: 1248px;
+    margin: 0 auto;
+    padding: 0 96px 48px;
+    position: relative;
+}
+
+.router-renders__carousel .carousel-item img {
+    width: 100%;
+    max-height: 600px;
+    object-fit: contain;
+    margin: 0 auto;
+    display: block;
+}
+
+/* Dots */
+.router-renders__carousel .carousel-indicators {
+    position: relative;
+    bottom: 0;
+    margin-top: 24px;
+    margin-bottom: 0;
+}
+
+.router-renders__carousel .carousel-indicators li {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: #CBD5E1;
+    border: none;
+    margin: 0 6px;
+    transition: background-color 0.3s ease;
+}
+
+.router-renders__carousel .carousel-indicators li.active {
+    background-color: #093C71;
+}
+
+/* Responsive - Tablet */
+@media (max-width: 991.98px) {
+    .router-renders__carousel {
+        padding: 0 48px 32px;
+    }
+
+    .router-renders__title {
+        font-size: 36px;
+        line-height: 40px;
+    }
+
+    .router-renders__carousel .carousel-item img {
+        max-height: 450px;
+    }
+}
+
+/* Responsive - Mobile */
+@media (max-width: 767.98px) {
+    .router-renders {
+        padding: 40px 0 0;
+        position: relative;
+        z-index: 1;
+    }
+
+    .router-renders__header {
+        margin-bottom: 32px;
+        text-align: left;
+        padding: 0 24px;
+    }
+
+    .router-renders__title {
+        font-size: 40px;
+        line-height: 1.15;
+        font-weight: 400;
+        color: #093C71;
+        text-align: left;
+        letter-spacing: 0;
+    }
+
+    .router-renders__subtitle {
+        font-size: 18px;
+        line-height: 28px;
+        font-weight: 400;
+        color: #45556C;
+        text-align: left;
+    }
+
+    .router-renders__carousel {
+        padding: 0 24px 0;
+        overflow: hidden;
+    }
+
+    .router-renders__carousel .carousel-inner {
+        height: 354px !important;
+        overflow: hidden !important;
+    }
+
+    .router-renders__carousel .carousel-item {
+        height: 354px !important;
+    }
+
+    .router-renders__carousel .carousel-item img {
+        width: 100% !important;
+        height: 354px !important;
+        max-height: 354px !important;
+        object-fit: contain !important;
+        background: #FFFFFF;
+    }
+
+    /* Prevent feature block from overlapping */
+    .router-renders + .feature-block,
+    .router-renders ~ .feature-block {
+        margin-top: 0 !important;
+        position: relative;
+        z-index: 1;
+    }
+
+    /* Dots */
+    .router-renders__carousel .carousel-indicators {
+        position: relative;
+        margin-top: 16px;
+        bottom: auto;
+    }
+
+    .router-renders__carousel .carousel-indicators li,
+    .router-renders__carousel .carousel-indicators button {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: #CAD5E2;
+        border: none;
+        margin: 0 4px;
+        opacity: 1;
+    }
+
+    .router-renders__carousel .carousel-indicators li.active,
+    .router-renders__carousel .carousel-indicators button.active,
+    .router-renders__carousel .carousel-indicators .active {
+        width: 48px;
+        border-radius: 9999px;
+        background: #093C71;
+    }
+
+    /* Hide arrows on mobile */
+    .router-renders__nav {
+        display: none;
+    }
+}

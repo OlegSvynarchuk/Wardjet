@@ -1,0 +1,305 @@
+/**
+ * Sub-Routers Grid Styles
+ * Based on Figma Loadline page node 2548-4306
+ */
+
+/* Section */
+.sub-routers-section {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 64px 96px;
+    width: 100%;
+    max-width: 1440px;
+    margin: 0 auto;
+    background: linear-gradient(180deg, #FFFFFF 0%, #F8FAFC 100%);
+}
+
+/* Ensure spacing after hero video on parent router pages */
+.hero-video-carousel + .sub-routers-section {
+    padding-top: 64px;
+}
+
+/* Container */
+.sub-routers__container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 64px;
+    max-width: 1248px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+/* Header */
+.sub-routers__header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+}
+
+.sub-routers__title {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-size: 48px;
+    line-height: 48px;
+    text-align: center;
+    color: #093C71;
+    margin: 0;
+}
+
+.sub-routers__subtitle {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 28px;
+    text-align: center;
+    color: #45556C;
+    margin: 0;
+    max-width: 702px;
+}
+
+/* Cards Grid — 3 columns */
+.sub-routers__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+    width: 100%;
+}
+
+/* Card */
+.sub-routers__card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    background: #FFFFFF;
+    box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1), 0px 4px 6px -4px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+.sub-routers__card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0px 20px 25px -5px rgba(0, 0, 0, 0.15), 0px 8px 10px -6px rgba(0, 0, 0, 0.1);
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Card Image — top half, white bg */
+.sub-routers__card-image {
+    width: 100%;
+    height: 206px;
+    background: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.sub-routers__card-image img {
+    max-width: 80%;
+    max-height: 180px;
+    object-fit: contain;
+}
+
+/* Card Specs — bottom half, white bg */
+.sub-routers__card-specs {
+    width: 100%;
+    padding: 24px 25px;
+    position: relative;
+    background: #FFFFFF;
+    flex: 1;
+}
+
+/* Card Title */
+.sub-routers__card-title {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 28px;
+    text-transform: uppercase;
+    color: #093C71;
+    margin: 0 0 14px;
+}
+
+/* Specs Grid — labels left, values right */
+.sub-routers__specs-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+}
+
+.sub-routers__spec {
+    display: contents;
+}
+
+.sub-routers__spec-label {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+    letter-spacing: 0.35px;
+    text-transform: uppercase;
+    color: #45556C;
+    padding: 8px 0;
+}
+
+.sub-routers__spec-value {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+    text-align: right;
+    color: #45556C;
+    padding: 8px 0;
+}
+
+/* Models Section */
+.sub-routers__models {
+    width: 100%;
+    padding: 48px 0;
+}
+
+.sub-routers__models-title {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 32px;
+    line-height: 36px;
+    color: #093C71;
+    margin: 0 0 20px;
+}
+
+.sub-routers__models-desc,
+.sub-routers__models-desc p {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 26px;
+    color: #45556C;
+}
+
+/* Applications Section */
+.sub-routers__applications {
+    width: 100%;
+    padding: 48px 0;
+}
+
+.sub-routers__applications-title {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 32px;
+    line-height: 36px;
+    color: #093C71;
+    margin: 0 0 20px;
+}
+
+.sub-routers__applications-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    columns: 2;
+    column-gap: 40px;
+}
+
+.sub-routers__applications-list li {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 28px;
+    color: #45556C;
+    padding: 4px 0 4px 20px;
+    position: relative;
+}
+
+.sub-routers__applications-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 14px;
+    width: 6px;
+    height: 6px;
+    background: #093C71;
+    border-radius: 50%;
+}
+
+/* Responsive - Tablet */
+@media (max-width: 1023.98px) {
+    .sub-routers-section {
+        padding: 64px 48px;
+    }
+
+    .sub-routers__grid {
+        grid-template-columns: 1fr;
+        max-width: 400px;
+        margin: 0 auto;
+    }
+
+    .sub-routers__title {
+        font-size: 36px;
+        line-height: 40px;
+    }
+
+    .sub-routers__applications-list {
+        columns: 1;
+    }
+}
+
+/* Responsive - Mobile */
+@media (max-width: 767.98px) {
+    .sub-routers-section {
+        padding: 48px 24px;
+        gap: 48px;
+    }
+
+    .sub-routers__container {
+        gap: 48px;
+    }
+
+    .sub-routers__header {
+        align-items: flex-start;
+        text-align: left;
+    }
+
+    .sub-routers__title {
+        font-size: 48px;
+        line-height: 56px;
+        font-weight: 400;
+        color: #093C71;
+        text-align: left;
+    }
+
+    .sub-routers__subtitle {
+        font-size: 20px;
+        line-height: 28px;
+        color: #45556C;
+        text-align: left;
+        max-width: 100%;
+    }
+
+    /* Cards — single column */
+    .sub-routers__grid {
+        grid-template-columns: 1fr !important;
+        gap: 24px;
+        max-width: 100%;
+    }
+
+    .sub-routers__card-image {
+        height: 200px;
+    }
+
+    .sub-routers__card-specs {
+        height: auto;
+    }
+
+    .sub-routers__models-title,
+    .sub-routers__applications-title {
+        font-size: 24px;
+        line-height: 28px;
+    }
+}

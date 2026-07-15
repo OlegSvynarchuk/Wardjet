@@ -1,0 +1,157 @@
+/**
+ * Competitive Chart / Features & Benefits Styles
+ */
+
+.competitive-chart {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 64px 96px;
+    gap: 10px;
+    width: 100%;
+    background: linear-gradient(180deg, #F8FAFC 0%, #FFFFFF 100%);
+}
+
+.competitive-chart__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+    max-width: 1248px;
+    width: 100%;
+}
+
+/* Title */
+.competitive-chart__title {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-size: 48px;
+    line-height: 48px;
+    color: #093C71;
+    margin: 0;
+}
+
+/* Cards container */
+.competitive-chart__cards {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    width: 100%;
+}
+
+/* Card */
+.competitive-chart__card {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 16px;
+    gap: 12px;
+    width: 100%;
+    background: linear-gradient(135deg, #F8FAFC 0%, #FFFFFF 100%);
+    border: 1px solid #E2E8F0;
+    box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1), 0px 4px 6px -4px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+/* Card title */
+.competitive-chart__card-title {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 32px;
+    color: #093C71;
+    margin: 0;
+}
+
+/* Card content */
+.competitive-chart__card-content {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+    color: #62748E;
+}
+
+.competitive-chart__card-content p,
+.competitive-chart__card-content span,
+.competitive-chart__card-content a,
+.competitive-chart__card-content li {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+    color: #62748E !important;
+    margin: 0;
+}
+
+/* Table inside card */
+.competitive-chart__card-content table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.competitive-chart__card-content th,
+.competitive-chart__card-content td {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    line-height: 16px;
+    color: #62748E;
+    padding: 8px 4px;
+    text-align: left;
+    border-bottom: 1px solid #E2E8F0;
+}
+
+.competitive-chart__card-content th {
+    font-weight: 600;
+    color: #093C71;
+}
+
+/* Responsive - Tablet */
+@media (max-width: 1200px) {
+    .competitive-chart {
+        padding: 64px 48px;
+    }
+
+    .competitive-chart__title {
+        font-size: 36px;
+        line-height: 40px;
+    }
+}
+
+/* Responsive - Mobile */
+@media (max-width: 767px) {
+    .competitive-chart {
+        padding: 64px 24px;
+    }
+
+    .competitive-chart__title {
+        font-size: 48px;
+        line-height: 56px;
+        font-weight: 400;
+        color: #093C71;
+    }
+
+    .competitive-chart__card {
+        padding: 16px;
+        gap: 12px;
+        border-radius: 10px;
+    }
+
+    .competitive-chart__card-title {
+        font-size: 24px;
+        line-height: 32px;
+        font-weight: 400;
+        color: #093C71;
+    }
+
+    .competitive-chart__card-content,
+    .competitive-chart__card-content p,
+    .competitive-chart__card-content span,
+    .competitive-chart__card-content li {
+        font-size: 14px !important;
+        line-height: 16px !important;
+        color: #62748E !important;
+    }
+}

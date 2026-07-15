@@ -271,6 +271,14 @@ function wp_bootstrap_starter_scripts() {
     // Contact section + footer styles (server-side additions; keep in repo so deploys don't drop them).
     wp_enqueue_style( 'contact-css', get_template_directory_uri() . '/inc/assets/css/parts/contact.css', [], time() );
     wp_enqueue_style( 'footer-css', get_template_directory_uri() . '/inc/assets/css/parts/footer.css', [], time() );
+    // Single product (series) sections — ported from blueprint (Figma 18:5482).
+    wp_enqueue_style( 'router-renders-css', get_template_directory_uri() . '/inc/assets/css/parts/router-renders.css', [], time() );
+    wp_enqueue_style( 'feature-block-css', get_template_directory_uri() . '/inc/assets/css/parts/feature-block.css', [], time() );
+    wp_enqueue_style( 'router-features-strip-css', get_template_directory_uri() . '/inc/assets/css/parts/router-features-strip.css', [], time() );
+    wp_enqueue_style( 'selected-products-css', get_template_directory_uri() . '/inc/assets/css/parts/selected-products.css', [], time() );
+    wp_enqueue_style( 'competitive-chart-css', get_template_directory_uri() . '/inc/assets/css/parts/competitive-chart.css', [], time() );
+    wp_enqueue_style( 'series-gallery-css', get_template_directory_uri() . '/inc/assets/css/parts/series-gallery.css', [], time() );
+    wp_enqueue_style( 'brochure-section-css', get_template_directory_uri() . '/inc/assets/css/parts/brochure-section.css', [], time() );
     wp_enqueue_script('wowjs', get_template_directory_uri().'/inc/assets/js/wow.min.js', array(), '', true);
     //custom js
 
@@ -402,6 +410,14 @@ require_once(get_template_directory() . '/inc/acf-contact-extra.php');
  * es-us 13241, fr-ca 13243, pl-pl 13245.
  */
 require_once(get_template_directory() . '/inc/acf-locations.php');
+
+/**
+ * Single product (series) — ACF field groups (ported from blueprint).
+ * acf-router-renders: `router_renders` gallery + `features_show_numbers` (retargeted to the `series` CPT).
+ * acf-product-specs:  `product_display_mode` + `product_specs` on the `products` CPT (spec cards).
+ */
+require_once(get_template_directory() . '/inc/acf-router-renders.php');
+require_once(get_template_directory() . '/inc/acf-product-specs.php');
 
 if (!function_exists('wj_locations_page_ids')) {
     function wj_locations_page_ids() {
