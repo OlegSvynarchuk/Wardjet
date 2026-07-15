@@ -60,25 +60,43 @@ $blocks = get_field('content');
     // Product title + subtitle + 3D renders carousel (replaces the main_banner block).
     get_template_part('template-parts/router-renders-carousel');
 
-    // Figma 18:5482 has no features-strip between the feature rows and the
-    // 3-step band, so (unlike the blueprint's router pages) none is injected.
+    // Figma 18:5482: the numbered blue band (AXYZStats) sits directly after the
+    // feature rows (Frame 77 ends where AXYZStats begins). It's rendered by
+    // router-features-strip, whose cards come from main_banner's `features`
+    // repeater over series_image. crossbeam_section counts as a feature row.
+    $feature_layouts = ['feature_block', 'crossbeam_section'];
+    $in_features     = false;
+    $strip_rendered  = false;
+
     if (is_array($blocks)) :
         foreach ($blocks as $block) :
             $layout = $block['acf_fc_layout'];
 
-            // Rendered by the renders-carousel above.
+            // main_banner is a data container only: its subtitle feeds the
+            // renders-carousel and its features[] feed the numbered strip.
             if ($layout === 'main_banner') {
                 continue;
             }
-            // "A Complete Package" boilerplate — not part of the single-product
-            // design and not wanted on any series page.
+            // "A Complete Package" boilerplate — not part of the design.
             if ($layout === 'features_group') {
                 continue;
+            }
+
+            if (in_array($layout, $feature_layouts, true)) {
+                $in_features = true;
+            } elseif ($in_features && !$strip_rendered) {
+                get_template_part('template-parts/router-features-strip');
+                $strip_rendered = true;
             }
 
             get_template_part('template-parts/section', $layout, ['block' => $block]);
         endforeach;
     endif;
+
+    // Feature rows were the last blocks — the strip still needs to render.
+    if ($in_features && !$strip_rendered) {
+        get_template_part('template-parts/router-features-strip');
+    }
     ?>
 
     <?php get_template_part('template-parts/agg-contact'); ?>
