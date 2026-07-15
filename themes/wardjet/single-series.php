@@ -70,6 +70,11 @@ $blocks = get_field('content');
             if ($layout === 'main_banner') {
                 continue;
             }
+            // "A Complete Package" boilerplate — not part of the single-product
+            // design and not wanted on any series page.
+            if ($layout === 'features_group') {
+                continue;
+            }
 
             get_template_part('template-parts/section', $layout, ['block' => $block]);
         endforeach;
