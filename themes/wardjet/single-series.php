@@ -68,6 +68,21 @@ $blocks = get_field('content');
     $in_features     = false;
     $strip_rendered  = false;
 
+    // Series without any feature rows (e.g. Custom Waterjets) still carry the
+    // main_banner features[], so the strip has content — render it directly
+    // under the renders carousel instead of after rows that never come.
+    $has_feature_rows = false;
+    foreach ((array) $blocks as $b) {
+        if (in_array($b['acf_fc_layout'] ?? '', $feature_layouts, true)) {
+            $has_feature_rows = true;
+            break;
+        }
+    }
+    if (!$has_feature_rows) {
+        get_template_part('template-parts/router-features-strip');
+        $strip_rendered = true;
+    }
+
     if (is_array($blocks)) :
         foreach ($blocks as $block) :
             $layout = $block['acf_fc_layout'];
