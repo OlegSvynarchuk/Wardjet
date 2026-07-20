@@ -33,6 +33,12 @@ if (empty($sections)) { return; }
             <div class="mm-products-grid">
                 <?php foreach ($section['items'] as $item) :
                     $img = $item['image'];
+                    // Resolve an attachment ID so we can serve a sized render (with
+                    // srcset) instead of the full-resolution upload — series PNGs can
+                    // be 3000px/3MB, far larger than the ~240px card needs.
+                    $img_id = 0;
+                    if (is_array($img)) { $img_id = isset($img['ID']) ? (int) $img['ID'] : 0; }
+                    elseif (is_numeric($img)) { $img_id = (int) $img; }
                     $img_url = is_array($img) ? (isset($img['url']) ? $img['url'] : '') : (is_string($img) ? $img : '');
                     $link  = isset($item['link']) ? $item['link'] : array();
                     $url   = isset($link['url']) ? $link['url'] : '';
@@ -41,7 +47,13 @@ if (empty($sections)) { return; }
                     $img_alt = (is_array($img) && !empty($img['alt'])) ? $img['alt'] : $title;
                 ?>
                 <a href="<?php echo esc_url($url); ?>" class="mm-product-card"<?php echo $target; ?>>
-                    <span class="mm-product-card__img"><?php if ($img_url) : ?><img src="<?php echo esc_url($img_url); ?>" alt="<?php echo esc_attr($img_alt); ?>"><?php endif; ?></span>
+                    <span class="mm-product-card__img"><?php
+                    if ($img_id) {
+                        echo wp_get_attachment_image($img_id, 'large', false, array('alt' => esc_attr($img_alt), 'decoding' => 'async'));
+                    } elseif ($img_url) {
+                        echo '<img src="' . esc_url($img_url) . '" alt="' . esc_attr($img_alt) . '" decoding="async">';
+                    }
+                    ?></span>
                     <span class="mm-product-card__title"><?php echo esc_html($title); ?></span>
                 </a>
                 <?php endforeach; ?>
@@ -58,7 +70,11 @@ if (empty($sections)) { return; }
 .mm-products-title {
     font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 22px; line-height: 28px;
     color: #093C71; letter-spacing: 0.3px; text-align: left;
-    margin: 0 0 12px 0; padding-bottom: 6px; display: inline-block; border-bottom: 3px solid #F5B600;
+    margin: 0 0 12px 0; padding-bottom: 6px; display: inline-block; position: relative;
+}
+.mm-products-title::after {
+    content: ''; position: absolute; left: 0; bottom: 0;
+    width: 50%; height: 3px; background: #F5B600;
 }
 .mm-products-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px 48px; }
 .mm-product-card { display: flex; flex-direction: column; align-items: center; text-align: center; text-decoration: none; }

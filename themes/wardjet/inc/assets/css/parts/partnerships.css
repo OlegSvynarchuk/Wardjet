@@ -107,6 +107,10 @@
     height: auto !important;
     max-width: none !important;
     max-height: none !important;
+    /* Force logos to solid white regardless of the source asset's color.
+       Keeps them consistent across locales (en/US ships white PNGs; other
+       locales may have grey/colored uploads). */
+    filter: brightness(0) invert(1);
 }
 
 /* Pagination */

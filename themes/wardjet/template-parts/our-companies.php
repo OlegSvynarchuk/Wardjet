@@ -2,6 +2,10 @@
 /**
  * Our Companies Section
  * Redesigned with 3 company cards
+ *
+ * Cards render in the stored ACF repeater order. The canonical order
+ * (WARDJet -> AXYZ -> CNC Shop) is enforced in the data itself, per locale,
+ * so no runtime sorting is needed here.
  */
 ?>
 
