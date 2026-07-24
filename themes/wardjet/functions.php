@@ -722,3 +722,41 @@ function axyz_normalize_broken_paths_before_redirects() {
 }
 // Run very early, before Rank Math / wp_old_slug_redirect.
 add_action( 'template_redirect', 'axyz_normalize_broken_paths_before_redirects', 1 );
+
+/**
+ * Analytics/tag output is allowed only on the production host(s). On staging/dev
+ * (e.g. wardjet.pixels2pixels.ch) GTM + GA4 are suppressed so dev traffic never
+ * pollutes production Google Analytics / Tag Manager. Auto-enables on production —
+ * no manual toggle. If the production domain differs, edit $prod_hosts (or hook
+ * the 'wj_tracking_allowed' filter).
+ */
+if ( ! function_exists( 'wj_tracking_allowed' ) ) {
+    function wj_tracking_allowed() {
+        $prod_hosts = array( 'wardjet.com', 'www.wardjet.com' );
+        $host = strtolower( preg_replace( '/:\d+$/', '', (string) ( $_SERVER['HTTP_HOST'] ?? '' ) ) );
+        return (bool) apply_filters( 'wj_tracking_allowed', in_array( $host, $prod_hosts, true ), $host );
+    }
+}
+// Off-production: suppress every analytics/marketing tag so dev traffic never
+// reaches the production properties.
+if ( ! wj_tracking_allowed() ) {
+    // Google Site Kit — GA4 + Tag Manager tag output (filters, checked at render).
+    add_filter( 'googlesitekit_analytics-4_tag_blocked', '__return_true' );
+    add_filter( 'googlesitekit_tagmanager_tag_blocked', '__return_true' );
+
+    // lead-forensics-roi injects its own script + noscript; WPCode global
+    // Header/Body/Footer output carries enhanced-conversion / dataLayer snippets.
+    // These register at/after plugin load, so strip the callbacks from inside
+    // each target hook at priority 0 — just before they fire.
+    add_action( 'wp_head', function () {
+        remove_action( 'wp_head', 'wpcode_global_frontend_header', 10 );
+        remove_action( 'wp_head', 'lfv2_inject_script', 1 );
+    }, 0 );
+    add_action( 'wp_body_open', function () {
+        remove_action( 'wp_body_open', 'wpcode_global_frontend_body', 1 );
+        remove_action( 'wp_body_open', 'lfv2_inject_noscript', 1 );
+    }, 0 );
+    add_action( 'wp_footer', function () {
+        remove_action( 'wp_footer', 'wpcode_global_frontend_footer', 10 );
+    }, 0 );
+}

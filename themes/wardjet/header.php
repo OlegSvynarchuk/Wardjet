@@ -305,6 +305,7 @@ if (!function_exists('get_header_utility_logo_id')) {
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>
 <head>
+    <?php if ( function_exists( 'wj_tracking_allowed' ) && wj_tracking_allowed() ) : ?>
     <!-- Google Tag Manager -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
     new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -312,6 +313,7 @@ if (!function_exists('get_header_utility_logo_id')) {
     'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
     })(window,document,'script','dataLayer','GTM-5P6ZD8G');</script>
     <!-- End Google Tag Manager -->
+    <?php endif; ?>
     <meta charset="<?php bloginfo( 'charset' ); ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
