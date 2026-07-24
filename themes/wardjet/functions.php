@@ -647,3 +647,78 @@ function get_youtube_icon($url)
 }
 
 add_post_type_support( 'testimonial', 'excerpt' );
+
+/**
+ * Normalize malformed doubled-path URLs with a 301 before other redirects run.
+ * Ported verbatim from the blueprint. Only fires on impossible-in-real-URLs
+ * shapes (doubled locale prefix, doubled /industry/, axyz /section/construction/);
+ * legitimate URLs are untouched (early return when nothing changed). No deps.
+ */
+function axyz_normalize_broken_paths_before_redirects() {
+    if ( is_admin() ) {
+        return;
+    }
+
+    $request_uri = $_SERVER['REQUEST_URI'] ?? '';
+    $path        = parse_url( $request_uri, PHP_URL_PATH );
+    $query       = parse_url( $request_uri, PHP_URL_QUERY );
+
+    if ( ! is_string( $path ) ) {
+        return;
+    }
+
+    $original_path = $path;
+
+    /*
+     * 1) Collapse double locale prefix
+     *    /us/es/us/es/folletos  -> /us/es/folletos
+     *    /ca/fr/ca/fr/brochures -> /ca/fr/brochures
+     */
+    $path = preg_replace(
+        '#^/([a-z]{2}/[a-z]{2})/\1(?=/|$)#i',
+        '/$1',
+        $path
+    );
+
+    /*
+     * 2) Collapse /industry/{anything}/industry/{slug}
+     *    /industry/woods/industry/woodworking
+     *    /us/en/industry/woods/industry/woodworking
+     *    -> /industry/woodworking or /us/en/industry/woodworking
+     */
+    $path = preg_replace(
+        '#^(/(?:[a-z]{2}/[a-z]{2}/)?)industry/[^/]+/industry/#i',
+        '$1industry/',
+        $path
+    );
+
+    /*
+     * 3) Collapse /section/construction/section/construction/...
+     *    -> /section/construction/...  (axyz-only shape; no-op on WARDJET)
+     */
+    $path = preg_replace(
+        '#^(/(?:[a-z]{2}/[a-z]{2}/)?)(section/construction)/\2(?=/|$)#i',
+        '$1$2',
+        $path
+    );
+
+    // If nothing changed, do nothing.
+    if ( $path === $original_path ) {
+        return;
+    }
+
+    // Rebuild target URL (keep query string if present).
+    $target = home_url( $path );
+    if ( $query ) {
+        $target .= '?' . $query;
+    }
+
+    if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+        error_log( '[AXYZ URL NORMALIZER] ' . $original_path . '  =>  ' . $path );
+    }
+
+    wp_redirect( $target, 301 );
+    exit;
+}
+// Run very early, before Rank Math / wp_old_slug_redirect.
+add_action( 'template_redirect', 'axyz_normalize_broken_paths_before_redirects', 1 );
