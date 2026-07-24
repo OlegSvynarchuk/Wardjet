@@ -22,7 +22,9 @@ footer#colophon.site-footer {
     align-items: center;
     gap: 24px;
     width: 100%;
-    max-width: 1248px;
+    /* Full width within the footer's 0 96px padding, matching the header content
+       (which is full-width minus 96px gutters, not capped at 1248). */
+    max-width: 100%;
 }
 
 /* ============================================

@@ -118,3 +118,57 @@ if (!function_exists('wj_remap_menu_locations_for_locale')) {
     }
     add_filter('theme_mod_nav_menu_locations', 'wj_remap_menu_locations_for_locale');
 }
+
+/**
+ * Localize nav-menu item URLs for the English sub-locales (ca/en, uk/en).
+ *
+ * Those two locales have no menus of their own, so every menu location falls
+ * back to the us-en menu — whose items carry /us/en/ (or root-relative) URLs.
+ * All their targets resolve under the current locale prefix (routing serves the
+ * shared en-us content), so rewrite each internal URL's /cc/ll/ prefix — or add
+ * one to a root-relative link — to the current locale. es/fr/pl keep their own
+ * menus and are never touched (this only fires on ca/en & uk/en). Covers footer
+ * AND header nav (Max Mega Menu items pass through wp_nav_menu_objects too).
+ */
+if (!function_exists('wj_localize_internal_url')) {
+    function wj_localize_internal_url(string $url, string $prefix, string $home): string {
+        if ($url === '' || $url[0] === '#') return $url;                 // anchor-only
+        $is_abs      = (strpos($url, $home) === 0);
+        $is_root_rel = (!$is_abs && $url[0] === '/' && (strlen($url) < 2 || $url[1] !== '/'));
+        if (!$is_abs && !$is_root_rel) return $url;                      // external / mailto / protocol-relative
+
+        $path = $is_abs ? substr($url, strlen($home)) : $url;           // leading "/"
+        $frag = ''; $query = '';
+        if (($h = strpos($path, '#')) !== false) { $frag = substr($path, $h); $path = substr($path, 0, $h); }
+        if (($q = strpos($path, '?')) !== false) { $query = substr($path, $q); $path = substr($path, 0, $q); }
+        $rel = ltrim($path, '/');
+        if ($rel === '') return $home . '/' . $prefix . '/' . $query . $frag;   // home link
+        if (preg_match('#^[a-z]{2}/[a-z]{2}(/|$)#i', $rel)) {
+            $rel = preg_replace('#^[a-z]{2}/[a-z]{2}#i', $prefix, $rel, 1);
+        } else {
+            $rel = $prefix . '/' . $rel;
+        }
+        if (substr($rel, -1) !== '/') $rel .= '/';
+        return $home . '/' . $rel . $query . $frag;
+    }
+}
+
+if (!function_exists('wj_localize_menu_item_urls')) {
+    function wj_localize_menu_item_urls($items, $args = null) {
+        if (is_admin() || !is_array($items)) return $items;
+        if (!function_exists('wj_current_region_lang')) return $items;
+        list($region, $lang) = wj_current_region_lang();
+        if (!in_array($region . '/' . $lang, ['ca/en', 'uk/en'], true)) return $items;
+        $prefix = $region . '/' . $lang;
+        $home   = rtrim(home_url(), '/');
+        foreach ($items as $it) {
+            // Skip synthetic items appended by _custom_nav_menu_item() — the
+            // language switcher + search (ID >= 1000000). Their URLs point at
+            // OTHER locales on purpose and must not be re-prefixed to this one.
+            if (!empty($it->ID) && (int) $it->ID >= 1000000) continue;
+            if (!empty($it->url)) $it->url = wj_localize_internal_url($it->url, $prefix, $home);
+        }
+        return $items;
+    }
+    add_filter('wp_nav_menu_objects', 'wj_localize_menu_item_urls', 20, 2);
+}

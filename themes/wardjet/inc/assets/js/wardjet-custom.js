@@ -555,6 +555,13 @@ $(function(){
         startAutoplay();
         adjustAccentLines();
 
+        // Web fonts (Montserrat) load async — the init call above may measure the
+        // fallback font before titles wrap in Montserrat, leaving accent lines
+        // full-width on wrapped titles. Recalculate once fonts are ready.
+        if (document.fonts && document.fonts.ready) {
+            document.fonts.ready.then(adjustAccentLines);
+        }
+
         $prevBtn.on('click', function() {
             goPrev();
         });

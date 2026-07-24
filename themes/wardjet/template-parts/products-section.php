@@ -29,7 +29,39 @@ if (empty($section_subtitle)) {
 }
 $cta_label = get_field('products_learn_more_label');
 if (empty($cta_label)) {
-    $cta_label = __('Learn More', 'wardjet');
+    // No translation .mo files are loaded, so __() would always return English.
+    // Localize explicitly per locale, matching the $explore_i18n map below.
+    $cta_i18n = array(
+        'es' => 'Aprende Más',
+        'fr' => 'En Savoir Plus',
+        'pl' => 'Dowiedz się więcej',
+    );
+    $ll = substr((string) $current_lang_code, 0, 2);
+    $cta_label = isset($cta_i18n[$ll]) ? $cta_i18n[$ll] : __('Learn More', 'wardjet');
+}
+
+// "Explore Products" CTA — shown on the homepage (the products page passes
+// hide_cta_button). Link is per-locale (localized slugs) via the ACF
+// products_page_link field; label localized (values from the blueprint).
+$hide_cta_button = isset($args['hide_cta_button']) && $args['hide_cta_button'];
+// Products page per locale — slugs are localized (our-products / productos /
+// des-produits / produkty), so map locale -> page id and use get_permalink.
+$products_page_ids = array(
+    'en-us' => 92, 'en-uk' => 12771, 'en-ca' => 12721,
+    'es-us' => 1704, 'fr-ca' => 1522, 'pl-pl' => 7352,
+);
+$products_page_link = isset($products_page_ids[$current_lang_code])
+    ? get_permalink($products_page_ids[$current_lang_code])
+    : home_url('/');
+$explore_label = get_field('products_cta_label');
+if (empty($explore_label)) {
+    $explore_i18n = array(
+        'es' => 'Explorar Productos',
+        'fr' => 'Explorer les Produits',
+        'pl' => 'Przeglądaj Produkty',
+    );
+    $ll = substr((string) $current_lang_code, 0, 2);
+    $explore_label = isset($explore_i18n[$ll]) ? $explore_i18n[$ll] : __('Explore Products', 'wardjet');
 }
 
 // Grouped series by en-us slug. L-Series excluded; Custom Waterjets under Water Only.
@@ -178,4 +210,16 @@ if (empty($resolved_groups)) {
         <div class="products-dots d-lg-none"></div>
     </div>
     <?php endforeach; ?>
+
+    <?php if (!$hide_cta_button) : ?>
+    <div class="products-cta-button">
+        <a href="<?php echo $products_page_link ? esc_url($products_page_link) : esc_url(home_url('/')); ?>">
+            <?php echo esc_html($explore_label); ?>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M5 12H19" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M12 5L19 12L12 19" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </a>
+    </div>
+    <?php endif; ?>
 </section>

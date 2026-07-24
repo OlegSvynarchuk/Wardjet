@@ -279,10 +279,12 @@ $section_subhead  = !empty($data['left_copy'])    ? $data['left_copy']    : '';
 
 // Fallback: read left_copy directly from options if ACF sub-field was empty
 if (empty($section_subhead) && isset($matched_row_index)) {
-    $section_subhead = get_option('options_contact_localized_' . ($matched_row_index - 1) . '_left_copy', '');
+    // Sub-field is 'contact_left_copy' (not 'left_copy') — read the localized copy
+    // populated on the contact_localized option rows for the current locale.
+    $section_subhead = get_option('options_contact_localized_' . ($matched_row_index - 1) . '_contact_left_copy', '');
 }
 if (empty($section_subhead)) {
-    $section_subhead = __('Ready to transform your manufacturing capabilities? Contact our team to discuss your CNC routing needs.', 'wardjet');
+    $section_subhead = __('Ready to transform your manufacturing capabilities? Contact our team to discuss your waterjet cutting needs.', 'wardjet');
 }
 
 // Hide location card on locations pages (HQ shown on the page itself)
@@ -440,9 +442,7 @@ if ( $form_kind === 'jotform' ) {
                                             <?php if (!empty($region['region_name'])): ?>
                                                 <p class="contact-global-card__region-name"><?php echo esc_html($region['region_name']); ?></p>
                                             <?php endif; ?>
-                                            <?php if (!empty($region['region_countries'])): ?>
-                                                <p class="contact-global-card__region-countries"><?php echo esc_html($region['region_countries']); ?></p>
-                                            <?php endif; ?>
+                                            <?php /* Countries intentionally hidden — regions only. */ ?>
                                         </div>
                                     <?php endforeach; ?>
                                 </div>

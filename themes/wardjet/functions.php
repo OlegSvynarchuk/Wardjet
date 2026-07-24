@@ -243,6 +243,10 @@ function wp_bootstrap_starter_scripts() {
     wp_enqueue_script('magnific-js', get_template_directory_uri().'/inc/assets/js/jquery.magnific-popup.min.js', array(), '1.0', true);
 
 
+    // Montserrat font (weights 300-700, incl. 600). Theme CSS uses 'Montserrat'
+    // everywhere; without this enqueue it silently falls back to Arial. (Blueprint parity.)
+    wp_enqueue_style( 'montserrat-font', 'https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap' );
+
     //custom css
     wp_enqueue_style( 'custom-css', get_template_directory_uri() . '/inc/assets/css/wardjet-custom.css',[], time() );
     // Header nav styles (Figma two-row header, ported from blueprint). Depends on

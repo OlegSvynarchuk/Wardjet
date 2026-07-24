@@ -76,12 +76,16 @@ add_filter('post_type_link', function ($link, $post) {
     $home = rtrim(get_home_url(), '/');
     if (strpos($link, $home) !== 0) return $link;
 
-    // Auto-alias content CPTs: when viewing from en-uk or en-ca, en-us articles
-    // get URLs under the current locale prefix (e.g. /uk/en/blog/slug/).
+    // Auto-alias shared CPTs: when viewing from en-uk or en-ca, en-us posts
+    // (articles AND product-family CPTs like series/products/accessories/video
+    // that these two English sub-locales reuse) get URLs under the current
+    // locale prefix (e.g. /uk/en/series/slug/, /uk/en/blog/slug/) so on-page
+    // links keep the visitor in-locale instead of bouncing to /us/en/.
     // Routing in routing.php already serves en-us content for these URLs.
     // Skipped when temp_lang_code is already set (the switcher/menu builder owns that).
     if (empty($post->temp_lang_code) && function_exists('lc_get_locale_from_url')) {
-        $alias_cpts = ['blog', 'news_and_events', 'testimonial', 'webinar'];
+        $alias_cpts = ['blog', 'news_and_events', 'testimonial', 'webinar',
+                       'series', 'products', 'accessories', 'video'];
         if (in_array($post->post_type, $alias_cpts, true)) {
             $cur_locale = lc_get_locale_from_url();
             if (in_array($cur_locale, ['en-uk', 'en-ca'], true)

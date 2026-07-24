@@ -101,6 +101,17 @@ header#masthead {
     object-fit: contain;
 }
 
+/* Header logo = Figma "wardjet-full-logo" 290x54 (clean 5.37:1 asset, no dead
+   canvas). Desktop-scoped, higher specificity + !important so it beats the
+   Customizer's `.navbar-brand img{width:220px}` (tuned for the compact AXYZ logo). */
+@media (min-width: 992px) {
+    header#masthead .header-main-nav .navbar-brand img {
+        width: 290px !important;
+        height: 54px !important;
+        max-width: none !important;
+    }
+}
+
 .header-main-nav .navbar-brand a {
     display: block;
 }
@@ -363,7 +374,7 @@ header#masthead {
         width: 100vw !important;
         max-width: 100vw !important;
         height: auto !important;
-        max-height: calc(100vh - 234px) !important;   /* leave ~100px gap below to un-hover */
+        max-height: calc(100vh - 150px) !important;   /* cap above content so the fly-out sits content-height (no internal scroll); still leaves a gap below */
         margin: 0 !important;
         padding: 0 !important;
         overflow-y: auto !important;

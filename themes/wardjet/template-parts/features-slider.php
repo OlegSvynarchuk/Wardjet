@@ -88,6 +88,23 @@ $total_features = count($features);
                                         if ($anchor) {
                                             $feature_link = strtok($feature_link, '#') . '#feature-' . $anchor;
                                         }
+                                        // The link points at the (shared) waterjet-accessories PAGE, which
+                                        // ACF stores with a fixed /us/en/ prefix. Pages are excluded from
+                                        // the post_type_link auto-alias, so rewrite the /cc/ll/ prefix to the
+                                        // current locale here (the page resolves under every locale prefix).
+                                        if (function_exists('lc_get_locale_from_url') && function_exists('lc_locale_to_prefix')) {
+                                            $home = rtrim(home_url(), '/');
+                                            if (strpos($feature_link, $home) === 0) {
+                                                $cur_prefix = lc_locale_to_prefix(lc_get_locale_from_url());
+                                                $rel = ltrim(substr($feature_link, strlen($home)), '/');
+                                                if (preg_match('#^[a-z]{2}/[a-z]{2}(/|$)#i', $rel)) {
+                                                    $rel = preg_replace('#^[a-z]{2}/[a-z]{2}#i', $cur_prefix, $rel, 1);
+                                                } else {
+                                                    $rel = $cur_prefix . '/' . $rel;
+                                                }
+                                                $feature_link = $home . '/' . $rel;
+                                            }
+                                        }
                                     }
                                     ?>
                                     <?php if (!empty($feature_link)) : ?><a href="<?php echo esc_url($feature_link); ?>" class="feature-slide-link"><?php endif; ?>

@@ -568,10 +568,11 @@ section.filter {
 }
 
 .heading {
+    font-size: 4.62em;
     font-family: 'Roboto', sans-serif;
-    color: inherit;
+    color: #003b71;
     text-align: center;
-    font-weight: 600;
+    font-weight: 300;
     line-height: 1em;
 }
 
@@ -1758,10 +1759,9 @@ section.videos-section .video .subtitle a {
     font-size: 1.692rem;
     line-height:1.25em;
 }
-section.feature-block {
-    padding:130px 0 130px 0;
-}
-
+/* Legacy section.feature-block { padding:130px 0 } removed: it forced horizontal
+   padding to 0 (overriding feature-block.css) and pre-dates the new markup. The
+   new template's padding + width now come entirely from parts/feature-block.css. */
 .feature-block li {
     color: #003b71;
     font-size: 1.692rem;
@@ -2825,4 +2825,40 @@ section.images-gallery .image-wrapper .subtitle p {
 
 .callout .text-center{
     visibility: visible !important;
+}
+
+/* ── Single-product content = header width (client request) ─────────────────
+   The header runs full-width to 96px gutters (.header-main-nav: width:100% /
+   padding:0 96px, no max-width) while every content section caps its inner at
+   1248px centered. On screens wider than 1440px that leaves content narrower
+   than the header. Past 1440px, lift the 1248 cap on each single-product
+   section so its content fills the same 96px-gutter box as the header (logo's
+   left edge → GET A QUOTE's right edge). Below 1441px the two already coincide,
+   so nothing changes there — tablet/mobile layouts are untouched. Scoped to
+   body.single-series so the homepage and products pages keep 1248 centered. */
+@media (min-width: 1441px) {
+    body.single-series .router-renders__carousel,
+    body.single-series .router-features-strip__inner,
+    body.single-series .video-carousel-wrapper,
+    body.single-series .selected-products-grid,
+    body.single-series .competitive-chart__inner,
+    body.single-series .series-gallery__inner,
+    body.single-series .brochure-section__inner,
+    body.single-series .feature-block__inner {
+        max-width: 1440px;
+    }
+    /* These two sections had 0 side padding (the 1248 cap alone centered them);
+       give them the header's 96px gutters now that the cap is lifted. */
+    body.single-series .router-renders,
+    body.single-series .selected-products-section {
+        padding-left: 96px;
+        padding-right: 96px;
+    }
+    /* Keep the feature-block text column the same 554px as the image instead of
+       letting it stretch to fill; space-between then holds the image to the left
+       (logo) edge and the text to the right (GET A QUOTE) edge, gap in between. */
+    body.single-series .feature-block__content {
+        flex: 0 0 554px;
+        max-width: 554px;
+    }
 }

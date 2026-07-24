@@ -435,23 +435,37 @@ a.product-card,
     margin: 0 auto;
 }
 .products-section .products-group-title {
+    /* Match the flyout group titles (.mm-products-title): Montserrat 400/32/40,
+       no uppercase, 50% yellow underline. inline-block so the underline is half
+       the title TEXT (not the full column); the left gutter is a margin, not
+       padding, so it isn't counted into the 50% underline width. */
+    display: inline-block;
+    position: relative;
     font-family: 'Montserrat', sans-serif;
-    font-weight: 600;
-    font-size: 24px;
-    line-height: 32px;
+    font-weight: 400;
+    font-size: 32px;
+    line-height: 40px;
     color: #093C71;
-    text-transform: uppercase;
-    letter-spacing: 0.3px;
+    letter-spacing: 0;
     text-align: left;
-    margin: 0 0 24px 0;
-    padding: 0 96px;
+    margin: 0 0 27px 96px;
+    padding-bottom: 6px;
+}
+.products-section .products-group-title::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 50%;
+    height: 2px;
+    background: #FFF200; /* Figma yellow */
 }
 .products-section .products-group .products-grid {
     padding-bottom: 40px;
 }
 @media (max-width: 991.98px) {
-    .products-section .products-group-title { padding: 0 48px; font-size: 20px; line-height: 28px; }
+    .products-section .products-group-title { margin-left: 48px; }
 }
 @media (max-width: 767.98px) {
-    .products-section .products-group-title { padding: 0 24px; font-size: 18px; line-height: 24px; margin-bottom: 16px; }
+    .products-section .products-group-title { margin-left: 24px; margin-bottom: 16px; }
 }

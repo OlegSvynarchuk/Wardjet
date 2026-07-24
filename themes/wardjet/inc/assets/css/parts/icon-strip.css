@@ -4,22 +4,25 @@
  * Node: 2539-2094
  */
 
-/* Section */
+/* Section — full-bleed so the border/background span the full screen width.
+   The inner grid keeps the 1440-max, 96px-gutter content box (icons unchanged). */
 .icon-strip-section {
     width: 100%;
-    max-width: 1440px;
-    padding: 48px 96px;
-    margin: 0 auto;
+    padding: 48px 0;
     border-bottom: 1px solid #E1E9F0;
     background-color: #FFFFFF;
 }
 
-/* Grid */
+/* Grid — holds the centered content box (was on the section before) */
 .icon-strip-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 24px;
     align-items: start;
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 96px;
+    box-sizing: border-box;
 }
 
 /* Icon Item */
@@ -88,25 +91,27 @@
 /* Responsive - Tablet */
 @media (max-width: 991.98px) {
     .icon-strip-section {
-        padding: 40px 48px;
+        padding: 40px 0;
     }
 
     .icon-strip-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 32px;
+        padding: 0 48px;
     }
 }
 
 /* Responsive - Mobile */
 @media (max-width: 767.98px) {
     .icon-strip-section {
-        padding: 48px 24px;
+        padding: 48px 0;
         border-bottom: 1px solid #E2E8F0;
     }
 
     .icon-strip-grid {
         grid-template-columns: 1fr;
         gap: 32px;
+        padding: 0 24px;
     }
 
     .icon-strip-item {

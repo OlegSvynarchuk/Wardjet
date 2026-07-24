@@ -15,7 +15,10 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    align-items: center;
+    /* Top-align cards so a longer (wrapping) label extends downward instead of
+       lifting its number up. Centering made taller multi-line cards (common on
+       es/fr/pl) raise their number above the others. Mobile re-centers below. */
+    align-items: flex-start;
     padding: 80px 96px;
     gap: 32px;
     width: 100%;
@@ -51,7 +54,8 @@
     font-weight: 400;
     font-size: 18px;
     line-height: 28px;
-    color: #FFFFFF;
+    /* Figma: label fill is white at 90% alpha (numbers are 100%). */
+    color: rgba(255, 255, 255, 0.9);
     text-align: center;
 }
 
@@ -81,6 +85,7 @@
 
     .new-kpis__container {
         flex-direction: column;
+        align-items: center;
         padding: 80px 24px;
         gap: 64px;
     }
