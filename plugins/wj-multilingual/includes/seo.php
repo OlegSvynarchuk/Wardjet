@@ -132,7 +132,7 @@ if (!function_exists('seo_alias_url_for_locale')) {
 }
 
 /* =====================================================================
- * Canonical: Rank Math filter + standalone <link rel="canonical"> printer
+ * Canonical: locale-aware Rank Math filter (Rank Math prints the tag)
  * ===================================================================== */
 
 add_filter('rank_math/frontend/canonical', function ($canonical) {
@@ -157,15 +157,10 @@ add_filter('rank_math/frontend/canonical', function ($canonical) {
     return $canonical ?: ($scheme . $host . $path);
 }, 50);
 
-add_action('wp_head', function () {
-    if (is_admin()) return;
-    $href = apply_filters('rank_math/frontend/canonical', '');
-    if (!$href) {
-        $scheme = is_ssl() ? 'https://' : 'http://';
-        $href = $scheme . ($_SERVER['HTTP_HOST'] ?? '') . (parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH) ?: '/');
-    }
-    echo '<link rel="canonical" href="' . esc_url($href) . '">' . "\n";
-}, 20);
+// Standalone canonical <link> printer removed to fix a duplicate <link
+// rel="canonical"> on every page: it re-emitted the same value Rank Math already
+// prints (made locale-aware by the filter above). Rank Math is active site-wide
+// and always outputs one canonical, so this dedicated printer was redundant.
 
 /* =====================================================================
  * hreflang cluster: alternates per supported locale, plus x-default.
