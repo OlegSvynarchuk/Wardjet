@@ -102,6 +102,13 @@ function axyz_register_hero_video_carousel_fields() {
                     'value' => 'products',
                 ),
             ),
+            array(
+                array(
+                    'param' => 'post_type',
+                    'operator' => '==',
+                    'value' => 'series',
+                ),
+            ),
         ),
         'menu_order' => 0,
         'position' => 'normal',

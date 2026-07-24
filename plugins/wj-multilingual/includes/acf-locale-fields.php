@@ -2,7 +2,7 @@
 /**
  * ACF: the three core locale meta fields, as local field groups.
  *
- *   region_language_code  (select)  — the post's locale, e.g. en-us / fr-ca
+ *   region_language_code  (radio)   — the post's locale, e.g. en-us / fr-ca
  *   translation_group_id  (text)    — shared id linking a translation set
  *   is_frontpage          (radio)   — 'yes' on a locale's homepage page (pages only)
  *
@@ -52,12 +52,11 @@ add_action('acf/init', function () {
                 'key'           => 'field_wj_region_language_code',
                 'label'         => 'Region / Language code',
                 'name'          => 'region_language_code',
-                'type'          => 'select',
+                'type'          => 'radio',
                 'instructions'  => 'The locale this content belongs to. Drives the /cc/ll/ URL prefix.',
                 'choices'       => $choices,
                 'default_value' => 'en-us',
-                'allow_null'    => 0,
-                'ui'            => 1,
+                'layout'        => 'vertical',
                 'return_format' => 'value',
             ],
             [
@@ -69,8 +68,8 @@ add_action('acf/init', function () {
             ],
         ],
         'location'        => $type_location,
-        'menu_order'      => 0,
-        'position'        => 'side',
+        'menu_order'      => 100,
+        'position'        => 'normal',
         'style'           => 'default',
         'label_placement' => 'top',
         'active'          => true,
@@ -97,8 +96,8 @@ add_action('acf/init', function () {
             'operator' => '==',
             'value'    => 'page',
         ]]],
-        'menu_order'      => 1,
-        'position'        => 'side',
+        'menu_order'      => 101,
+        'position'        => 'normal',
         'style'           => 'default',
         'label_placement' => 'top',
         'active'          => true,
