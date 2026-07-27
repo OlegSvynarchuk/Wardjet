@@ -203,6 +203,16 @@ add_action('wp_head', function () {
             $href = seo_permalink_for_locale($translated, $code);
         } elseif (strtolower($code) === $own_locale) {
             $href = seo_permalink_for_locale($post_id, $code);
+        } elseif (
+            in_array(strtolower($code), array('en-ca', 'en-uk'), true)
+            && seo_find_translation($post_id, 'en-us')
+        ) {
+            // Aliased English regional variants (no own post): emit the aliased
+            // /cc/ll/ URL so the cluster is complete, reciprocal and self-referential.
+            // Keeps ca/en & uk/en indexable as regional variants instead of being
+            // self-canonical pages missing from their own hreflang set.
+            $href = seo_alias_url_for_locale($post_id, $code);
+            if (!$href) continue;
         } else {
             continue;
         }
