@@ -471,7 +471,7 @@ function wj_render_ticker_track_html($items) {
 
 /**
  * Resolve the localized News & Events page URL for a given locale.
- * Matches by translation_group_id="news-events-2025" + region_language_code.
+ * Matches by translation_group_id="news-events-2024" + region_language_code.
  * Prefers a canonical slug (not ending in -N) when duplicates exist.
  */
 function wj_get_news_events_url($locale = null) {
@@ -490,7 +490,7 @@ function wj_get_news_events_url($locale = null) {
         'order'          => 'ASC',
         'meta_query'     => [
             'relation' => 'AND',
-            ['key' => 'translation_group_id', 'value' => 'news-events-2025'],
+            ['key' => 'translation_group_id', 'value' => 'news-events-2024'],
             ['key' => 'region_language_code', 'value' => $locale],
         ],
     ]);

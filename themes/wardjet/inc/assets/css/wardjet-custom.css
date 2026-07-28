@@ -2854,9 +2854,9 @@ section.images-gallery .image-wrapper .subtitle p {
         padding-left: 96px;
         padding-right: 96px;
     }
-    /* Keep the feature-block text column the same 554px as the image instead of
-       letting it stretch to fill; space-between then holds the image to the left
-       (logo) edge and the text to the right (GET A QUOTE) edge, gap in between. */
+    /* Keep the feature-block text column the same 554px as the image; space-between
+       holds the image to the left (logo) edge and the text to the right (GET A QUOTE)
+       edge, gap in between. */
     body.single-series .feature-block__content {
         flex: 0 0 554px;
         max-width: 554px;

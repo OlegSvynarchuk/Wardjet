@@ -413,14 +413,25 @@ if ( $form_kind === 'jotform' ) {
                                 <p class="contact-location-card__address"><?php echo wp_kses_post($location_address); ?></p>
                             <?php endif; ?>
 
-                            <?php if ($location_phone): ?>
-                                <a href="tel:<?php echo esc_attr(preg_replace('/[^+\d]/', '', $location_phone)); ?>" class="contact-location-card__phone">
+                            <?php
+                            // One tel: link per line — supports multiple numbers (e.g. main + WARDJET).
+                            $phone_lines = array_filter(array_map('trim', preg_split('/\r\n|\r|\n/', (string) $location_phone)));
+                            foreach ($phone_lines as $ph):
+                                // tel: href — convert vanity letters (WARDJET) to keypad digits, keep +/digits only.
+                                $tel_alpha = strtr(strtoupper($ph), array(
+                                    'A'=>'2','B'=>'2','C'=>'2','D'=>'3','E'=>'3','F'=>'3','G'=>'4','H'=>'4','I'=>'4',
+                                    'J'=>'5','K'=>'5','L'=>'5','M'=>'6','N'=>'6','O'=>'6','P'=>'7','Q'=>'7','R'=>'7',
+                                    'S'=>'7','T'=>'8','U'=>'8','V'=>'8','W'=>'9','X'=>'9','Y'=>'9','Z'=>'9',
+                                ));
+                                $tel_href = preg_replace('/[^+\d]/', '', $tel_alpha);
+                            ?>
+                                <a href="tel:<?php echo esc_attr($tel_href); ?>" class="contact-location-card__phone">
                                     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
                                         <path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 011 1V20a1 1 0 01-1 1C9.61 21 3 14.39 3 6a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.46.57 3.58a1 1 0 01-.25 1.01l-2.2 2.2z"/>
                                     </svg>
-                                    <?php echo esc_html($location_phone); ?>
+                                    <?php echo esc_html($ph); ?>
                                 </a>
-                            <?php endif; ?>
+                            <?php endforeach; ?>
                         </div>
                     <?php endif; ?>
 

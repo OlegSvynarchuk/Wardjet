@@ -1,6 +1,31 @@
 <?php $block = $args['block'];
 $products = $block['products'];
 if (!$products) return;
+
+if (!function_exists('wj_localize_spec_label')) {
+    /**
+     * Localize a spec label (LENGTH / WIDTH / …) to the current wj-multilingual
+     * locale. Z-TRAVEL is intentionally NOT translated, and any unrecognised label
+     * passes through unchanged. Applied at output time so it covers both the
+     * auto-parsed labels and editor table-mode spec_labels — and works for aliased
+     * locales (e.g. Polish) that have no physically translated product.
+     */
+    function wj_localize_spec_label($label) {
+        $key = strtoupper(trim(wp_strip_all_tags((string) $label)));
+        $map = array(
+            'LENGTH'           => array('es' => 'LARGO',   'fr' => 'LONGUEUR',  'pl' => 'DŁUGOŚĆ'),
+            'WIDTH'            => array('es' => 'ANCHO',    'fr' => 'LARGEUR',   'pl' => 'SZEROKOŚĆ'),
+            'LENGTHS'          => array('es' => 'LARGOS',   'fr' => 'LONGUEURS', 'pl' => 'DŁUGOŚCI'),
+            'GANTRY CLEARANCE' => array('es' => 'ALTURA LIBRE DEL PÓRTICO', 'fr' => 'DÉGAGEMENT DU PORTIQUE', 'pl' => 'PRZEŚWIT BRAMY'),
+        );
+        if (!isset($map[$key])) {
+            return $label; // Z-TRAVEL and anything unrecognised: unchanged
+        }
+        $loc  = function_exists('lc_get_locale_from_url') ? lc_get_locale_from_url() : 'en-us';
+        $lang = substr($loc, 0, 2); // es-us->es, fr-ca->fr, pl-pl->pl, en-*->en
+        return isset($map[$key][$lang]) ? $map[$key][$lang] : $label;
+    }
+}
 ?>
 <section class="selected-products-section">
     <div class="selected-products-grid">
@@ -65,7 +90,7 @@ if (!$products) return;
                         <div class="selected-product-card__specs">
                             <?php foreach ($specs as $spec) : ?>
                                 <div class="selected-product-card__spec-row">
-                                    <span class="selected-product-card__spec-label"><?php echo esc_html($spec['label']); ?></span>
+                                    <span class="selected-product-card__spec-label"><?php echo esc_html(wj_localize_spec_label($spec['label'])); ?></span>
                                     <span class="selected-product-card__spec-value"><?php echo esc_html($spec['value']); ?></span>
                                 </div>
                             <?php endforeach; ?>

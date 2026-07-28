@@ -294,6 +294,7 @@ a.product-card,
         overflow-x: auto;
         scroll-snap-type: x mandatory;
         -webkit-overflow-scrolling: touch;
+        align-items: stretch; /* equal-height cards across the slider */
         gap: 16px;
         padding: 0 24px 32px 24px;
         scrollbar-width: none;
@@ -307,6 +308,7 @@ a.product-card,
     :not(#our-products) > .products-section .product-card {
         flex: 0 0 85%;
         max-width: 85%;
+        height: auto; /* was 100% (grid) — in the flex slider it resolved to content height, making cards uneven */
         scroll-snap-align: center;
         border-radius: 10px;
         box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1), 0px 4px 6px -4px rgba(0, 0, 0, 0.1);
@@ -388,7 +390,7 @@ a.product-card,
         justify-content: center;
         align-items: center;
         gap: 8px;
-        padding: 0 24px 24px;
+        padding: 0 24px 64px; /* Figma 64px rhythm: dots → next slider title, and dots → Explore button */
     }
 
     .products-section .products-dots .dot {
@@ -458,7 +460,12 @@ a.product-card,
     bottom: 0;
     width: 50%;
     height: 2px;
-    background: #FFF200; /* Figma yellow */
+    background: #0D3159; /* WardJet logo blue (was Figma yellow #FFF200) */
+}
+/* Products page grid: client wants NO underline under the group titles. */
+#our-products .products-section .products-group-title::after,
+.page-template-wardjet-our-products .products-section .products-group-title::after {
+    display: none;
 }
 .products-section .products-group .products-grid {
     padding-bottom: 40px;
@@ -467,5 +474,22 @@ a.product-card,
     .products-section .products-group-title { margin-left: 48px; }
 }
 @media (max-width: 767.98px) {
-    .products-section .products-group-title { margin-left: 24px; margin-bottom: 16px; }
+    .products-section .products-group-title { margin-left: 24px; margin-bottom: 64px; } /* Figma section rhythm = 64px (was 16px) */
+    /* Homepage mobile: blue underline spans the product-card width. Cards are 85%
+       of the grid content box, and the grid has 24px side padding (100vw − 48px),
+       so card width = (100vw − 48px) × 0.85. Title left edge already aligns with
+       the first card's left edge, so left:0 + this width matches the card. */
+    :not(#our-products) > .products-section .products-group-title::after {
+        width: calc((100vw - 48px) * 0.85);
+    }
+}
+/* Products page only (stacked column layout): pull the group title closer to its
+   own cards and add separation from the previous group's last card. Homepage
+   slider keeps the 64px rhythm above — untouched. */
+@media (max-width: 767.98px) {
+    #our-products .products-section .products-group-title,
+    .page-template-wardjet-our-products .products-section .products-group-title {
+        margin-top: 40px;    /* separate from the previous group's bottom card */
+        margin-bottom: 24px; /* was 64px — too far from its own cards */
+    }
 }

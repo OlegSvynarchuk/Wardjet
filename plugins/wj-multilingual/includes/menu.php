@@ -193,9 +193,15 @@ function custom_nav_menu_items($items, $menu) {
                     $target_post->temp_lang_code = $lang['code'];
                     $link = get_permalink($target_post);
                 }
-            } elseif (in_array($lang['code'], $aliasable_locales, true)) {
-                // Aliasable locale (en-uk, en-ca): show en-us content under target locale prefix
-                $target_post = get_post($current_post_id);
+            } elseif (in_array($lang['code'], $aliasable_locales, true) || in_array($current_post_type, array('news_and_events', 'blog', 'webinar'), true)) {
+                // Aliasable locale (en-uk, en-ca) OR news_and_events/blog/webinar for EVERY locale
+                // (for now, until localized content exists): serve the EN canonical article under the
+                // target locale prefix, so the switcher keeps you on the same article in that locale.
+                $al_saved = strtolower((string) get_post_meta($current_post_id, 'region_language_code', true));
+                $al_en_id = ($al_saved === 'en-us')
+                    ? $current_post_id
+                    : (get_translated_post_by_group_id($current_post_id, 'en-us', $current_post_type) ?: $current_post_id);
+                $target_post = get_post($al_en_id);
                 if ($target_post) {
                     $target_post->temp_lang_code = $lang['code'];
                     $link = get_permalink($target_post);

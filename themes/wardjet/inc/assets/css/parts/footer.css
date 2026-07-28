@@ -336,11 +336,10 @@ footer#colophon.site-footer {
         gap: 10px !important;
     }
 
-    /* Reorder footer columns for 2-col mobile:
-       Left col: Industries(2), Features(3), Support(5), Companies(7)
-       Right col: Products(1), Software(4), About Us(6) */
-    .footer-nav-grid > ul > li:nth-child(1) { order: 2; } /* Products → right */
-    .footer-nav-grid > ul > li:nth-child(2) { order: 1; } /* Industries → left */
+    /* 2-col mobile order (row-first, natural menu order):
+       Products | Industries, Features | Software, Support | About Us, Companies */
+    .footer-nav-grid > ul > li:nth-child(1) { order: 1; } /* Products → left */
+    .footer-nav-grid > ul > li:nth-child(2) { order: 2; } /* Industries → right */
     .footer-nav-grid > ul > li:nth-child(3) { order: 3; } /* Features → left */
     .footer-nav-grid > ul > li:nth-child(4) { order: 4; } /* Software → right */
     .footer-nav-grid > ul > li:nth-child(5) { order: 5; } /* Support → left */

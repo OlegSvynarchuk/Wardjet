@@ -117,8 +117,8 @@ $total_features = count($features);
                                         <div class="feature-slide-content">
                                             <div class="feature-title-wrap">
                                                 <h3 class="feature-title"><?php echo esc_html($feature['short_title']); ?></h3>
-                                                <div class="accent-line"></div>
                                             </div>
+                                            <div class="accent-line"></div>
                                             <?php if (!empty($feature['description'])) : ?>
                                                 <p class="feature-description"><?php echo esc_html(mb_strimwidth($feature['description'], 0, 60, '...')); ?></p>
                                             <?php endif; ?>

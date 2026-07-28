@@ -79,9 +79,11 @@ if (empty($sections)) { return; }
     color: #093C71; letter-spacing: 0; text-align: left;
     margin: 0 0 12px 0; padding-bottom: 6px; display: inline-block; position: relative;
 }
+/* No underline under flyout group titles — the underline is kept ONLY on the
+   homepage products grid (per client). */
 .mm-products-title::after {
     content: ''; position: absolute; left: 0; bottom: 0;
-    width: 50%; height: 2px; background: #FFF200;
+    width: 50%; height: 2px; background: #0D3159; display: none;
 }
 .mm-products-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px 48px; }
 .mm-product-card { display: flex; flex-direction: column; align-items: center; text-align: center; text-decoration: none; }
@@ -92,6 +94,18 @@ if (empty($sections)) { return; }
    and shifts them off-centre. */
 #masthead .mm-product-card__title { margin-top: 8px; margin-right: 0; padding-right: 0; font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 20px; line-height: 28px; color: #314158; transition: color .2s ease; }
 #masthead .mm-product-card:hover .mm-product-card__title { color: #093C71; }
-@media (max-width: 991.98px) { .mm-products { padding: 20px; display: block; } .mm-products-group { margin-bottom: 24px; } .mm-products-grid { grid-template-columns: repeat(2, 1fr); } .mm-product-card__img { height: 130px; } }
-@media (max-width: 575.98px) { .mm-products-grid { grid-template-columns: 1fr; } }
+@media (max-width: 991.98px) {
+    .mm-products { padding: 4px 16px 24px; display: block; }
+    .mm-products .container-xxl { width: 100%; max-width: 100%; }
+    .mm-products-group { margin-bottom: 28px; }
+    /* Title left-aligned, on a single line. */
+    .mm-products-title { font-size: 22px; line-height: 28px; white-space: nowrap; }
+    /* Full-width column; each machine card ~60% of screen width, centered. */
+    .mm-products-grid { grid-template-columns: 1fr; gap: 30px; }
+    .mm-product-card { width: 60%; max-width: 360px; margin: 0 auto; }
+    .mm-product-card__img { height: auto; }
+    .mm-product-card__img img { width: 100%; height: auto; max-height: none; }
+    /* Machine labels: smaller + lighter on mobile (were 20px/600 = too big/thick). */
+    #masthead .mm-product-card__title { font-size: 16px; line-height: 22px; font-weight: 500; }
+}
 </style>

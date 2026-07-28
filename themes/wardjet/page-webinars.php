@@ -48,6 +48,7 @@ get_header(); ?>
                 'post_type' => 'webinar',
                 'posts_per_page' => 10,
                 'facetwp' => true, // Ensure FacetWP is enabled for this query
+                'post__not_in' => wj_localized_archive_exclude( 'webinar', $wj_locale ), // dedupe: hide EN when a locale translation exists
                 'meta_query' => array(
                     array( 'key' => 'region_language_code', 'value' => $wj_locales, 'compare' => 'IN' )
                 ),
@@ -56,6 +57,11 @@ get_header(); ?>
             if ( $query->have_posts() ) :
                 // Start the loop
                 while ( $query->have_posts() ) : $query->the_post();
+                    // Alias the article link under the current locale prefix so clicking from a
+                    // localized archive stays in that locale (same as newsandevents.php).
+                    if ( $wj_locale !== 'en-us' && isset( $GLOBALS['post'] ) ) {
+                        $GLOBALS['post']->temp_lang_code = $wj_locale;
+                    }
             ?>
                 <div class="webinar-item">
                     <div class="webinar-image">

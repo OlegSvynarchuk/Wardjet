@@ -32,9 +32,9 @@
 		else :
 			// Default stats
 			$stats = array(
-				array( 'number' => '30+', 'label' => __( 'Years of Excellence', 'wardjet' ) ),
+				array( 'number' => '30+', 'label' => __( 'Years of Waterjet Experience', 'wardjet' ) ),
 				array( 'number' => '180+', 'label' => __( 'Countries Worldwide', 'wardjet' ) ),
-				array( 'number' => '100+', 'label' => __( 'Dedicated Team Members', 'wardjet' ) ),
+				array( 'number' => '10,000+', 'label' => __( 'Machines', 'wardjet' ) ),
 			);
 			foreach ( $stats as $stat ) :
 		?>

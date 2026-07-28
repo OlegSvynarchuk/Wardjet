@@ -359,6 +359,24 @@ header#masthead {
     margin-top: 30px !important;
 }
 
+/* Mobile: drop that 30px top gap and force the Products flyout full-width —
+   undo MMM's fixed grid-column width (~384px) + flex centering so the content
+   spans the full screen and the machine column can center on screen. */
+@media (max-width: 1023.98px) {
+    [id^="mega-menu-wrap-primary"] [id^="mega-menu-primary"] > li.mega-menu-item.mega-menu-grid .mega-sub-menu {
+        margin-top: 0 !important;
+    }
+    [id^="mega-menu-wrap-primary"] [id^="mega-menu-primary"] > li.mega-menu-item.mega-menu-grid ul.mega-sub-menu,
+    [id^="mega-menu-wrap-primary"] [id^="mega-menu-primary"] > li.mega-menu-item.mega-menu-grid li.mega-menu-row,
+    [id^="mega-menu-wrap-primary"] [id^="mega-menu-primary"] > li.mega-menu-item.mega-menu-grid li.mega-menu-column {
+        width: 100% !important;
+        max-width: 100% !important;
+        flex: 0 0 100% !important;
+        display: block !important;
+        float: none !important;
+    }
+}
+
 /* ============================================
    PRODUCTS FLY-OUT PANEL â€” full-width, full-height (desktop only)
    Flush under the fixed 134px header, no side/panel shadow. The header's

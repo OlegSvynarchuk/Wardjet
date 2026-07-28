@@ -388,6 +388,37 @@ require_once(get_template_directory() . '/inc/ticker-functions.php');
 require_once(get_template_directory() . '/inc/acf-ticker-meta.php');
 
 /**
+ * Localized archive de-duplication.
+ *
+ * On a non-en-us archive (news_and_events / blog / webinar) we query
+ * region_language_code IN [locale, en-us] so the list is populated even where
+ * localized content is sparse. But an article that HAS a published translation in
+ * the current locale would otherwise appear twice (its EN post + its locale post).
+ * This returns the EN post IDs to exclude — so each article shows once: the locale
+ * version when translated, the English version otherwise.
+ */
+if ( ! function_exists( 'wj_localized_archive_exclude' ) ) {
+    function wj_localized_archive_exclude( $post_type, $locale ) {
+        if ( empty( $locale ) || $locale === 'en-us' ) {
+            return array();
+        }
+        global $wpdb;
+        $ids = $wpdb->get_col( $wpdb->prepare(
+            "SELECT en.ID
+             FROM {$wpdb->posts} en
+             JOIN {$wpdb->postmeta} en_rlc ON en_rlc.post_id = en.ID AND en_rlc.meta_key='region_language_code' AND en_rlc.meta_value='en-us'
+             JOIN {$wpdb->postmeta} en_tg  ON en_tg.post_id  = en.ID AND en_tg.meta_key='translation_group_id'
+             JOIN {$wpdb->postmeta} loc_tg ON loc_tg.meta_key='translation_group_id' AND loc_tg.meta_value = en_tg.meta_value
+             JOIN {$wpdb->posts} loc        ON loc.ID = loc_tg.post_id AND loc.post_type = en.post_type AND loc.post_status='publish'
+             JOIN {$wpdb->postmeta} loc_rlc ON loc_rlc.post_id = loc.ID AND loc_rlc.meta_key='region_language_code' AND loc_rlc.meta_value = %s
+             WHERE en.post_type = %s AND en.post_status='publish'",
+            $locale, $post_type
+        ) );
+        return array_map( 'intval', (array) $ids );
+    }
+}
+
+/**
  * Features slider — ACF field group (title/subtitle + items repeater). Ported from blueprint.
  */
 require_once(get_template_directory() . '/inc/acf-features-slider.php');
