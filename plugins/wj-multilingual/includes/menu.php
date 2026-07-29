@@ -193,8 +193,8 @@ function custom_nav_menu_items($items, $menu) {
                     $target_post->temp_lang_code = $lang['code'];
                     $link = get_permalink($target_post);
                 }
-            } elseif (in_array($lang['code'], $aliasable_locales, true) || in_array($current_post_type, array('news_and_events', 'blog', 'webinar'), true)) {
-                // Aliasable locale (en-uk, en-ca) OR news_and_events/blog/webinar for EVERY locale
+            } elseif (in_array($lang['code'], $aliasable_locales, true) || in_array($current_post_type, array('news_and_events', 'blog', 'webinar', 'testimonial'), true)) {
+                // Aliasable locale (en-uk, en-ca) OR news_and_events/blog/webinar/testimonial for EVERY locale
                 // (for now, until localized content exists): serve the EN canonical article under the
                 // target locale prefix, so the switcher keeps you on the same article in that locale.
                 $al_saved = strtolower((string) get_post_meta($current_post_id, 'region_language_code', true));
