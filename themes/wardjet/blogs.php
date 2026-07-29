@@ -18,26 +18,26 @@ get_header(); ?>
         </div>
 
 		<div class="facetwp-facet facettechnical facet-content-type">
-			 <h2>Technical Topics</h2>
+			 <h2><?php echo function_exists('wj_get_tax_label') ? esc_html(wj_get_tax_label('technical_topics')) : 'Technical Topics'; ?></h2>
             <?php echo do_shortcode('[facetwp facet="technical_topics"]'); ?>
 		</div>
 		<div class="facetwp-facet facet-custom-taxonomy facet-content-type">
-			<h2>Industry</h2>
+			<h2><?php echo function_exists('wj_get_tax_label') ? esc_html(wj_get_tax_label('blog-industry')) : 'Industry'; ?></h2>
             <?php echo do_shortcode('[facetwp facet="blog_industry"]'); ?>
         </div>
 
 		<div class="facetwp-facet facetsystem facet-content-type">
-			<h2>Systems</h2>
+			<h2><?php echo function_exists('wj_get_tax_label') ? esc_html(wj_get_tax_label('systems')) : 'Systems'; ?></h2>
             <?php echo do_shortcode('[facetwp facet="systems"]'); ?>
         </div>
 				
 		<div class="facetwp-facet facetmaterial facet-content-type">
-			<h2>Material</h2>
+			<h2><?php echo function_exists('wj_get_tax_label') ? esc_html(wj_get_tax_label('blog-material')) : 'Material'; ?></h2>
             <?php echo do_shortcode('[facetwp facet="blog_material"]'); ?>
         </div>
 				
 		<div class="facetwp-facet facetproduct facet-content-type">
-			<h2>Product</h2>
+			<h2><?php echo function_exists('wj_get_tax_label') ? esc_html(wj_get_tax_label('blog-product')) : 'Product'; ?></h2>
             <?php echo do_shortcode('[facetwp facet="blog_product"]'); ?>
         </div>				
 				

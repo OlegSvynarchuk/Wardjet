@@ -29,6 +29,7 @@ add_action('acf/init', function () {
         'blog-material'    => 'Blog → Material',
         'blog-product'     => 'Blog → Product',
         'technical_topics' => 'Blog → Technical Topics',
+        'systems'          => 'Blog → Systems',
         'webinar-industry' => 'Webinar → Industry',
         'webinar-material' => 'Webinar → Material',
         'webinar-category' => 'Webinar → Category',

@@ -18,11 +18,11 @@ get_header(); ?>
         </div>
         
 		<div class="facetwp-facet facettags facet-content-type">
-			 <h2>Events</h2>
+			 <h2><?php echo function_exists('wj_get_tax_label') ? esc_html(wj_get_tax_label('events')) : 'Events'; ?></h2>
             <?php echo do_shortcode('[facetwp facet="events"]'); ?>
 		</div>
 		<div class="facetwp-facet facet-custom-taxonomy facet-content-type">
-			<h2>News</h2>
+			<h2><?php echo function_exists('wj_get_tax_label') ? esc_html(wj_get_tax_label('news')) : 'News'; ?></h2>
             <?php echo do_shortcode('[facetwp facet="news"]'); ?>
         </div>
 				<div class="facetwp-resett">

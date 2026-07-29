@@ -18,16 +18,16 @@ get_header(); ?>
         </div>
 
 		<div class="facetwp-facet facettags facet-content-type">
-			 <h2>Webinar</h2>
+			 <h2><?php echo function_exists('wj_get_tax_label') ? esc_html(wj_get_tax_label('webinar-category')) : 'Webinar'; ?></h2>
             <?php echo do_shortcode('[facetwp facet="webinar"]'); ?>
 		</div>
 		<div class="facetwp-facet facet-custom-taxonomy facet-content-type">
-			<h2>Industry</h2>
+			<h2><?php echo function_exists('wj_get_tax_label') ? esc_html(wj_get_tax_label('webinar-industry')) : 'Industry'; ?></h2>
             <?php echo do_shortcode('[facetwp facet="webina_industry"]'); ?>
         </div>
 				
 		<div class="facetwp-facet facet-custom-taxonomy facet-content-type">
-			<h2>Material</h2>
+			<h2><?php echo function_exists('wj_get_tax_label') ? esc_html(wj_get_tax_label('webinar-material')) : 'Material'; ?></h2>
             <?php echo do_shortcode('[facetwp facet="webinar_material"]'); ?>
         </div>
 				<div class="facetwp-resett">

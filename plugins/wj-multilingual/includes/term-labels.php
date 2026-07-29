@@ -94,6 +94,7 @@ if (!function_exists('wj_get_tax_label')) {
             'blog-material'      => ['en-us' => 'Material',         'es-us' => 'Material',         'fr-ca' => 'Matériau',       'pl-pl' => 'Materiał'],
             'blog-product'       => ['en-us' => 'Product',          'es-us' => 'Producto',         'fr-ca' => 'Produit',        'pl-pl' => 'Produkt'],
             'technical_topics'   => ['en-us' => 'Technical Topics', 'es-us' => 'Temas Técnicos',   'fr-ca' => 'Sujets Techniques','pl-pl' => 'Tematy Techniczne'],
+            'systems'            => ['en-us' => 'Systems',          'es-us' => 'Sistemas',         'fr-ca' => 'Systèmes',       'pl-pl' => 'Systemy'],
             'webinar-industry'   => ['en-us' => 'Industry',         'es-us' => 'Industria',        'fr-ca' => 'Industrie',      'pl-pl' => 'Branża'],
             'webinar-material'   => ['en-us' => 'Material',         'es-us' => 'Material',         'fr-ca' => 'Matériau',       'pl-pl' => 'Materiał'],
             'webinar-category'   => ['en-us' => 'Webinar',          'es-us' => 'Webinar',          'fr-ca' => 'Webinaire',      'pl-pl' => 'Webinar'],
