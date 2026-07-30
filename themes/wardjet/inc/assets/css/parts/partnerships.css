@@ -106,7 +106,11 @@
     width: 240px !important;
     height: auto !important;
     max-width: none !important;
-    max-height: none !important;
+    /* Cap height so tall/square logos (e.g. Fischer Panda) fit the 160px slide
+       instead of overflowing and getting cropped; object-fit keeps aspect ratio
+       (letterboxes rather than stretching). Applies on desktop + mobile. */
+    max-height: 110px !important;
+    object-fit: contain !important;
     /* Force logos to solid white regardless of the source asset's color.
        Keeps them consistent across locales (en/US ships white PNGs; other
        locales may have grey/colored uploads). */
