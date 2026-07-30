@@ -115,7 +115,24 @@
                                 <a href="#" class="open-youtube-modal" data-title="<?php echo get_the_title(); ?>" data-youtube-id="<?php echo $video_id; ?>"><?php the_title(); ?></a>
                             </div>
                             <div class="subtitle">
-                                <?php the_content(); ?>
+                                <?php
+                                // On the Support Videos page (pl #7359) a stray JotForm
+                                // embed leaked into a video description. Strip JotForm
+                                // script/iframe embeds here so only the page's normal,
+                                // localized contact section (appended by the template) shows.
+                                if ( get_queried_object_id() === 7359 ) {
+                                    echo preg_replace(
+                                        array(
+                                            '#<script[^>]*jotform\.com[^>]*>\s*</script>#is',
+                                            '#<iframe[^>]*jotform[^>]*>\s*</iframe>#is',
+                                        ),
+                                        '',
+                                        apply_filters( 'the_content', get_the_content() )
+                                    );
+                                } else {
+                                    the_content();
+                                }
+                                ?>
                             </div>
                         </div>
                     </div>
