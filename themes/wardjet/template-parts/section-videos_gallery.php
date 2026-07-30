@@ -63,6 +63,19 @@
                 ),
             );
             $q = new WP_Query( $args );
+
+            // Locale fallback: some locales (e.g. pl-pl) have no translated videos.
+            // If the current locale returns nothing for the selected sections, show
+            // the en-us videos instead so the gallery is never empty. Locales that
+            // have their own videos (es-us/fr-ca) keep them — this only triggers on
+            // an empty result.
+            if ( ! $q->have_posts() && $vid_locale !== 'en-us' ) {
+                $args['meta_query'] = array(
+                    array( 'key' => 'region_language_code', 'value' => 'en-us' )
+                );
+                $q = new WP_Query( $args );
+            }
+
             if( $q->have_posts() ) :
                 while( $q->have_posts() ) :
                     $q->the_post();
