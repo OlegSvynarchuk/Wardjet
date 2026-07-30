@@ -21,18 +21,26 @@ if (empty($industries_heading)) {
     $industries_heading = __('Industries', 'wardjet');
 }
 $industries_copy = get_field('industries_copy');
+
+// Callers (e.g. the Industries page) can suppress the section heading when it
+// duplicates the page hero. Homepage passes no args → heading stays.
+$hide_heading = is_array($args) && !empty($args['hide_heading']);
 ?>
 
 <section class="ind-mat-grid">
     <div class="ind-mat-grid__container">
         <div class="ind-mat-grid__content">
             <div class="ind-mat-grid__panel active" id="industries-panel">
+                <?php if (!$hide_heading || $industries_copy) : ?>
                 <div class="ind-mat-grid__header">
+                    <?php if (!$hide_heading) : ?>
                     <h2 class="ind-mat-grid__title"><?php echo esc_html($industries_heading); ?></h2>
+                    <?php endif; ?>
                     <?php if ($industries_copy) : ?>
                         <div class="ind-mat-grid__desc"><?php echo wp_kses_post($industries_copy); ?></div>
                     <?php endif; ?>
                 </div>
+                <?php endif; ?>
                 <div class="ind-mat-grid__grid">
                     <?php
                     $industries_args = array(
