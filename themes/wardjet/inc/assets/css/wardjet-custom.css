@@ -1026,7 +1026,11 @@ a.specs-toggle {
 }
 
 #industries {
-    margin-top: -4rem;
+    /* Industries page only: the grid sits directly below the secondary hero
+       (which uses pb-0 on desktop). A negative margin here pulled the grid's
+       "Industries" title up into the hero and overlapped it — keep it at 0 so
+       the grid's own 25px top padding provides the gap. Mobile already = 0. */
+    margin-top: 0;
 }
 
 #page .gchoice label {
