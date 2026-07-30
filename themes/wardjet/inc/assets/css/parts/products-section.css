@@ -438,9 +438,9 @@ a.product-card,
 }
 .products-section .products-group-title {
     /* Match the flyout group titles (.mm-products-title): Montserrat 400/32/40,
-       no uppercase, 50% yellow underline. inline-block so the underline is half
-       the title TEXT (not the full column); the left gutter is a margin, not
-       padding, so it isn't counted into the 50% underline width. */
+       no uppercase, blue underline spanning the full title TEXT. inline-block so
+       the box shrinks to the text width; the left gutter is a margin, not padding,
+       so it isn't counted into the underline width. */
     display: inline-block;
     position: relative;
     font-family: 'Montserrat', sans-serif;
@@ -458,7 +458,7 @@ a.product-card,
     position: absolute;
     left: 0;
     bottom: 0;
-    width: 50%;
+    width: 100%; /* full title text width (inline-block box = text length) */
     height: 2px;
     background: #0D3159; /* WardJet logo blue (was Figma yellow #FFF200) */
 }
