@@ -4,16 +4,38 @@
  * Logo carousel/slider with pagination
  */
 
-$partners_heading = get_field( 'partnerships_heading' );
-$partners_desc    = get_field( 'partnerships_description' );
-$partners_logos   = get_field( 'partnerships_logos' );
+// Always source the partnerships content from the CURRENT LOCALE's homepage,
+// so every page that shows this section (About, Industries, single Industry, …)
+// renders the same localized block as home: 8 logos + localized title/subtitle.
+$wj_src_id = get_the_ID();
+if ( function_exists( 'lc_get_locale_from_url' ) ) {
+	$wj_home = get_posts( array(
+		'post_type'      => 'page',
+		'posts_per_page' => 1,
+		'post_status'    => 'publish',
+		'fields'         => 'ids',
+		'no_found_rows'  => true,
+		'meta_query'     => array(
+			'relation' => 'AND',
+			array( 'key' => 'is_frontpage',          'value' => 'yes' ),
+			array( 'key' => 'region_language_code',  'value' => lc_get_locale_from_url() ),
+		),
+	) );
+	if ( ! empty( $wj_home ) ) {
+		$wj_src_id = $wj_home[0];
+	}
+}
+
+$partners_heading = get_field( 'partnerships_heading', $wj_src_id );
+$partners_desc    = get_field( 'partnerships_description', $wj_src_id );
+$partners_logos   = get_field( 'partnerships_logos', $wj_src_id );
 
 // Fallback to old field names if new ones aren't set
 if ( ! $partners_heading ) {
-	$partners_heading = get_field( 'partner_heading' );
+	$partners_heading = get_field( 'partner_heading', $wj_src_id );
 }
 if ( ! $partners_logos ) {
-	$partners_logos = get_field( 'partners' );
+	$partners_logos = get_field( 'partners', $wj_src_id );
 }
 if ( ! $partners_desc ) {
 	$partners_desc = __( 'Trusted by industry leaders and innovative organizations worldwide', 'axyz' );
