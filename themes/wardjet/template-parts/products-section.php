@@ -5,7 +5,7 @@
  * Two category groups, each a left-titled row of 3 series cards (blueprint card
  * styling). L-Series is excluded; Custom Waterjets is shown under Water Only.
  *
- *   Abrasive Systems   : A-Series, M-Series, X-Series
+ *   Abrasive Systems   : A-Series, X-Series, M-Series
  *   Water Only Systems : H-Series, J-Series, Custom Waterjets
  *
  * @package wardjet
@@ -66,7 +66,7 @@ if (empty($explore_label)) {
 
 // Grouped series by en-us slug. L-Series excluded; Custom Waterjets under Water Only.
 $product_groups = array(
-    'Abrasive Systems'   => array('a-series', 'm-series', 'x-series'),
+    'Abrasive Systems'   => array('a-series', 'x-series', 'm-series'),
     'Water Only Systems' => array('h-series', 'j-series', 'custom-waterjets'),
 );
 
