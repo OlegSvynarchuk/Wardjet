@@ -791,3 +791,49 @@ if ( ! wj_tracking_allowed() ) {
         remove_action( 'wp_footer', 'wpcode_global_frontend_footer', 10 );
     }, 0 );
 }
+
+/**
+ * Allow the same slug across the aliased English locales (us/en, ca/en, uk/en)
+ * and translations — no WP "-2"/"-3" suffix for same-content posts that live
+ * under different /cc/ll/ prefixes. Ported from the blueprint (axyz), adapted to
+ * wardjet's CPT set. Only strips the suffix when the conflicting post is a
+ * same-translation-group, different-locale sibling; genuine collisions keep the
+ * numbered slug.
+ */
+add_filter( 'wp_unique_post_slug', function ( $slug, $post_ID, $post_status, $post_type, $post_parent, $original_slug ) {
+    $scoped_types = array( 'products', 'series', 'industry', 'accessories', 'video', 'testimonial', 'webinar', 'blog', 'news_and_events' );
+    if ( ! in_array( $post_type, $scoped_types, true ) ) {
+        return $slug;
+    }
+
+    $group = get_post_meta( $post_ID, 'translation_group_id', true );
+    if ( ! $group ) {
+        return $slug;
+    }
+
+    $this_locale = strtolower( (string) get_post_meta( $post_ID, 'region_language_code', true ) );
+
+    $conflicts = get_posts( array(
+        'post_type'      => $post_type,
+        'name'           => $original_slug,
+        'post_status'    => array( 'publish', 'pending', 'draft', 'future', 'private' ),
+        'posts_per_page' => -1,
+        'fields'         => 'ids',
+        'exclude'        => array( $post_ID ),
+    ) );
+
+    if ( empty( $conflicts ) ) {
+        return $original_slug;
+    }
+
+    foreach ( $conflicts as $cid ) {
+        $c_group  = get_post_meta( $cid, 'translation_group_id', true );
+        $c_locale = strtolower( (string) get_post_meta( $cid, 'region_language_code', true ) );
+        // A real collision (different group, or same locale) — keep WP's numbered slug.
+        if ( $c_group !== $group || $c_locale === $this_locale ) {
+            return $slug;
+        }
+    }
+
+    return $original_slug;
+}, 10, 6 );
