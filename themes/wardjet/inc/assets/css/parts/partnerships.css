@@ -106,11 +106,7 @@
     width: 240px !important;
     height: auto !important;
     max-width: none !important;
-    /* Cap height so tall/square logos (e.g. Fischer Panda) fit the 160px slide
-       instead of overflowing and getting cropped; object-fit keeps aspect ratio
-       (letterboxes rather than stretching). Applies on desktop + mobile. */
-    max-height: 110px !important;
-    object-fit: contain !important;
+    max-height: none !important;
     /* Force logos to solid white regardless of the source asset's color.
        Keeps them consistent across locales (en/US ships white PNGs; other
        locales may have grey/colored uploads). */
@@ -235,6 +231,10 @@
     .partnerships__slide img {
         width: 100% !important;
         max-width: 354px !important;
+        /* Mobile only: cap tall/square logos (e.g. Fischer Panda) so they fit the
+           160px slide without cropping. Desktop keeps full-size logos. */
+        max-height: 110px !important;
+        object-fit: contain !important;
     }
 
     .partnerships__slider-wrapper {
