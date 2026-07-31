@@ -324,10 +324,14 @@ $(function(){
   });
 
 
-    $('#search-icon').click(function(e){
+    // The search control is rendered in both the desktop top-bar and the mobile
+    // header-nav (same menu location), so #search-icon / #search-row appear twice
+    // (duplicate IDs). Bind every icon and toggle the search-row inside the SAME
+    // .search-control item, so the mobile icon works too.
+    $('body').on('click', '[id="search-icon"]', function(e){
       e.preventDefault();
-      $('#search-row').toggleClass('d-none');
-    })
+      $(this).closest('.search-control').find('[id="search-row"]').toggleClass('d-none');
+    });
 
 
     $('#sorter-btn').click(function() {
