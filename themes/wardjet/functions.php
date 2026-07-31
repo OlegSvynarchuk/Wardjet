@@ -290,7 +290,7 @@ function wp_bootstrap_starter_scripts() {
 
     wp_enqueue_script('hotspot', get_template_directory_uri().'/inc/assets/js/jquery.hotspot.js', array(), '', true);
     wp_enqueue_script('wardjet-custom-js', get_template_directory_uri() . '/inc/assets/js/wardjet-custom.js', array( 'jquery' ), '
-        1.9.9', true );
+        1.9.10', true );
     // Partnerships carousel (standalone; ported from blueprint).
     wp_enqueue_script('wardjet-partnerships-js', get_template_directory_uri() . '/inc/assets/js/parts/partnerships.js', array( 'jquery' ), '1.0.0', true );
 

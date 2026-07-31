@@ -632,48 +632,51 @@ $(function(){
     // Products section â€” mobile scroll dots
     (function() {
         if ($(window).width() >= 1024) return;
-        var $grid = $('.products-section .products-grid');
-        var $dots = $('.products-section .products-dots');
-        if (!$grid.length || !$dots.length) return;
 
-        var $cards = $grid.find('.product-card');
-        var total = $cards.length;
-        if (total < 2) return;
+        // Each product category (.products-group) is its own horizontal slider,
+        // so build + wire the dots PER GROUP. Previously both grids were selected
+        // together, giving every group 6 dots and making only the first scroll.
+        $('.products-section .products-group').each(function() {
+            var $grid  = $(this).find('.products-grid').first();
+            var $dots  = $(this).find('.products-dots').first();
+            if (!$grid.length || !$dots.length) return;
 
-        // Generate dots
-        for (var i = 0; i < total; i++) {
-            var $dot = $('<button class="dot" data-index="' + i + '"></button>');
-            if (i === 0) $dot.addClass('active');
-            $dots.append($dot);
-        }
+            var $cards = $grid.find('.product-card');
+            var total  = $cards.length;
+            if (total < 2) return;
 
-        // Click dot to scroll
-        $dots.on('click', '.dot', function() {
-            var idx = $(this).data('index');
-            var card = $cards.eq(idx);
-            if (card.length) {
-                $grid[0].scrollTo({ left: card[0].offsetLeft - 24, behavior: 'smooth' });
+            // Generate dots for this group only
+            $dots.empty();
+            for (var i = 0; i < total; i++) {
+                var $dot = $('<button class="dot" data-index="' + i + '"></button>');
+                if (i === 0) $dot.addClass('active');
+                $dots.append($dot);
             }
-        });
 
-        // Update active dot on scroll
-        var scrollTimer;
-        $grid.on('scroll', function() {
-            clearTimeout(scrollTimer);
-            scrollTimer = setTimeout(function() {
-                var scrollLeft = $grid[0].scrollLeft;
-                var closest = 0;
-                var closestDist = Infinity;
-                $cards.each(function(i) {
-                    var dist = Math.abs(this.offsetLeft - 24 - scrollLeft);
-                    if (dist < closestDist) {
-                        closestDist = dist;
-                        closest = i;
-                    }
-                });
-                $dots.find('.dot').removeClass('active');
-                $dots.find('.dot').eq(closest).addClass('active');
-            }, 50);
+            // Click dot -> scroll this group's grid to that card
+            $dots.on('click', '.dot', function() {
+                var idx = $(this).data('index');
+                var card = $cards.eq(idx);
+                if (card.length) {
+                    $grid[0].scrollTo({ left: card[0].offsetLeft - 24, behavior: 'smooth' });
+                }
+            });
+
+            // Update active dot on scroll (this group)
+            var scrollTimer;
+            $grid.on('scroll', function() {
+                clearTimeout(scrollTimer);
+                scrollTimer = setTimeout(function() {
+                    var scrollLeft = $grid[0].scrollLeft;
+                    var closest = 0, closestDist = Infinity;
+                    $cards.each(function(i) {
+                        var dist = Math.abs(this.offsetLeft - 24 - scrollLeft);
+                        if (dist < closestDist) { closestDist = dist; closest = i; }
+                    });
+                    $dots.find('.dot').removeClass('active');
+                    $dots.find('.dot').eq(closest).addClass('active');
+                }, 50);
+            });
         });
     })();
 	}); // jquery document ready

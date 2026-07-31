@@ -230,10 +230,11 @@
     .partnerships__logo,
     .partnerships__slide img {
         width: 100% !important;
-        max-width: 354px !important;
+        /* ~20% larger on mobile (was 354 / 110). */
+        max-width: 425px !important;
         /* Mobile only: cap tall/square logos (e.g. Fischer Panda) so they fit the
-           160px slide without cropping. Desktop keeps full-size logos. */
-        max-height: 110px !important;
+           slide without cropping. Desktop keeps full-size logos. */
+        max-height: 132px !important;
         object-fit: contain !important;
     }
 
