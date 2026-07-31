@@ -837,3 +837,43 @@ add_filter( 'wp_unique_post_slug', function ( $slug, $post_ID, $post_status, $po
 
     return $original_slug;
 }, 10, 6 );
+
+/**
+ * Region-aware CNC Shop ("Buy Parts" / "Parts & Service") store URL. The external
+ * store differs per region (same mapping as the blueprint): US -> cncshop.com,
+ * CA -> ca.cncshop.com, UK -> uk.cncshop.com, PL -> cncshop.eu. Standalone helper
+ * (not tied to the news ticker) so any store link can reuse it.
+ */
+if ( ! function_exists( 'wj_get_store_url' ) ) {
+    function wj_get_store_url( $locale = null ) {
+        if ( $locale === null ) {
+            $locale = function_exists( 'lc_get_locale_from_url' ) ? lc_get_locale_from_url() : 'en-us';
+        }
+        $map = array(
+            'en-us' => 'https://cncshop.com/',
+            'es-us' => 'https://cncshop.com/',
+            'en-ca' => 'https://ca.cncshop.com/',
+            'fr-ca' => 'https://ca.cncshop.com/',
+            'en-uk' => 'https://uk.cncshop.com/',
+            'pl-pl' => 'https://www.cncshop.eu/',
+        );
+        return isset( $map[ $locale ] ) ? $map[ $locale ] : $map['en-us'];
+    }
+}
+
+/**
+ * Point every CNC Shop menu link (Buy Parts, Parts & Service) at the current
+ * region's store and force it to open in a new tab. Runs late so it overrides
+ * the plugin's menu builder, which leaves external URLs untouched — needed
+ * because the English header menu is shared across the us/ca/uk regions.
+ */
+add_filter( 'wp_nav_menu_objects', function ( $items ) {
+    foreach ( $items as $it ) {
+        if ( ! empty( $it->url ) && stripos( $it->url, 'cncshop' ) !== false ) {
+            $it->url    = wj_get_store_url();
+            $it->target = '_blank';
+            $it->xfn    = 'noopener noreferrer';
+        }
+    }
+    return $items;
+}, 99 );

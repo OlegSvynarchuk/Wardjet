@@ -117,9 +117,10 @@ $footer_nav_location  = wj_pick_menu_location('footer-nav',  $region, $lang);
                             $social_link = get_sub_field('url');
                             if ($social_link):
                                 $url    = $social_link['url'];
-                                $target = $social_link['target'] ?: '_self';
+                                // Social links are external — always open in a new tab.
+                                $target = '_blank';
                         ?>
-                            <a href="<?php echo esc_url($url); ?>" class="footer-social__link" target="<?php echo esc_attr($target); ?>" aria-label="social-media">
+                            <a href="<?php echo esc_url($url); ?>" class="footer-social__link" target="<?php echo esc_attr($target); ?>" rel="noopener noreferrer" aria-label="social-media">
                                 <?php
                                 $icon_code = get_sub_field('icon_code');
                                 if ($icon_code === 'fab fa-x-twitter') : ?>
